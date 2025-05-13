@@ -64,6 +64,10 @@
         "hanafalah/laravel-package-generator": "1.x-dev as 1.0",
         "hanafalah/laravel-permission": "1.x-dev as 1.0",
         "hanafalah/laravel-stub": "1.x-dev as 1.0",
-        "hanafalah/laravel-support": "1.x-dev as 1.0"
+        "hanafalah/laravel-support": "1.x-dev as 1.0",
+        "hanafalah/module-rencana-anggaran": "1.x-dev as 1.0",
+        "hanafalah/module-event": "1.x-dev as 1.0",
+        "hanafalah/module-manufacture": "1.x-dev as 1.0",
+        "hanafalah/module-handwriting": "1.x-dev as 1.0"
     }
 }

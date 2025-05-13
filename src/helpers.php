@@ -1,8 +1,7 @@
 <?php
 
-//example
-//if (!function_exists('//METHOD NAME')) {
-//    function //METHOD NAME(//PARAMETERS) {
-//        return //SOMETHING
-//    }
-//}
+if (!function_exists('klinik_path')) {
+   function klinik_path(?string $path = null) {
+       return __DIR__ . (isset($path) ? DIRECTORY_SEPARATOR . $path : '');
+   }
+}

@@ -14,6 +14,7 @@ return [
     "libs"           => [
         'migration' => 'Database/Migrations',
         'model' => 'Models',
+        'controller' => 'Controllers',
         'provider' => 'Providers',
         'contract' => 'Contracts',
         'concern' => 'Concerns',
@@ -26,6 +27,7 @@ return [
         'request' => 'Requests',
         'support' => 'Supports',
         'view' => 'Views',
+        'resources' => 'Resources',
         'schema' => 'Schemas',
         'facade' => 'Facades',
         'config' => 'Config',
