@@ -33,12 +33,13 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes();
             });
+            
+            // Add the parent_id column to the material_categories table
+            Schema::table($table_name, function (Blueprint $table) use ($table_name) {
+                $table->foreignId('parent_id')->nullable()->constrained($table_name)->nullOnDelete();
+            });
         });
 
-        // Add the parent_id column to the material_categories table
-        Schema::table($table_name, function (Blueprint $table) use ($table_name) {
-            $table->foreignId('parent_id')->nullable()->constrained($table_name)->nullOnDelete();
-        });
     }
 
     /**

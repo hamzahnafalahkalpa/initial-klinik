@@ -27,7 +27,10 @@ return [
             "central_app"    => [
                 "Encoding",
                 "MasterFeature",
-                "ModelHasFeature"
+                "ModelHasFeature",
+                "Transaction",
+                "MedicService",
+                "Anatomy"
             ],
             "central_tenant" => []
         ]
