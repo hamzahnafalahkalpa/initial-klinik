@@ -1,23 +1,19 @@
 <?php
 
+use Hanafalah\ModuleExamination\Models\MasterVaccine;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
-use Hanafalah\MicroTenant\Models\Tenant\{
-    Domain,
-    Tenant
-};
 
 return new class extends Migration
 {
-    use NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
     public function __construct()
     {
-        $this->__table = app(config('database.models.Domain', Domain::class));
+        $this->__table = app(config('database.models.MasterVaccine', MasterVaccine::class));
     }
 
     /**
@@ -27,15 +23,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $table_name = $this->__table->getTableName();
-        if (!$this->isTableExists()) {
+        $table_name = $this->__table->getTable();
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->id();
-                $table->string('domain', 150)->unique()->nullable(false);
+                $table->string('name')->nullable(false);
+                $table->boolean('update_able')->nullable(false)->default(false);
+                $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });
-        }
+        });
     }
 
     /**
@@ -43,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists($this->__table->getTableName());
+        Schema::dropIfExists($this->__table->getTable());
     }
 };

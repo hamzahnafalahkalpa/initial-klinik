@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\ModulePeople\Enums\FamilyRelationship\Flag;
 use Hanafalah\ModulePeople\Models\FamilyRelationship\FamilyRelationship;
 use Hanafalah\ModulePeople\Models\People\People;
@@ -26,7 +26,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()){
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $people = app(config('database.models.People', People::class));
 
@@ -43,7 +43,7 @@ return new class extends Migration
                 $table->softDeletes();
                 $table->index(['reference_type','reference_id']);
             });
-        }
+        });
     }
 
     /**

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\LaravelSupport\Models\Unicode\Unicode;
 
 return new class extends Migration
@@ -24,15 +24,15 @@ return new class extends Migration
      */
     public function up()
     {
-        $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function(){
+            $table_name = $this->__table->getTable();
             Schema::create($table_name, function (Blueprint $table) {
                 $table->id();
                 $table->string('unicode_type', 50)->nullable(false);
                 $table->unsignedInteger('flag')->nullable(false);
                 $table->string('name', 100)->nullable(false);
             });
-        }
+        });
     }
 
     /**

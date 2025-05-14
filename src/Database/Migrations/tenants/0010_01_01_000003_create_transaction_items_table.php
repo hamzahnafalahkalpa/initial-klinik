@@ -9,7 +9,7 @@ use Hanafalah\ModuleTransaction\Models\Transaction\Transaction;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $transaction = app(config('database.models.Transaction', Transaction::class));
 
@@ -42,7 +42,7 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index(['item_type', 'item_id'], 'item_ref');
+                $table->index(['item_type', 'item_id'], 'ti_item_ref');
             });
 
             Schema::table($table_name, function (Blueprint $table) {
@@ -51,7 +51,7 @@ return new class extends Migration
                     ->index()->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
             });
-        }
+        });
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,8 +9,7 @@ use Hanafalah\ModuleUser\Models\User\UserReference;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
-
+    use NowYouSeeMe;
     private $__table;
 
     public function __construct()
@@ -24,11 +24,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $table_name = $this->__table->getTable();
-        $tenant = app(config('database.models.Tenant', Tenant::class));
-        if (!Schema::hasColumn($table_name, $tenant->getForeignKey())) {
+        $this->isNotColumnExists('tenant_id',function(){
+            $table_name = $this->__table->getTable();
+            $tenant     = app(config('database.models.Tenant', Tenant::class));
             Schema::table($table_name, function (Blueprint $table) use ($tenant) {
-
                 $table->foreignIdFor($tenant::class)->nullable(true)
                     ->after('reference_id')->index()->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
@@ -37,7 +36,7 @@ return new class extends Migration
                     ->after($tenant->getForeignKey())->index()->constrained($tenant->getTable())
                     ->cascadeOnUpdate()->restrictOnDelete();
             });
-        }
+        });
     }
 
     /**

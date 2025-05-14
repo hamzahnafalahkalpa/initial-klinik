@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -9,7 +8,7 @@ use Hanafalah\ModulePayment\Models\Transaction\RefundItem;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -26,7 +25,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $refund = app(config('database.models.Refund', Refund::class));
 
@@ -38,7 +37,7 @@ return new class extends Migration
                 $table->json('props')->nullable();
                 $table->timestamps();
             });
-        }
+        });
     }
 
     /**

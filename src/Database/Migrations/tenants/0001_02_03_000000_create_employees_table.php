@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\ModuleEmployee\Enums\Employee\EmployeeStatus;
 use Hanafalah\ModuleEmployee\Models\Employee\Employee;
 use Hanafalah\ModuleEmployee\Models\EmployeeType\EmployeeType;
@@ -27,7 +27,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $people        = app(config('database.models.People', People::class));
                 $profession    = app(config('database.models.Profession', Profession::class));
@@ -59,7 +59,7 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes();
             });
-        }
+        });
     }
 
     /**

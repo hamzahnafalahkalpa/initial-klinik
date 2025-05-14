@@ -11,7 +11,7 @@ use Hanafalah\ModuleWarehouse\Models\Stock\{
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -28,7 +28,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $stock = app(config('database.models.Stock', Stock::class));
                 $batch = app(config('database.models.Batch', Batch::class));
@@ -54,7 +54,7 @@ return new class extends Migration
                     ->nullable()->after($this->__table->getKeyName())
                     ->index()->constrained()->restrictOnDelete()->cascadeOnUpdate();
             });
-        }
+        });
     }
 
     /**

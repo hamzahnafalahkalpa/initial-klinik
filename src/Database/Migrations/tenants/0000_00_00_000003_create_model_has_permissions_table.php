@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\LaravelPermission\Models\Permission\ModelHasPermission;
 use Hanafalah\LaravelPermission\Models\Permission\Permission;
 
@@ -23,8 +23,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $table_name = $this->__table->getTableName();
-        if (!$this->isTableExists()) {
+        $table_name = $this->__table->getTable();
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $permission = app(config('database.models.Permission', Permission::class));
 
@@ -41,7 +41,7 @@ return new class extends Migration
                 $table->index(['model_type', 'model_id'], 'model_perm');
                 $table->index(['model_type', 'model_id', $permission->getForeignKey()], 'model_with_perm');
             });
-        }
+        });
     }
 
     /**

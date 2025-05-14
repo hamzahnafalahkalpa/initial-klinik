@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private Supplier $__table;
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (! $this->isTableExists()) {
+        $this->isNotTableExists(function(){
             Schema::create($this->getTable(), function (Blueprint $table) {
                 $table->id();
                 $table->string('name');
@@ -33,7 +33,7 @@ return new class extends Migration
                 $table->softDeletes();
                 $table->timestamps();
             });
-        }
+        });
     }
 
     /**

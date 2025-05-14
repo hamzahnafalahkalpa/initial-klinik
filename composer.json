@@ -35,7 +35,9 @@
         "hanafalah/module-medical-treatment": "1.x-dev as 1.0",
         "hanafalah/module-organization": "1.x-dev as 1.0",
         "hanafalah/module-payer": "1.x-dev as 1.0",
+        "hanafalah/module-payment": "1.x-dev as 1.0",
         "hanafalah/module-people": "1.x-dev as 1.0",
+        "hanafalah/module-card-identity": "1.x-dev as 1.0",
         "hanafalah/module-profession": "1.x-dev as 1.0",
         "hanafalah/module-service": "1.x-dev as 1.0",
         "hanafalah/module-summary": "1.x-dev as 1.0",
@@ -68,6 +70,7 @@
         "hanafalah/module-rencana-anggaran": "1.x-dev as 1.0",
         "hanafalah/module-event": "1.x-dev as 1.0",
         "hanafalah/module-manufacture": "1.x-dev as 1.0",
-        "hanafalah/module-handwriting": "1.x-dev as 1.0"
+        "hanafalah/module-handwriting": "1.x-dev as 1.0",
+        "hanafalah/module-support": "1.x-dev as 1.0"
     }
 }

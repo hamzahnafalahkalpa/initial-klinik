@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Hanafalah\LaravelPermission\Enums\Permission\Type;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\LaravelPermission\Models\Permission\Permission;
 
 return new class extends Migration
@@ -23,8 +23,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $table_name = $this->__table->getTableName();
-        if (!$this->isTableExists()) {
+        $table_name = $this->__table->getTable();
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->id();
                 $table->string('name', 200)->nullable(false);
@@ -43,7 +43,7 @@ return new class extends Migration
                     ->index()->constrained($table_name)
                     ->cascadeOnUpdate()->restrictOnDelete();
             });
-        }
+        });
     }
 
     /**

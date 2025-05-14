@@ -9,11 +9,11 @@ use Hanafalah\ModulePayment\{
 };
 use Hanafalah\ModulePayment\Enums\Billing\Status;
 use Hanafalah\ModulePayment\Models\Transaction\Invoice;
-use Hanafalah\ModulePayment\Models\Transaction\Transaction;
+use Hanafalah\ModuleTransaction\Models\Transaction\Transaction;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -30,7 +30,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $transaction = app(config('database.models.Transaction', Transaction::class));
                 $invoice = app(config('database.models.Invoice', Invoice::class));
@@ -56,7 +56,7 @@ return new class extends Migration
                 $table->index(['author_type', 'author_id']);
                 $table->index(['cashier_type', 'cashier_id']);
             });
-        }
+        });
     }
 
     /**

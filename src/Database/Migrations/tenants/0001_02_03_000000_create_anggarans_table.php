@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\ModuleCms\Enums\Article\Status;
 use Hanafalah\ModuleRencanaAnggaran\Models\Anggaran\Anggaran;
 
@@ -24,7 +24,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('anggaran_code',50)->nullable();
@@ -49,7 +49,7 @@ return new class extends Migration
                 $table->foreignIdFor(get_class($this->__table), 'parent_id')
                       ->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
             });
-        }
+        });
     }
 
     /**

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -19,7 +19,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $encoding   = app(config('database.models.Encoding', Encoding::class));
 
@@ -35,7 +35,7 @@ return new class extends Migration
                 $table->index(["reference_id", "reference_type"], 'encoding_ref');
                 $table->index(["reference_id", "reference_type", "encoding_id"], 'encoding_keys');
             });
-        }
+        });
     }
 
     /**

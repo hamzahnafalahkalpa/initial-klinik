@@ -3,10 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\MicroTenant\Models\Tenant\{
-    Domain,
-    Tenant
+    Domain
 };
 
 return new class extends Migration
@@ -28,14 +27,14 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTableName();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->id();
                 $table->string('domain', 150)->unique()->nullable(false);
                 $table->timestamps();
                 $table->softDeletes();
             });
-        }
+        });
     }
 
     /**

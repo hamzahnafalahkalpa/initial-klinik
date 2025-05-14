@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\LaravelSupport\Models\PayloadMonitoring\PayloadMonitoring;
 
 return new class extends Migration
@@ -24,8 +24,8 @@ return new class extends Migration
      */
     public function up()
     {
-        $table_name = $this->__table->getTableName();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function(){
+            $table_name = $this->__table->getTableName();
             Schema::create($table_name, function (Blueprint $table) {
                 $table->id();
                 $table->text('url')->nullable();
@@ -35,7 +35,7 @@ return new class extends Migration
                 $table->string('speed_category')->nullable();
                 $table->timestamps();
             });
-        }
+        });
     }
 
     /**

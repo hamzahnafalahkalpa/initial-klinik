@@ -11,7 +11,7 @@ use Hanafalah\ModuleItem\Models\{
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -28,7 +28,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $item = app(config('database.models.Item', Item::class));
 
@@ -45,7 +45,7 @@ return new class extends Migration
 
                 $table->index(['variant_type', 'variant_id'], 'itv_variant');
             });
-        }
+        });
     }
 
     /**

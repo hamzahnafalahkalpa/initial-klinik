@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -23,7 +23,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $composition = app(config('database.models.Composition', Composition::class));
 
@@ -37,7 +37,7 @@ return new class extends Migration
                 $table->index(['model_type', 'model_id'], 'model_cp_ref');
                 $table->index(['model_type', 'model_id', 'composition_id'], 'model_full_ref');
             });
-        }
+        });
     }
 
     /**

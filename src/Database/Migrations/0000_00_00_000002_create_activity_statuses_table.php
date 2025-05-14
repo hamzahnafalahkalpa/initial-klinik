@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\MicroTenant\Models\Activity\{
     CentralActivity,
     CentralActivityStatus
@@ -27,8 +27,8 @@ return new class extends Migration
      */
     public function up()
     {
-        $table_name = $this->__table->getTableName();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function(){
+            $table_name = $this->__table->getTableName();
             Schema::create($table_name, function (Blueprint $table) {
                 $centralActivity = app(config('database.models.CentralActivity', CentralActivity::class));
                 $table->ulid('id')->primary();
@@ -39,7 +39,7 @@ return new class extends Migration
                 $table->text('message');
                 $table->timestamps();
             });
-        }
+        });
     }
 
     /**

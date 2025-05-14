@@ -10,15 +10,11 @@ return [
                 "Country",
                 "District",
                 "Domain",
-                "Encoding",
                 "FailedJob",
                 "JobBatch",
                 "Job",
-                "ModelHasEncoding",
-                "ModelHasRole",
                 "PasswordResetToken",
                 "PayloadMonitoring",
-                "Permission",
                 "PersonalAccessToken",
                 "Province",
                 "Subdistrict",
@@ -27,6 +23,11 @@ return [
                 "User",
                 "Village",
                 "Workspace"
+            ],
+            "central_app"    => [
+                "Encoding",
+                "MasterFeature",
+                "ModelHasFeature"
             ],
             "central_tenant" => []
         ]

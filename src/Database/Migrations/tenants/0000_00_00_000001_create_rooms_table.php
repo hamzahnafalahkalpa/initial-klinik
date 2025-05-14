@@ -8,7 +8,7 @@ use Hanafalah\ModuleWarehouse\Models\Building\Room;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
     private $__table;
 
     public function __construct()
@@ -24,7 +24,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $building = app(config('database.models.Building', Building::class));
 
@@ -37,7 +37,7 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes();
             });
-        }
+        });
     }
 
     /**

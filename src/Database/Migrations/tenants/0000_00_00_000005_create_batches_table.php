@@ -7,7 +7,7 @@ use Hanafalah\ModuleWarehouse\Models\Stock\Batch;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -24,14 +24,14 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('batch_no', 100)->nullable(false);
                 $table->string('expired_at', 20)->nullable(false)->comment('Y-m-d, Y-m, Y');
                 $table->timestamps();
             });
-        }
+        });
     }
 
     /**

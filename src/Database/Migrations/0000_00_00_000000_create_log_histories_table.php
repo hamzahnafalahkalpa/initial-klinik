@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\MicroTenant\Models\LogHistory\CentralLogHistory;
 
 return new class extends Migration
@@ -24,8 +24,8 @@ return new class extends Migration
      */
     public function up()
     {
-        $table_name = $this->__table->getTableName();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function(){
+            $table_name = $this->__table->getTableName();
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id');
                 $table->string('reference_type', 50)->nullable();
@@ -41,7 +41,7 @@ return new class extends Migration
 
                 $table->index(['reference_type', 'reference_id'], 'log_sumber');
             });
-        }
+        });
     }
 
     /**

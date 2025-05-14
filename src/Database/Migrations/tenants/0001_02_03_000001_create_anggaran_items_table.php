@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\ModuleRencanaAnggaran\Models\Anggaran\Anggaran;
 use Hanafalah\ModuleRencanaAnggaran\Models\Anggaran\AnggaranItem;
 use Hanafalah\ModuleRencanaAnggaran\Models\Anggaran\AnggaranStuff;
@@ -25,7 +25,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $anggaran = app(config('database.models.Anggaran',Anggaran::class));
                 $anggaran_stuff = app(config('database.models.AnggaranStuff',AnggaranStuff::class));
@@ -58,7 +58,7 @@ return new class extends Migration
                 $table->foreignIdFor(get_class($this->__table), 'parent_id')
                       ->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
             });
-        }
+        });
     }
 
     /**

@@ -14,7 +14,7 @@ use Hanafalah\ModuleRegional\Enums\Address\Flag;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -31,7 +31,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $province    = app(config('database.models.Province', Province::class));
                 $district    = app(config('database.models.District', District::class));
@@ -58,7 +58,7 @@ return new class extends Migration
 
                 $table->index(['model_type', 'model_id']);
             });
-        }
+        });
     }
 
     /**

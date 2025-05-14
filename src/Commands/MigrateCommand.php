@@ -40,6 +40,7 @@ class MigrateCommand extends Command
         // Ambil daftar file migrasi
         $migrationFiles = scandir($migrationsPath);
         $migrationFiles = array_filter($migrationFiles, fn($file) => str_ends_with($file, '.php'));
+        dd($migrationFiles);
 
         if (empty($migrationFiles)) {
             $this->info("No migration files found in: $migrationsPath");

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\MicroTenant\Models\Relation\CentralModelHasRelation;
 
 return new class extends Migration {
@@ -23,8 +23,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        $table_name = $this->__table->getTableName();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function(){
+            $table_name = $this->__table->getTableName();
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('model_type', 50)->nullable(false);
@@ -44,7 +44,7 @@ return new class extends Migration {
                     'relation_id'
                 ], 'mhr_relmod');
             });
-        }
+        });
     }
 
     public function down(): void

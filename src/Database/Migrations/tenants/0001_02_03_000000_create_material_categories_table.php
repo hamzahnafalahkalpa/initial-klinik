@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\ModuleManufacture\Models\MaterialCategory;
 
 return new class extends Migration
@@ -25,7 +25,7 @@ return new class extends Migration
         $table_name = $this->__table->getTable();
 
         // Create the material_categories table if it doesn't exist
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->id();
                 $table->string('name', 255);
@@ -33,7 +33,7 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes();
             });
-        }
+        });
 
         // Add the parent_id column to the material_categories table
         Schema::table($table_name, function (Blueprint $table) use ($table_name) {
