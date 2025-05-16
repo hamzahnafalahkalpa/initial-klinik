@@ -39,7 +39,7 @@ return new class extends Migration
                     ->nullable(false)->index()
                     ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
                 $table->boolean('is_commit')->default(0)->nullable(false);
-                $table->enum('status', array_column(ExaminationStatus::cases(), 'value'));
+                $table->string('status',100)->comment(implode(', ',array_column(ExaminationStatus::cases(), 'value')));
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();

@@ -29,11 +29,11 @@ return new class extends Migration
                 $table->ulid('id')->primary();
                 $table->string('morph', 100)->nullable(false);
                 $table->string('flag', 100)->nullable(false);
-                $table->enum('date_type', [
+                $table->string('date_type',100)->comment(
                     ReportSummary::DAILY_REPORT,
                     ReportSummary::MONTHLY_REPORT,
                     ReportSummary::YEARLY_REPORT
-                ]);
+                );
                 $table->string('date', 20)->nullable(false);
                 $table->json('props')->nullable();
 

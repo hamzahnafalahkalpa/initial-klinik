@@ -48,7 +48,7 @@ return new class extends Migration
                 $table->foreignIdFor($tenant::class)
                     ->nullable()->index()->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
-                $table->enum('status', array_column(VisitStatus::cases(), 'value'));
+                $table->string('status',100)->comment(implode(', ',array_column(VisitStatus::cases(), 'value')));
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();

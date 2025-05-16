@@ -42,9 +42,9 @@ return new class extends Migration
                 $table->string('last_name', 50)->nullable();
                 $table->date('dob')->nullable();
                 $table->string('pob', 150)->nullable();
-                $table->enum('sex', array_column(Sex::cases(), 'value'))->nullable(false);
-                $table->enum('marital_status', array_column(MaritalStatus::cases(),'value'))->nullable();
-                $table->enum('blood_type', array_column(BloodType::cases(), 'value'))->nullable();
+                $table->string('sex',100)->comment(implode(', ',array_column(Sex::cases(), 'value')))->nullable(false);
+                $table->string('marital_status',100)->comment(implode(', ',array_column(MaritalStatus::cases(),'value')))->nullable();
+                $table->string('blood_type',100)->comment(implode(', ',array_column(BloodType::cases(), 'value')))->nullable();
                 $table->string('mother_name', 50)->nullable();
                 $table->string('father_name', 50)->nullable();
                 $table->string('last_education', 150)->nullable();

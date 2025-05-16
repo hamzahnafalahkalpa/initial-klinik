@@ -35,7 +35,7 @@ return new class extends Migration
                       ->index()->constrained()->cascadeOnUpdate()->restrictOnDelete();
                 $table->string('name',50)->nullable(true);
                 $table->string('phone',50)->nullable(true);
-                $table->enum('role', array_column(Flag::cases(), 'value'));
+                $table->string('role', 100)->nullable();
                 $table->string('reference_type',50)->nullable(true);
                 $table->string('reference_id',36)->nullable(true);
                 $table->json('props')->nullable();
