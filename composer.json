@@ -70,6 +70,7 @@
         "hanafalah/module-event": "1.x-dev as 1.0",
         "hanafalah/module-manufacture": "1.x-dev as 1.0",
         "hanafalah/module-handwriting": "1.x-dev as 1.0",
-        "hanafalah/module-support": "1.x-dev as 1.0"
+        "hanafalah/module-support": "1.x-dev as 1.0",
+        "hanafalah/api-helper": "1.x-dev as 1.0"
     }
 }
