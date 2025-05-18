@@ -27,11 +27,7 @@ return new class extends Migration
         $table_name = $this->__table->getTable();
         $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
-                $table->id();
-                $table->foreignIdFor($this->__table::class, 'parent_id')
-                    ->nullable()
-                    ->index()->constrained()
-                    ->cascadeOnUpdate()->restrictOnDelete();
+                $table->ulid('id')->primary();
                 $table->string("name");
                 $table->string("reference_id", 36);
                 $table->string('reference_type', 50);
@@ -42,6 +38,13 @@ return new class extends Migration
                 $table->softDeletes();
 
                 $table->index(['reference_id', 'reference_type'], 'ref_service');
+            });
+
+            Schema::table($table_name, function (Blueprint $table) {
+                $table->foreignIdFor($this->__table::class, 'parent_id')
+                    ->nullable()
+                    ->index()->constrained()
+                    ->cascadeOnUpdate()->restrictOnDelete(); 
             });
         });
     }

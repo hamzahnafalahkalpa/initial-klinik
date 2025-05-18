@@ -2,6 +2,7 @@
 
 namespace Projects\Klinik\Concerns;
 
+use Hanafalah\ApiHelper\Facades\ApiAccess;
 use Illuminate\Support\Facades\Auth;
 
 trait HasUser
@@ -13,7 +14,7 @@ trait HasUser
 
     public function userAttempt()
     {
-        $user = Auth::user();
+        $user = ApiAccess::getUser();
         $this->global_user = $user;
         if (isset($user)){
             $user->load([

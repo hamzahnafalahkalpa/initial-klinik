@@ -33,7 +33,7 @@ return new class extends Migration
                 $profession    = app(config('database.models.Profession', Profession::class));
                 $employee_type = app(config('database.models.EmployeeType', EmployeeType::class));
 
-                $table->id();
+                $table->ulid('id')->primary();
                 $table->string('uuid', 36)->nullable();
 
                 $table->foreignIdFor($people::class)
