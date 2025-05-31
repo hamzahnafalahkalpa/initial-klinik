@@ -5,7 +5,7 @@ use Hanafalah\LaravelSupport\Facades\LaravelSupport;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([
-    ApiAccess::class
+    ApiAccess::class,
 ])->group(function(){
     LaravelSupport::callRoutes(__DIR__.'/api');
 });

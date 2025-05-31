@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 
-import DeleteUser from '@/components/DeleteUser.vue';
-import HeadingSmall from '@/components/HeadingSmall.vue';
-import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import AppLayout from '@/layouts/AppLayout.vue';
-import SettingsLayout from '@/layouts/settings/Layout.vue';
-import { type BreadcrumbItem, type SharedData, type User } from '@/types';
+import DeleteUser from '@klinik/components/DeleteUser.vue';
+import HeadingSmall from '@klinik/components/HeadingSmall.vue';
+import InputError from '@klinik/components/InputError.vue';
+import { Button } from '@klinik/components/ui/button';
+import { Input } from '@klinik/components/ui/input';
+import { Label } from '@klinik/components/ui/label';
+import AppLayout from '@klinik/layouts/AppLayout.vue';
+import SettingsLayout from '@klinik/layouts/settings/Layout.vue';
+import { type BreadcrumbItem, type SharedData, type User } from '@klinik/types';
 
 interface Props {
     mustVerifyEmail: boolean;

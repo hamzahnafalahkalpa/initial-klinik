@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import type { SidebarProps } from '.'
-import { cn } from '@/lib/utils'
-import { Sheet, SheetContent } from '@/components/ui/sheet'
-import SheetDescription from '@/components/ui/sheet/SheetDescription.vue'
-import SheetHeader from '@/components/ui/sheet/SheetHeader.vue'
-import SheetTitle from '@/components/ui/sheet/SheetTitle.vue'
+import { cn } from '@klinik/lib/utils'
+import { Sheet, SheetContent } from '@klinik/components/ui/sheet'
+import SheetDescription from '@klinik/components/ui/sheet/SheetDescription.vue'
+import SheetHeader from '@klinik/components/ui/sheet/SheetHeader.vue'
+import SheetTitle from '@klinik/components/ui/sheet/SheetTitle.vue'
 import { SIDEBAR_WIDTH_MOBILE, useSidebar } from './utils'
+import { usePage } from '@inertiajs/vue3'
+import type { SharedData } from '@klinik/types'
 
 defineOptions({
   inheritAttrs: false,
@@ -18,13 +20,14 @@ const props = withDefaults(defineProps<SidebarProps>(), {
 })
 
 const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+
 </script>
 
 <template>
   <div
     v-if="collapsible === 'none'"
     data-slot="sidebar"
-    :class="cn('bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col', props.class)"
+    :class="cn('bg-sidebar rounded-xl text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col', props.class)"
     v-bind="$attrs"
   >
     <slot />
@@ -36,7 +39,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
       data-slot="sidebar"
       data-mobile="true"
       :side="side"
-      class="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
+      class="bg-sidebar rounded-xl text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
       :style="{
         '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
       }"
@@ -85,9 +88,10 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
       )"
       v-bind="$attrs"
     >
+      <!-- class="bg-sidebar rounded-xl group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm" -->
       <div
         data-sidebar="sidebar"
-        class="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
+        class="bg-sidebar rounded-xl flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg"
       >
         <slot />
       </div>

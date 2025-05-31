@@ -1,37 +1,28 @@
 <script setup lang="ts">
-import NavFooter from '@/components/NavFooter.vue';
-import NavMain from '@/components/NavMain.vue';
-import NavUser from '@/components/NavUser.vue';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
+import { ref, onMounted } from 'vue';
+import NavFooter from '@klinik/components/NavFooter.vue';
+import NavMain from '@klinik/components/NavMain.vue';
+import NavUser from '@klinik/components/NavUser.vue';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@klinik/components/ui/sidebar';
+import { type NavItem } from '@klinik/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
+import { useMenuStore } from '@klinik/stores/useMenu';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-        icon: LayoutGrid,
-    },
-];
-
+// const mainNavItems = ref<NavItem[]>([]); // awalnya kosong
+const menuStore = useMenuStore();
 const footerNavItems: NavItem[] = [
-    {
-        title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
 ];
+
+onMounted(async () => {
+    menuStore.refresh()
+    menuStore.load()
+});
 </script>
 
 <template>
-    <Sidebar collapsible="icon" variant="inset">
+    <!-- <Sidebar collapsible="icon" variant="floating"> -->
+    <Sidebar collapsible="offcanvas" variant="floating">
         <SidebarHeader>
             <SidebarMenu>
                 <SidebarMenuItem>
@@ -45,7 +36,7 @@ const footerNavItems: NavItem[] = [
         </SidebarHeader>
 
         <SidebarContent>
-            <NavMain :items="mainNavItems" />
+            <NavMain :items="menuStore.items" />
         </SidebarContent>
 
         <SidebarFooter>

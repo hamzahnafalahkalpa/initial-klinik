@@ -3,9 +3,9 @@ import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 // Components
-import HeadingSmall from '@/components/HeadingSmall.vue';
-import InputError from '@/components/InputError.vue';
-import { Button } from '@/components/ui/button';
+import HeadingSmall from '@klinik/components/HeadingSmall.vue';
+import InputError from '@klinik/components/InputError.vue';
+import { Button } from '@klinik/components/ui/button';
 import {
     Dialog,
     DialogClose,
@@ -15,9 +15,9 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+} from '@klinik/components/ui/dialog';
+import { Input } from '@klinik/components/ui/input';
+import { Label } from '@klinik/components/ui/label';
 
 const passwordInput = ref<HTMLInputElement | null>(null);
 

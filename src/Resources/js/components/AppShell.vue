@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarProvider } from '@klinik/components/ui/sidebar';
 import { usePage } from '@inertiajs/vue3';
-import { SharedData } from '@/types';
+import { SharedData } from '@klinik/types';
 
 interface Props {
     variant?: 'header' | 'sidebar';

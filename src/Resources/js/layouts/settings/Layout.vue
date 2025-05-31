@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Heading from '@/components/Heading.vue';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { type NavItem } from '@/types';
+import Heading from '@klinik/components/Heading.vue';
+import { Button } from '@klinik/components/ui/button';
+import { Separator } from '@klinik/components/ui/separator';
+import { type NavItem } from '@klinik/types';
 import { Link, usePage } from '@inertiajs/vue3';
 
 const sidebarNavItems: NavItem[] = [

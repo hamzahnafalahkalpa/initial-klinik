@@ -1,27 +1,31 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
-import { cn } from '@/lib/utils'
-import { Primitive, type PrimitiveProps } from 'reka-ui'
-import { type ButtonVariants, buttonVariants } from '.'
+import { cn } from '@klinik/lib/utils'
+import { Primitive } from 'reka-ui'
+import { buttonVariants, getButtonProps } from '.'
+import type { Button as ButtonInterface } from '@klinik/interfaces/UI/Button'
+import { Icon } from '@iconify/vue'
 
-interface Props extends PrimitiveProps {
-  variant?: ButtonVariants['variant']
-  size?: ButtonVariants['size']
-  class?: HTMLAttributes['class']
-}
+// Pakai default jika tidak diisi
+const props = withDefaults(defineProps<ButtonInterface>(), {
+  as: 'button'
+})
 
-const props = withDefaults(defineProps<Props>(), {
-  as: 'button',
+const merged = getButtonProps({
+  type: props.type,
+  variant: props.variant,
+  icon: props.icon,
+  rawIcon: props.rawIcon,
 })
 </script>
 
 <template>
   <Primitive
     data-slot="button"
-    :as="as"
-    :as-child="asChild"
-    :class="cn(buttonVariants({ variant, size }), props.class)"
+    :as="props.as"
+    :as-child="props.asChild"
+    :class="cn(buttonVariants({ variant: merged.variant, size: props.size }), props.class)"
   >
-    <slot />
+    <Icon v-if="merged.icon" :icon="merged.icon" />
+    <slot/>
   </Primitive>
 </template>
