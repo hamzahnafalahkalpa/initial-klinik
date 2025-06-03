@@ -4,7 +4,7 @@ import AppLayout from './app/AppSidebarLayout.vue';
 import type { BreadcrumbItemType } from '@klinik/types';
 import { Toaster } from '@klinik/components/ui/sonner';
 import 'vue-sonner/style.css';
-import ConfirmDialog from './alert-dialog/ConfirmDialog.vue';
+import { AlertDialog } from './alert-dialog';
 
 interface Props {
     breadcrumbs?: BreadcrumbItemType[];
@@ -25,7 +25,7 @@ withDefaults(defineProps<Props>(), {
         <template #add-container>
             <slot name="add-container"/>
         </template>
-        <ConfirmDialog/>
+        <AlertDialog/>
         <slot/>
     </AppLayout>
 </template>

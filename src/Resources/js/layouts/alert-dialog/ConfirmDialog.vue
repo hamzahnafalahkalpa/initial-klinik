@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import {
-  AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
-  AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
@@ -15,22 +13,16 @@ const dialog = useAlertDialog()
 </script>
 
 <template>
-  <AlertDialog
-    v-model:open="dialog.open.value"
-  >
-    <AlertDialogContent>
-      <AlertDialogHeader>
+    <AlertDialogHeader>
         <AlertDialogTitle>{{ dialog.title }}</AlertDialogTitle>
         <AlertDialogDescription>{{ dialog.description }}</AlertDialogDescription>
-      </AlertDialogHeader>
-      <AlertDialogFooter>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
         <AlertDialogCancel v-if="dialog.showCancel">
-          {{ dialog.cancelText }}
+            {{ dialog.cancelText }}
         </AlertDialogCancel>
         <AlertDialogAction @click="dialog.onConfirm.value()">
-          {{ dialog.confirmText }}
+            {{ dialog.confirmText }}
         </AlertDialogAction>
-      </AlertDialogFooter>
-    </AlertDialogContent>
-  </AlertDialog>
+    </AlertDialogFooter>
 </template>

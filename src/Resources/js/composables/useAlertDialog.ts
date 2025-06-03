@@ -24,6 +24,7 @@ const confirmText = ref('OK')
 const cancelText = ref('Batal')
 const showCancel = ref(false)
 const onConfirm = ref<() => void>(() => {})
+const mode = ref<'info' | 'confirm'>('info') // <-- New state
 
 /* --- Helpers --- */
 
@@ -34,15 +35,17 @@ function resetDefaults() {
   cancelText.value = 'Batal'
   showCancel.value = false
   onConfirm.value = () => {}
+  mode.value = 'info' // Reset to default mode
 }
 
-function showDialog(mode: 'info' | 'confirm', options: InfoDialogOptions | ConfirmDialogOptions) {
+function showDialog(dialogMode: 'info' | 'confirm', options: InfoDialogOptions | ConfirmDialogOptions) {
   resetDefaults()
+  mode.value = dialogMode
   title.value = options.title
   description.value = options.description
-  confirmText.value = options.confirmText || (mode === 'confirm' ? 'Lanjutkan' : 'OK')
+  confirmText.value = options.confirmText || (dialogMode === 'confirm' ? 'Lanjutkan' : 'OK')
 
-  if (mode === 'confirm') {
+  if (dialogMode === 'confirm') {
     const confirmOpts = options as ConfirmDialogOptions
     cancelText.value = confirmOpts.cancelText || 'Batal'
     showCancel.value = true
@@ -73,6 +76,7 @@ export function useAlertDialog() {
     cancelText,
     showCancel,
     onConfirm,
+    mode, 
     info,
     confirm,
   }

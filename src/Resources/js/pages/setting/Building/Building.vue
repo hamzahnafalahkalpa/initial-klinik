@@ -1,19 +1,17 @@
 <script setup lang="ts">
-import { BuildingSchema } from '../../../dtos/Setting/BuildingSchema';
-
-import { Input } from '@klinik/components/ui';
+import { BuildingSchema } from '@klinik/dtos/Setting/BuildingSchema';
 
 import { 
-  FormField, FormItem, FormLabel, FormControl, FormMessage
-} from '@klinik/components/ui/form';
+  Input, FormField, FormItem, FormLabel, FormControl, FormMessage
+} from '@klinik/components/ui';
 
-import ContentLayout from '../../../layouts/setting/ContentLayout.vue';
+import ContentLayout from '@klinik/layouts/setting/ContentLayout.vue';
 </script>
 
 <template>
   <ContentLayout
     dialogTitle="Formulir Gedung"
-    dialogDescription="Perubahan pada hak akses building akan mempengaruhi seluruh pengguna yang menggunakan building tersebut."
+    dialogDescription="Silahkan isi formulir di bawah ini"
     routeName="building"
     :columns="[
       { field: 'actions', headerSort: false, width: 70 },
@@ -27,12 +25,10 @@ import ContentLayout from '../../../layouts/setting/ContentLayout.vue';
     :actions="[
         {
           type: 'edit',
-          // href: `/setting/building/${b.id}/edit`,
           button: { buttonType: 'edit' }
         },
         {
           type: 'delete',
-          // href: `/setting/building/${b.id}`,
           button: { buttonType: 'delete' }
         }
     ]"

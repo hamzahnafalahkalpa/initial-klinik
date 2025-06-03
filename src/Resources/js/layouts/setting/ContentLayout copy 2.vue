@@ -3,24 +3,23 @@ import { ref, onMounted, watch } from 'vue';
 import { apiClient } from '@klinik/composables/useApi/client';
 import { toast } from 'vue-sonner';
 import { toTypedSchema } from '@vee-validate/zod';
-import { useAlertDialog } from '@klinik/composables/useAlertDialog'
+import { useAlertDialog } from '@klinik/composables/useAlertDialog';
 
 import {
   Input,
   Card, CardContent, CardDescription, CardHeader, CardTitle,
-  Dialog, DialogContent, DialogTitle, DialogDescription, DialogFooter
 } from '@klinik/components/ui';
-
 import {
-  Form, FormField, FormItem, FormLabel, FormControl, FormMessage
+  FormField, FormItem, FormLabel, FormControl, FormMessage,
 } from '@klinik/components/ui/form';
-
-import type { FormContext } from 'vee-validate';
 
 import Button from '@klinik/components/ui/button/Button.vue';
 import TabulatorTable from '@klinik/components/TabulatorTable.vue';
+import FormDialog from '@klinik/layouts/dialog/FormDialog.vue';
 import { cn, generateId } from '@klinik/lib/utils';
+
 import type { Action } from '@klinik/interfaces/UI/Action';
+import type { FormContext } from 'vee-validate';
 
 interface Props {
   dialogTitle: string;
@@ -41,7 +40,7 @@ const data = ref({ data: [] as any[], loading: true });
 const isDialogOpen = ref(false);
 const editData = ref<any | null>(null);
 const formSchema = toTypedSchema(props.schema);
-const dialog = useAlertDialog()
+const dialog = useAlertDialog();
 
 const setValuesFn = ref<FormContext<any>['setValues'] | null>(null);
 const resetFormFn = ref<FormContext<any>['resetForm'] | null>(null);
@@ -54,10 +53,14 @@ async function loadData() {
   data.value.loading = true;
   try {
     const response = await apiClient[props.routeName].index();
-    const items = response.data ?? [];
+    const items = Array.isArray(response.data) ? response.data : [];
     data.value.data = items.map((item: any) => {
       const itemid = generateId();
-      return mapActionsForItem({ ...item, itemid, actions: JSON.parse(JSON.stringify(props.actions)) });
+      return mapActionsForItem({
+        ...item,
+        itemid,
+        actions: JSON.parse(JSON.stringify(props.actions)),
+      });
     });
   } catch (error) {
     console.error(error);
@@ -72,9 +75,9 @@ function onTableReady(instance: any) {
 }
 
 function scrollToRowById(id: number | string) {
-  const row = tabulator.value?.getRow(id);
+  const row = tabulator.value?.getRow?.(id);
   if (row) {
-    row.scrollTo('center', false);
+    row.scrollTo?.('center', false);
     row.select?.();
   }
 }
@@ -84,9 +87,9 @@ function mapActionsForItem(item: any) {
     if (action.button) {
       action.button.attributes = { itemid: item.itemid };
       if (action.type === 'edit') {
-        action.button.onClick = () => {editFn(item)};
+        action.button.onClick = () => editFn(item);
       } else if (action.type === 'delete') {
-        action.button.onClick = () => {deleteFn(item)};
+        action.button.onClick = () => deleteFn(item);
       }
     }
     return action;
@@ -112,21 +115,19 @@ function deleteFn(item: any) {
     description: 'Data yang dihapus tidak bisa dikembalikan.',
     confirmText: 'Ya, Hapus',
     cancelText: 'Batal',
-    onConfirm: () => {
-        onDelete(item)
-    }
+    onConfirm: () => onDelete(item),
   });
 }
 
-async function onDelete(values: any) {
+async function onDelete(item: any) {
   toast.loading(`${props.mainContent} dalam penghapusan...`);
   try {
-    const response = await apiClient[props.routeName].delete(values.id);
+    const response = await apiClient[props.routeName].delete(item.id);
     if (response.data) {
-        toast.success(`${props.mainContent} berhasil dihapus`);
-        data.value.data = data.value.data.filter(i => i.itemid !== values.itemid);
-    }else{
-        toast.error(`${props.mainContent} gagal dihapus`);
+      toast.success(`${props.mainContent} berhasil dihapus`);
+      data.value.data = data.value.data.filter(i => i.itemid !== item.itemid);
+    } else {
+      toast.error(`${props.mainContent} gagal dihapus`);
     }
   } catch (error) {
     console.error(error);
@@ -144,20 +145,18 @@ async function onSubmit(values: any) {
     if (savedItem) {
       toast.success(`${props.mainContent} berhasil disimpan`);
 
-      let itemid = editData.value?.itemid || generateId();
+      const itemid = editData.value?.itemid || generateId();
       savedItem = mapActionsForItem({
         ...savedItem,
         itemid,
-        actions: JSON.parse(JSON.stringify(props.actions))
+        actions: JSON.parse(JSON.stringify(props.actions)),
       });
 
       const idx = data.value.data.findIndex(i => i.itemid === itemid);
-
       if (idx !== -1) {
-        data.value.data = data.value.data.filter(i => i.itemid !== values.itemid);
         data.value.data.splice(idx, 1, savedItem);
       } else {
-        data.value.data = [...data.value.data, savedItem];
+        data.value.data.push(savedItem);
       }
 
       isDialogOpen.value = false;
@@ -186,46 +185,46 @@ watch(isDialogOpen, (isOpen) => {
 </script>
 
 <template>
-  <Form
-    as=""
-    v-slot="{ handleSubmit, setValues, resetForm }"
-    :validation-schema="formSchema"
-    :keep-values="false"
-    class="flex flex-col gap-2"
+  <FormDialog
+    v-model="isDialogOpen"
+    :dialogTitle="editData ? `Edit ${props.mainContent}` : `Tambah ${props.mainContent}`"
+    :dialogDescription="props.dialogDescription"
+    :routeName="props.routeName"
+    :formSchema="formSchema"
+    @submit="onSubmit"
   >
-    <!-- Simpan setValues dan resetForm ke ref sekali saja -->
-    <template v-if="!setValuesFn && !resetFormFn">
-      <div v-if="(setValuesFn = setValues) && (resetFormFn = resetForm)"></div>
-    </template>
+    <FormField name="id" v-slot="{ componentField }">
+      <FormItem class="hidden">
+        <FormControl>
+          <Input type="text" v-bind="componentField" autocomplete="off" />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
 
-    <Dialog v-model:open="isDialogOpen">
-      <DialogContent class="2xl:max-w-[800px] max-h-[90dvh]">
-        <template #dialog-title>
-          <DialogTitle>{{ props.dialogTitle }}</DialogTitle>
-          <DialogDescription class="overflow-auto">
-            <p class="text-sm font-light text-gray-500">{{ props.dialogDescription }}</p>
-          </DialogDescription>
-        </template>
-
-        <form :id="props.routeName + 'dataForm'" @submit.prevent="handleSubmit(onSubmit)">
-            <slot :editData="editData" :setValues="setValuesFn" :resetForm="resetFormFn"/>
-        </form>
-
-        <DialogFooter>
-          <Button type="submit" :form="props.routeName + 'dataForm'" buttonType="save">
-            Simpan
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  </Form>
+    <FormField name="name" v-slot="{ componentField }">
+      <FormItem>
+        <FormLabel :required="true">Nama Gedung</FormLabel>
+        <FormControl>
+          <Input
+            type="text"
+            placeholder="Masukkan Nama Gedung"
+            autocomplete="off"
+            v-bind="componentField"
+            required
+          />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+  </FormDialog>
 
   <Card :class="cn('w-full', $attrs.class ?? '')">
     <CardHeader>
-      <CardTitle>{{ props.dialogTitle }}</CardTitle>
+      <CardTitle>Master Gedung</CardTitle>
       <CardDescription>
         <div class="w-full flex gap-1">
-          <span>{{ props.dialogDescription }}</span>
+          <span>Pelengkap informasi ketersediaan gedung di faskes</span>
           <Button type="button" class="ml-auto" buttonType="add" @click="addFn" />
         </div>
       </CardDescription>

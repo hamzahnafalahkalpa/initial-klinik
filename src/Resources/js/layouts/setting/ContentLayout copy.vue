@@ -154,7 +154,6 @@ async function onSubmit(values: any) {
       const idx = data.value.data.findIndex(i => i.itemid === itemid);
 
       if (idx !== -1) {
-        data.value.data = data.value.data.filter(i => i.itemid !== values.itemid);
         data.value.data.splice(idx, 1, savedItem);
       } else {
         data.value.data = [...data.value.data, savedItem];
@@ -208,7 +207,30 @@ watch(isDialogOpen, (isOpen) => {
         </template>
 
         <form :id="props.routeName + 'dataForm'" @submit.prevent="handleSubmit(onSubmit)">
-            <slot :editData="editData" :setValues="setValuesFn" :resetForm="resetFormFn"/>
+          <FormField name="id" v-slot="{ componentField }">
+            <FormItem class="hidden">
+              <FormControl>
+                <Input type="text" v-bind="componentField" autocomplete="off" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          </FormField>
+
+          <FormField name="name" v-slot="{ componentField }">
+            <FormItem>
+              <FormLabel :required="true">Nama Gedung</FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  placeholder="Masukkan Nama Gedung"
+                  autocomplete="off"
+                  v-bind="componentField"
+                  required
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          </FormField>
         </form>
 
         <DialogFooter>
@@ -222,10 +244,10 @@ watch(isDialogOpen, (isOpen) => {
 
   <Card :class="cn('w-full', $attrs.class ?? '')">
     <CardHeader>
-      <CardTitle>{{ props.dialogTitle }}</CardTitle>
+      <CardTitle>Master Gedung</CardTitle>
       <CardDescription>
         <div class="w-full flex gap-1">
-          <span>{{ props.dialogDescription }}</span>
+          <span>Pelangkap informasi ketersediaan gedung di faskes</span>
           <Button type="button" class="ml-auto" buttonType="add" @click="addFn" />
         </div>
       </CardDescription>
