@@ -6,7 +6,9 @@ export interface Button extends PrimitiveProps {
   variant?: ButtonVariants['variant']
   size?: ButtonVariants['size']
   class?: HTMLAttributes['class']
-  type?: keyof typeof buttonTypes | null
+  buttonType?: keyof typeof buttonTypes | null
   icon?: keyof typeof buttonIcons | null
   rawIcon?: string
+  onClick?: Function;
+  attributes ?: HTMLAttributes
 }

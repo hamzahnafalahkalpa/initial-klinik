@@ -1,4 +1,4 @@
-import { ViewEmployee } from "../Employee/Employee";
+import { ViewEmployee } from "../EmployeeManagement/Employee";
 import { ViewAddress } from "../Regional/Address";
 
 export interface WorkspaceSetting {

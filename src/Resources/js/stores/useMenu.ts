@@ -1,9 +1,7 @@
-// stores/useMenuStore.ts
 import { defineStore } from 'pinia';
-import { menu } from '@klinik/services/menu';
-// import { resolveIcon } from '@/utils/icon'; // pastikan path sesuai
 import { MenuItem } from '../interfaces';
 import { MenuItemSchema } from '@klinik/dtos/MenuItem/MenuItemSchema';
+import { apiClient } from '@klinik/composables/useApi/client';
 import { z } from 'zod';
 
 const STORAGE_KEY = 'mainNavItems';
@@ -27,7 +25,6 @@ export const useMenuStore = defineStore('menu', {
           const parsed = JSON.parse(cached);
           const validated = z.array(MenuItemSchema).parse(parsed.data);
           this.items = validated;
-          
           const isExpired = Date.now() - parsed.cachedAt > CACHE_TTL;
 
           if (!isExpired && Array.isArray(parsed.data)) {
@@ -45,8 +42,8 @@ export const useMenuStore = defineStore('menu', {
 
     async refresh() {
       try {
-        const response = await menu();
-        const validated = z.array(MenuItemSchema).parse(response);
+        const response = await apiClient.menu.index();
+        const validated = z.array(MenuItemSchema).parse(response.data);
 
         this.items = validated;
 

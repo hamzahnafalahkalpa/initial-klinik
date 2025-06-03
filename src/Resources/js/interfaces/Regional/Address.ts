@@ -4,26 +4,31 @@ import { ViewSubdistrict } from "./Subdistrict";
 import { ViewVillage } from "./Village";
 
 export interface ViewAddress{
-    id ?: string;
+    id ?: string | null;
     flag : string;
-    name ?: string;
-    rt ?: string;
-    rw ?: string;
-    zip_code ?: string;
-    village_id ?: number;
-    village ?: ViewVillage;
-    district_id ?: number;
-    district ?: ViewDistrict;
-    province_id ?: number;
-    province ?: ViewProvince;
-    subdistrict_id ?: number;
-    subdistrict ?: ViewSubdistrict;
+    name ?: string | null;
+    rt ?: string | null;
+    rw ?: string | null;
+    zip_code ?: string | null;
+    village_id ?: number | null;
+    village ?: ViewVillage | null;
+    district_id ?: number | null;
+    district ?: ViewDistrict | null;
+    province_id ?: number | null;
+    province ?: ViewProvince | null;
+    subdistrict_id ?: number | null;
+    subdistrict ?: ViewSubdistrict | null;
 }
 
 export interface ShowAddress extends ViewAddress{
     
 }
 
-export interface Address extends ShowAddress{
-
+export interface Address{
+    id: number | null;
+    name: string;
+    province_id: number | null;
+    district_id: number | null;
+    subdistrict_id: number | null;
+    village_id: number | null;
 }

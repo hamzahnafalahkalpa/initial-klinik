@@ -1,12 +1,12 @@
 export interface ViewCardIdentity{
-    nik ?: string;
-    kk ?: string;
-    passport ?: string;
-    sim ?: string;
-    npwp ?: string;
-    visa ?: string;
-    ihs ?: string;
-    bpjs ?: string;
+    nik ?: string | null;
+    npwp ?: string | null;
+    kk ?: string | null;
+    passport ?: string | null;
+    sim ?: string | null;
+    visa ?: string | null;
+    ihs ?: string | null;
+    bpjs ?: string | null;
 }
 
 export interface ShowCardIdentity extends ViewCardIdentity{

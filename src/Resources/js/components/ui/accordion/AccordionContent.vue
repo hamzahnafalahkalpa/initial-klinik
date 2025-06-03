@@ -13,7 +13,7 @@ const delegatedProps = reactiveOmit(props, 'class')
   <AccordionContent
     data-slot="accordion-content"
     v-bind="delegatedProps"
-    class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
+    class="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm bg-primary/5 p-2 mb-1 rounded-xl"
   >
     <div :class="cn('pt-0 pb-4', props.class)">
       <slot />

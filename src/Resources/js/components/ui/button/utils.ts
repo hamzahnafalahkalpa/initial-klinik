@@ -2,12 +2,12 @@ import { ButtonVariants, buttonTypes, buttonIcons } from '.'
 import { Button } from '../../../interfaces/UI/Button'
 
 export function getButtonProps({
-  type,
+  buttonType,
   variant,
   icon,
   rawIcon
 }: Button = {}) {
-  const resolvedType = type && type in buttonTypes ? type : null
+  const resolvedType = buttonType && buttonType in buttonTypes ? buttonType : null
   if (resolvedType) {
       const typeData = buttonTypes[resolvedType]
       const resolvedIconKey = icon ?? (typeData.icon as keyof typeof buttonIcons)

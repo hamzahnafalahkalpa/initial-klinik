@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<ButtonInterface>(), {
 })
 
 const merged = getButtonProps({
-  type: props.type,
+  buttonType: props.buttonType,
   variant: props.variant,
   icon: props.icon,
   rawIcon: props.rawIcon,
@@ -24,6 +24,8 @@ const merged = getButtonProps({
     :as="props.as"
     :as-child="props.asChild"
     :class="cn(buttonVariants({ variant: merged.variant, size: props.size }), props.class)"
+    @click="$emit('click')"
+    v-bind="$attrs"
   >
     <Icon v-if="merged.icon" :icon="merged.icon" />
     <slot/>

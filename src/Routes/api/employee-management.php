@@ -17,8 +17,5 @@ Route::group([
     "as"     => "employee-management.",
 ],function() {
     include_once(__DIR__."/employee-management/employee.php");
-    include_once(__DIR__."/employee-management/job-desk.php");
-    include_once(__DIR__."/employee-management/occupation.php");
-    include_once(__DIR__."/employee-management/shift.php");
-    include_once(__DIR__."/employee-management/employee-type.php");
+    // include_once(__DIR__."/employee-management/shift.php");
 });

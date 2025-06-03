@@ -50,6 +50,7 @@ function hasActiveChild(item: MenuItem): boolean {
         <SidebarMenuButton class="cursor-pointer" :tooltip="item.name">
             <Icon :icon="item.icon as string" :ssr="true" />
             <span>{{ item.name }}</span>
+            <Icon icon="heroicons-solid:chevron-right" class="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" :ssr="true" />
         </SidebarMenuButton>
       </CollapsibleTrigger>
 
@@ -74,6 +75,7 @@ function hasActiveChild(item: MenuItem): boolean {
     :tooltip="item.name"
   >
     <Link :href="item.slug?.replace('api/', '/') ?? '/#'">
+        <Icon :icon="item.icon as string" :ssr="true" />
         <span>{{ item.name }}</span>
     </Link>
   </SidebarMenuButton>

@@ -1,11 +1,11 @@
 import { Button } from "./Button";
 
 export interface Action {
-    label: string;
+    label?: string | null;
     icon?: string | null;
     href?: string | null;
-    onClick?: Function;
+    type?: string|null;
     disabled?: boolean;
-    button ?: Button    
+    button ?: Button;
 }
 

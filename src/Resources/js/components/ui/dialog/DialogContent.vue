@@ -11,6 +11,8 @@ import {
 } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
 import DialogOverlay from './DialogOverlay.vue'
+import DialogFooter from './DialogFooter.vue'
+import DialogHeader from './DialogHeader.vue'
 
 const props = defineProps<DialogContentProps & { class?: HTMLAttributes['class'] }>()
 const emits = defineEmits<DialogContentEmits>()
@@ -36,7 +38,15 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
           props.class,
         )"
     >
-      <slot />
+      <DialogHeader>
+        <slot name="dialog-title"/>
+      </DialogHeader>
+      <div class="bg-primary/10 grid gap-4 py-4 overflow-y-auto px-6 rounded-md">
+        <slot />
+      </div>
+      <DialogFooter>
+        <slot name="dialog-footer"/>
+      </DialogFooter>
 
       <DialogClose
         class="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"

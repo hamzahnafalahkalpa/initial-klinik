@@ -1,0 +1,5 @@
+export { default as Role } from './Role/Role.vue'
+export { default as Supplier } from './Supplier/Supplier.vue'
+export { default as Encoding } from './Encoding/Encoding.vue'
+export { default as Bank } from './Bank/Bank.vue'
+export { default as Funding } from './Funding/Funding.vue'

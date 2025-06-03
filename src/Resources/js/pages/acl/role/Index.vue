@@ -2,105 +2,129 @@
 import AppLayout from '@klinik/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@klinik/types';
 import { Head } from '@inertiajs/vue3';
-import TabulatorTable from '@/components/TabulatorTable.vue';  
+import { Form } from '@klinik/components/ui/form';
+import TabulatorTable from '@klinik/components/TabulatorTable.vue';  
+import { ViewRole } from '@projects/klinik/src/Resources/js/interfaces/Setting/Role';
+import { onMounted, ref } from 'vue';
+import { toTypedSchema } from '@vee-validate/zod';
+import { RoleSchema } from '@projects/klinik/src/Resources/js/dtos/Setting/RoleSchema';
+import { useForm } from 'vee-validate';
+import { 
+    Dialog, DialogContent, 
+    DialogHeader, DialogTitle, 
+    DialogDescription, DialogFooter
+} from '@klinik/components/ui/dialog';
+import { Label } from '@klinik/components/ui/label';
+import { Input } from '@klinik/components/ui/input';
 
+// Breadcrumbs
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-    },
-    {
-        title: 'Manajemen Role',
-        href: '/acl/role',
-    },
+    { title: 'Dashboard', href: '/dashboard' },
+    { title: 'Manajemen Role', href: '/acl/role' },
 ];
 
-const data = Array.from({length: 30}, (_, i) => ({
-    id: i+1,
-    name: `Role ${i+1}`,
-    age: i+1,
-    age1: i+1,
-    age2: i+1,
-    age3: i+1,
-    age4: i+1,
-    age5: i+1,
-    age6: i+1,
-    age7: i+1,
-    age8: i+1,
-}));
+// Table data
+const roles = ref<ViewRole[]>([]);
+const isDialogOpen = ref(false);
 
+// Ambil data roles saat mount
+onMounted(async () => {
+    const response = await role();
+    if (response.data) {
+        roles.value = response.data;
+        roles.value = roles.value.map(role => {
+            return {
+                ...role,
+                actions: [
+                    {
+                        label: 'Ubah',
+                        href: `/acl/role/${role.id}/edit`,
+                        button: {
+                            buttonType: 'edit'
+                        }
+                    },
+                    {
+                        label: 'Hapus',
+                        href: `/acl/role/${role.id}`,
+                        button: {
+                            buttonType: 'delete'
+                        }
+                    }
+                ]
+            }
+        });
+    }
+});
 
+// Form schema & setup
+const formSchema = toTypedSchema(RoleSchema);
 
+// Form handler
+const { handleSubmit, values, resetForm } = useForm({
+    validationSchema: formSchema,
+    initialValues: {
+        id: undefined,
+        name: '',
+        childs: [],
+    }
+});
+
+// Form submit logic
+// const onSubmit = handleSubmit(values => {
+//     console.log('Submitted values:', values);
+//     // Kirim ke server via Inertia or API
+//     isDialogOpen.value = false;
+//     resetForm(); // Reset setelah submit
+// });
+
+// Table columns
 const columns = [
-  { title: 'ID', field: 'id', sorter: 'string' },
-  { title: 'Name', field: 'name', sorter: 'string' },
-  { title: 'Age', field: 'age', sorter: 'string' },
-  { title: 'Age', field: 'age1', sorter: 'string' },
-  { title: 'Age', field: 'age2', sorter: 'string' },
-  { title: 'Age', field: 'age3', sorter: 'string' },
-  { title: 'Age', field: 'age4', sorter: 'string' },
-  { title: 'Age', field: 'age5', sorter: 'string' },
-  { title: 'Age', field: 'age6', sorter: 'string' },
-  { title: 'Age', field: 'age7', sorter: 'string' },
-  { title: 'Age', field: 'age8', sorter: 'string' },
+    { title: 'Nama', field: 'name', sorter: 'string' },
+    { title: 'Created At', field: 'created_at', sorter: 'string' },
+    { title: 'actions', field: 'actions' },
 ];
-
-// const data = [
-//     { 
-//         name : 1,
-//         progress : 1,
-//         rating : 1,
-//         car : 1,
-//         gender : 1,
-//         col : 1,
-//         dob  : 1,
-//     },
-//     { 
-//         name : 1,
-//         progress : 1,
-//         rating : 1,
-//         car : 1,
-//         gender : 1,
-//         col : 1,
-//         dob  : 1,
-//     }
-// ];
-
-// const columns = [
-//     {title:"Name", field:"name", width:160},
-//     {//create column group
-//         title:"Work Info",
-//         columns:[
-//             {title:"Progress", field:"progress", hozAlign:"right", sorter:"number", width:100},
-//             {title:"Rating", field:"rating", hozAlign:"center", width:80},
-//             {title:"Driver", field:"car", hozAlign:"center", width:80},
-//         ],
-//     },
-//     {//create column group
-//         title:"Personal Info",
-//         columns:[
-//             {title:"Gender", field:"gender", width:90},
-//             {title:"Favourite Color", field:"col", width:140},
-//             {title:"Date Of Birth", field:"dob", hozAlign:"center", sorter:"date"},
-//         ],
-//     },
-// ];
-
-const collapseFormat = (data: any[]): HTMLElement | string => {
-    const list = document.createElement('ul');
-
-    data.forEach((col) => {
-        const item = document.createElement('li');
-        item.innerHTML = `<strong>${col.title}</strong> - ${col.value}`;
-        list.appendChild(item);
-    });
-
-    return data.length ? list : '';
-};
 </script>
 
 <template>
     <Head title="Role" />
+
+    <!-- Dialog Form -->
+    <Form @submit="" as="div" keep-values :validation-schema="formSchema">
+        <Dialog v-model:open="isDialogOpen">
+            <DialogContent class="2xl:max-w-[800px] max-h-[90dvh]">
+                <template #dialog-title>
+                    <DialogTitle>Formulir Role</DialogTitle>
+                    <DialogDescription class="overflow-auto">
+                        <p class="text-sm font-light text-gray-500">
+                            Perubahan pada hak akses role akan mempengaruhi seluruh pengguna yang menggunakan role tersebut.
+                        </p>
+                    </DialogDescription>
+                </template>
+                <div class="flex flex-col gap-2">
+                    <Label for="name" :required="true">Nama Role</Label>
+                    <Input 
+                        id="name"
+                        v-model="values.name"
+                        name="name"
+                        type="text"
+                        class="border px-3 py-2 rounded-md"
+                        placeholder="Masukkan Nama Role"
+                    />
+                    <!-- Optional: error -->
+                    <!-- <small class="text-red-500" v-if="formSchema?.shape?.name?._def?.message">
+                        {{ formSchema.shape.name._def.message }}
+                    </small> -->
+                </div>
+                <template #dialog-footer>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                        Simpan Perubahan
+                    </button>
+                </template>
+            </DialogContent>
+        </Dialog>
+    </Form>
+
+    <!-- Layout & Table -->
     <AppLayout 
         :breadcrumbs="breadcrumbs"
         title="MANAJEMEN ROLE" 
@@ -109,13 +133,23 @@ const collapseFormat = (data: any[]): HTMLElement | string => {
             {
                 label: '',
                 href: '/acl/role/create',
+                onClick: () => {
+                    isDialogOpen = true;
+                    resetForm(); // Kosongkan form saat buka
+                },
                 button : {
-                    type: 'add'
+                    buttonType: 'add',
                 }
             },
         ]"
     >
-        <TabulatorTable :usingFilter="true" :data="data" :columns="columns" id="main" :options="[]">
-        </TabulatorTable>
+        <TabulatorTable 
+            :usingFilter="true" 
+            :isCentered="true" 
+            :data="roles" 
+            :columns="columns" 
+            id="main" 
+            :options="[]"
+        />
     </AppLayout>
 </template>
