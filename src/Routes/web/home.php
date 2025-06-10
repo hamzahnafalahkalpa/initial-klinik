@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Projects\Klinik\Controllers\WEB\HomeController;
+use Inertia\Inertia;
 
-Route::get('dashboard', [HomeController::class,'index'])->name('dashboard');
+Route::get('dashboard', function(){
+    return Inertia::render('Dashboard');
+})->name('dashboard');

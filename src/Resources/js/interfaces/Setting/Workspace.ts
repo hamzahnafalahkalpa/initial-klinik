@@ -1,14 +1,41 @@
-export interface ViewBank{
+import { Address, ViewAddress } from "../Regional/Address";
+
+export interface ViewWorkspace{
     id?: number | null;
+    uuid: string;
     name: string;
-    account_number?: string | null;
-    account_name?: string | null;
-    status?: string;
+    phone: string | null;
     created_at?: string;
     updated_at?: string;
 }
 
-export interface ShowBank extends ViewBank{
+export interface ShowWorkspace extends ViewWorkspace{
+    setting?: WorkspaceSetting | null
 }
 
-export interface Bank extends ShowBank{}
+interface WorkspaceSetting {
+    email?: string | null;
+    owner_id?: string | null;
+    owner?: {
+        id?: string | null;
+        name?: string | null;
+    } | null;
+    phone?: string | null;
+    timezone?: string | null;
+    address?: Address | null;
+    logo?: string | null;
+}
+
+export interface WorkspaceAddress{
+    name: string | null;
+    province_id?: number | null;
+    district_id?: number | null;
+    subdistrict_id?: number | null;
+    village_id?: number | null;
+}
+
+export interface Workspace {
+    uuid: string;
+    name: string;
+    setting?: WorkspaceSetting | null
+}

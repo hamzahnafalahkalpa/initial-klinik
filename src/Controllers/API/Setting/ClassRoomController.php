@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Controllers\API\Setting;
 
-use Hanafalah\ModuleClassRoom\Contracts\ClassRoom;
+use Hanafalah\ModuleClassRoom\Contracts\Schemas\ClassRoom;
 use Projects\Klinik\Controllers\API\ApiController;
 use Projects\Klinik\Requests\API\Setting\ClassRoom\{
     ViewRequest, StoreRequest, DeleteRequest
@@ -12,7 +12,6 @@ class ClassRoomController extends ApiController{
     public function __construct(
         protected ClassRoom $_schema
     ){
-        parent::__construct();
     }
 
     public function index(ViewRequest $request){

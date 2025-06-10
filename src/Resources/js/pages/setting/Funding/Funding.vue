@@ -1,83 +1,71 @@
 <script setup lang="ts">
-import { ViewFunding } from '@klinik/interfaces/Setting/Funding';
-import { onMounted, ref } from 'vue';
-import { cn } from '@klinik/lib/utils'
-import { apiClient } from '@klinik/composables/useApi/client';
+import { FundingSchema } from '@klinik/dtos/Setting/FundingSchema';
+import ContentLayout from '@klinik/layouts/setting/ContentLayout.vue';
+
 import { 
-    Label, Input, 
-    Card, CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-    Dialog, DialogContent, 
-    DialogHeader, DialogTitle, 
-    DialogDescription, DialogFooter
+  Input, FormField, FormItem, FormLabel, FormControl, FormMessage
 } from '@klinik/components/ui';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger
-} from '@/components/ui/tooltip'
-import TabulatorTable from '@klinik/components/TabulatorTable.vue';  
 
-// Table data
-const fundings = ref<ViewFunding[]>([]);
-const isDialogOpen = ref(false);
+function customHeaderFilter(headerValue: string, rowValue: string, rowData: any, filterParams: any){
+    const findValue = headerValue.toLowerCase();
+    const name = rowData.name.toLowerCase();
+    const accountNumber = rowData.account_number.toLowerCase();
+    const accountName = rowData.account_name.toLowerCase();
 
-// Ambil data fundings saat mount
-onMounted(async () => {
-    const response = await apiClient.funding.index();
-    if (response.data) {
-        fundings.value = response.data;
-        fundings.value = fundings.value.map(funding => {
-            return {
-                ...funding,
-                actions: [
-                    {
-                        href: `/setting/funding/${funding.id}/edit`,
-                        button: {
-                            buttonType: 'edit'
-                        }
-                    },
-                    {
-                        href: `/setting/funding/${funding.id}`,
-                        button: {
-                            buttonType: 'delete'
-                        }
-                    }
-                ]
-            }
-        });
-    }
-});
-
-// Table columns
-const columns = [
-    { title: '', field: 'actions', headerSort:false },
-    { title: 'Nama', field: 'name', sorter: 'string', headerFilter: 'input', headerFilterPlaceholder: 'Cari berdasarkan nama' },
-];
+    return (name.includes(findValue) || accountNumber.includes(findValue) || accountName.includes(findValue));
+}
 </script>
-
 <template>
-    <Card :class="cn('w-full', $attrs.class ?? '')">
-        <CardHeader>
-            <CardTitle>Pendanaan</CardTitle>
-            <CardDescription>
-                Digunakan untuk procurement. Pastikan data pendanaan telah diisi sebelum melakukan proses procurement.
-            </CardDescription>
-        </CardHeader>
-        <CardContent class="grid gap-4">
-            <TabulatorTable 
-                :usingFilter="false" 
-                :data="fundings" 
-                :columns="columns" 
-                id="setting-funding" 
-                tabulator-class="!h-[400px]"
-                :options="{
-                }"
-            />
-        </CardContent>
-    </Card>
+  <ContentLayout
+    dialogTitle="Formulir Pendanaan"
+    dialogDescription="Silahkan isi formulir di bawah ini"
+    routeName="funding"
+    :columns="[
+      { field: 'actions', headerSort: false, width: 70 },
+      { 
+        title: 'Pendanaan', field: 'name', sorter: 'string', width: 200,
+        headerFilter: 'input', headerFilterPlaceholder: 'Cari nama'
+      },
+      { 
+        title: 'Tgl. Buat', field: 'created_at', sorter: 'string'
+      }
+    ]"
+    :schema="FundingSchema"
+    mainContent="Funding"
+    :actions="[
+        {
+          type: 'edit',
+          button: { buttonType: 'edit' }
+        },
+        {
+          type: 'delete',
+          button: { buttonType: 'delete' }
+        }
+    ]"
+  >
+    <FormField name="id" v-slot="{ componentField }">
+      <FormItem class="hidden">
+        <FormControl>
+          <Input type="text" v-bind="componentField" autocomplete="off" />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+
+    <FormField name="name" v-slot="{ componentField }">
+      <FormItem>
+        <FormLabel :required="true">Nama Funding</FormLabel>
+        <FormControl>
+          <Input
+            type="text"
+            placeholder="Masukkan Nama Funding"
+            autocomplete="off"
+            v-bind="componentField"
+            required
+          />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
+  </ContentLayout>
 </template>

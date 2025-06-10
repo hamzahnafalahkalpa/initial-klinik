@@ -9,7 +9,6 @@ const props = defineProps<LabelProps & {
   class?: HTMLAttributes['class'],
   required?: boolean
 }>()
-
 const { error, formItemId } = useFormField()
 </script>
 

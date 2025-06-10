@@ -121,10 +121,10 @@ class AutolistController extends ApiController{
                 });
             break;
             default:
-                if (in_array($morph,$this->__onlies)){
+                // if (in_array($morph,$this->__onlies)){
                     return $this->callAutolist($morph);
-                }
-                abort(404);
+                // }
+                // abort(404);
             break;
         }
     }

@@ -28,6 +28,6 @@ const delegatedProps = computed(() => {
     "
   >
     <slot />
-    <span v-if="required" class="text-destructive">*</span>
+    <span v-if="props.required" class="text-destructive">*</span>
   </Label>
 </template>

@@ -1,5 +1,8 @@
 export { default as Label } from './label/Label.vue'
 export { default as Input } from './input/Input.vue'
+export { default as Select } from './select/Select.vue'
+export { default as Button } from './button/Button.vue'
+export { default as FieldWrapper } from './field/FieldWrapper.vue'
 export { 
     Dialog, DialogContent, 
     DialogHeader, DialogTitle, 
@@ -11,8 +14,8 @@ export {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@klinik/components/ui/card'
 
 export {
-  FormField, FormItem, FormLabel, FormControl, FormMessage
-} from '@/components/ui/form'
+  Form, FormField, FormItem, FormLabel, FormControl, FormMessage
+} from '@klinik/components/ui/form'

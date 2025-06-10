@@ -24,7 +24,7 @@ class ShowRequest extends FormRequest
     public function rules(): array
     {  
         return [
-            'id' => ['required',$this->idValidation('Role')]
+            'id' => ['required','numeric',$this->idValidation('Role')]
         ];
     }
 }

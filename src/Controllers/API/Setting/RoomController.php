@@ -5,25 +5,29 @@ namespace Projects\Klinik\Controllers\API\Setting;
 use Hanafalah\ModuleWarehouse\Contracts\Schemas\Room;
 use Projects\Klinik\Controllers\API\ApiController;
 use Projects\Klinik\Requests\API\Setting\Room\{
-    ViewRequest, StoreRequest, DeleteRequest
+    ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };
 
 class RoomController extends ApiController{
     public function __construct(
-        protected Room $_schema
+        protected Room $__schema
     ){
         parent::__construct();
     }
 
     public function index(ViewRequest $request){
-        return $this->_schema->viewRoomList();
+        return $this->__schema->viewRoomList();
+    }
+
+    public function show(ShowRequest $request){
+        return $this->__schema->showRoom();
     }
 
     public function store(StoreRequest $request){
-        return $this->_schema->storeRoom();
+        return $this->__schema->storeRoom();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->_schema->deleteRoom();
+        return $this->__schema->deleteRoom();
     }
 }

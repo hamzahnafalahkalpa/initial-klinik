@@ -8,4 +8,7 @@ export interface ViewFunding{
 export interface ShowFunding extends ViewFunding{
 }
 
-export interface Funding extends ShowFunding{}
+export interface Funding{
+    id ?: number | null;
+    name : string;
+}

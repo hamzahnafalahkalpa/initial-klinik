@@ -1,0 +1,47 @@
+<?php
+
+namespace Projects\Klinik\Models\ModuleWarehouse\Room;
+
+use Hanafalah\ModuleWarehouse\Models\Building\Room as BuildingRoom;
+use Projects\Klinik\Transformers\Room\ShowRoom;
+use Projects\Klinik\Transformers\Room\ViewRoom;
+
+class Room extends BuildingRoom
+{
+    protected $list = [
+        'id',
+        'building_id',
+        'name',
+        'medic_service_id',
+        'service_cluster_id',
+        "props"
+    ];
+
+    protected $casts = [
+        'name'                  => 'string',
+        'building_name'         => 'string',
+        'medic_service_name'    => 'string',
+        'service_cluster_name'  => 'string',
+    ];
+
+    public function getPropsQuery(): array
+    {
+        return [
+            'building_name' => 'props->prop_building->name',
+            'medic_service_name' => 'props->prop_medic_service->name',
+            'service_cluster_name' => 'props->prop_service_cluster->name',
+        ];
+    }
+
+    public function getShowResource(){
+        return ShowRoom::class;
+    }
+
+    public function getViewResource(){
+        return ViewRoom::class;
+    }
+
+    public function medicService(){return $this->morphOneModel('ModelHasRoom', 'reference');}
+    public function serviceCluster(){return $this->morphManyModel('ModelHasRoom', 'reference');}
+    //END EIGER SECTION
+}

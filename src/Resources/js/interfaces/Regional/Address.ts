@@ -25,10 +25,13 @@ export interface ShowAddress extends ViewAddress{
 }
 
 export interface Address{
-    id: number | null;
+    id?: string | null;
     name: string;
-    province_id: number | null;
-    district_id: number | null;
-    subdistrict_id: number | null;
-    village_id: number | null;
+    rt?: string | null;
+    rw?: string | null;
+    pos_code?: string | null;
+    village_id?: number | null;
+    province_id?: number | null;
+    district_id?: number | null;
+    subdistrict_id?: number | null;
 }

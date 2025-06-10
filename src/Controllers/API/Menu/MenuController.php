@@ -15,8 +15,11 @@ class MenuController extends ApiController{
     public function index(){
         $this->userAttempt();
         request()->merge([
-            'role_id' => $this->global_user_reference->prop_role['id']
+            'role_id' => $this->global_user_reference->prop_role['id'],
+            'is_menu' => true
         ]);
-        return $this->__schema_menu->viewMenuList();
+        return $this->__schema_menu->conditionals(function($query){
+            $query->whereNull('parent_id');
+        })->viewMenuList();
     }
 }

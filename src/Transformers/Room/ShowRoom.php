@@ -1,0 +1,23 @@
+<?php
+
+namespace Projects\Klinik\Transformers\Room;
+
+use Hanafalah\ModuleWarehouse\Resources\Room\ShowRoom as RoomShowRoom;
+
+class ShowRoom extends ViewRoom
+{
+  /**
+   * Transform the resource into an array.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+   */
+  public function toArray(\Illuminate\Http\Request $request): array
+  {
+    $arr = [
+    ];
+    $show = $this->resolveNow(RoomShowRoom::class);
+    $arr = $this->mergeArray(parent::toArray($request), $show, $arr);
+    return $arr;
+  }
+}

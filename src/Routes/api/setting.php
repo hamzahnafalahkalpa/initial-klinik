@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use Projects\Klinik\Controllers\API\Setting\{
+    AgentController,
     RoleController,
     BankController,
     BuildingController,
@@ -12,9 +14,13 @@ use Projects\Klinik\Controllers\API\Setting\{
     EncodingController,
     FundingController,
     OccupationController,
-    RoomController
+    PatientTypeController,
+    PatientTypeServiceController,
+    RoomController,
+    SettingController
 };
-use Projects\Klinik\Controllers\WEB\Setting\SettingController;
+use Projects\Klinik\Concerns\HasInertiaRenderer;
+use Projects\Klinik\Controllers\API\ModuleOrganization\PayerManagement\PayerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,20 +32,16 @@ use Projects\Klinik\Controllers\WEB\Setting\SettingController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::apiResource('/setting',SettingController::class)->only('index');
 Route::group([
     'prefix' => 'setting',
     'as' => 'setting.'
 ],function(){
-    Route::apiResource('/role',RoleController::class)->parameters(['role' => 'id']);
-    Route::apiResource('/bank',BankController::class)->parameters(['bank' => 'id']);
-    Route::apiResource('/coa',CoaController::class)->parameters(['coa' => 'id']);
-    Route::apiResource('/supplier',SupplierController::class)->parameters(['supplier' => 'id']);
-    Route::apiResource('/encoding',EncodingController::class)->parameters(['encoding' => 'id']);
-    Route::apiResource('/funding',FundingController::class)->parameters(['funding' => 'id']);
-    Route::apiResource('/occupation',OccupationController::class)->parameters(['occupation' => 'id']);
-    Route::apiResource('/employee-type',EmployeeTypeController::class)->parameters(['employee-type' => 'id']);
-    Route::apiResource('/building',BuildingController::class)->parameters(['building' => 'id']);
-    Route::apiResource('/room',RoomController::class)->parameters(['room' => 'id']);
-    Route::apiResource('/class-room',ClassRoomController::class)->parameters(['class-room' => 'id']);
-    // Route::apiResource('/tariff-component',TariffComponentController::class);
+    include __DIR__.'/setting/acl.php';
+    include __DIR__.'/setting/finance.php';
+    include __DIR__.'/setting/general-setting.php';
+    include __DIR__.'/setting/infrastructure.php';
+    include __DIR__.'/setting/procurement.php'; 
+    include __DIR__.'/setting/employee-management.php'; 
+    include __DIR__.'/setting/faskes-service.php'; 
 });

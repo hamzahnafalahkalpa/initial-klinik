@@ -28,11 +28,11 @@ return [
                 "Encoding",
                 "MasterFeature",
                 "ModelHasFeature",
-                "Transaction",
-                "MedicService",
                 "Anatomy"
             ],
-            "central_tenant" => []
+            "central_tenant" => [
+                "Transaction",
+            ]
         ]
     ],
 ];

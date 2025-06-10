@@ -34,12 +34,12 @@ let rowNumberCounter = 0;
 
 function refreshTable() {
   if (tabulator.value) {
-    tabulator.value.replaceData(props.data);
+    tabulator.value.setData(props.data);
   }
 }
 
 function initTabulator() {
-  if (!table.value || props.loading) return;
+  if (!table.value) return;
 
   const options = {
     renderVerticalBuffer: 300,
@@ -48,7 +48,7 @@ function initTabulator() {
     resizableRows: false,
     resizableRowGuide: true,
     resizableColumnGuide: true,
-    rowHeader: {
+    rowHeader: props.options?.rowHeader ?? {
       formatter: (cell: any) => {
         rowNumberCounter++;
         return rowNumberCounter.toString();
@@ -67,7 +67,7 @@ function initTabulator() {
     width: '100%',
     data: props.data,
     columns: props.columns,
-    rowFormatter(row: typeof RowComponent) {
+    rowFormatter: (row: typeof RowComponent) => {
       const cell = row.getCell('actions');
       if (!cell) return;
 
@@ -92,14 +92,15 @@ function initTabulator() {
 }
 
 // Inisialisasi saat mounted jika langsung tersedia
-onMounted(() => {
-  if (!props.loading) {
-    nextTick(() => {
-      initTabulator();
-      refreshTable();
-    });
-  }
-});
+// onMounted(() => {
+//   if (!props.loading) {
+//     nextTick(() => {
+//       if (!table.value || props.loading) return;
+//       initTabulator();
+//       // refreshTable();
+//     });
+//   }
+// });
 
 // Destroy Tabulator saat unmount
 onBeforeUnmount(() => {
@@ -112,7 +113,11 @@ onBeforeUnmount(() => {
 // Re-init ketika loading berubah ke false
 watch(() => props.loading, (loading) => {
   if (!loading && !tabulator) {
-    nextTick(() => initTabulator());
+    nextTick(() => {
+      if (!props.loading) {
+        initTabulator()
+      }
+    });
   }
 });
 
@@ -122,7 +127,7 @@ watch(() => props.data, async (newData) => {
     rowNumberCounter = 0;
     // tabulator.setData([]);    
     // await nextTick();
-    tabulator.replaceData(newData);
+    tabulator.setData(newData);
     // tabulator.redraw(true); 
   }
 }, { deep: true });

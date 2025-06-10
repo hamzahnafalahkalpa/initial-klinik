@@ -1,26 +1,20 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
-import { apiClient } from '@klinik/composables/useApi/client';
-import { toast } from 'vue-sonner';
 import { toTypedSchema } from '@vee-validate/zod';
-import { useAlertDialog } from '@klinik/composables/useAlertDialog'
 
 import {
-  Input,
+  Button,
   Card, CardContent, CardDescription, CardHeader, CardTitle,
-  Dialog, DialogContent, DialogTitle, DialogDescription, DialogFooter
+  Dialog, DialogContent, DialogTitle, DialogDescription, DialogFooter,
+  Form
 } from '@klinik/components/ui';
-
-import {
-  Form, FormField, FormItem, FormLabel, FormControl, FormMessage
-} from '@klinik/components/ui/form';
 
 import type { FormContext } from 'vee-validate';
 
-import Button from '@klinik/components/ui/button/Button.vue';
 import TabulatorTable from '@klinik/components/TabulatorTable.vue';
 import { cn, generateId } from '@klinik/lib/utils';
 import type { Action } from '@klinik/interfaces/UI/Action';
+import { useFormActionsPopup } from '@klinik/composables/useFormActionsPopup';
 
 interface Props {
   dialogTitle: string;
@@ -29,7 +23,7 @@ interface Props {
   columns: any[];
   viewResponse?: any;
   schema: any;
-  mainContent?: string | null;
+  mainContent: string;
   actions: Action[];
 }
 
@@ -37,35 +31,25 @@ const props = withDefaults(defineProps<Props>(), {
   mainContent: 'Master data',
 });
 
-const data = ref({ data: [] as any[], loading: true });
-const isDialogOpen = ref(false);
+// const data = ref<{ data: any[]; loading: boolean }>({ data: [], loading: false });
 const editData = ref<any | null>(null);
+const isDialogOpen = ref(false);
 const formSchema = toTypedSchema(props.schema);
-const dialog = useAlertDialog()
+const tabulator = ref<any | null>(null);
 
 const setValuesFn = ref<FormContext<any>['setValues'] | null>(null);
 const resetFormFn = ref<FormContext<any>['resetForm'] | null>(null);
 
-const tabulator = ref<any | null>(null);
-
-onMounted(loadData);
-
-async function loadData() {
-  data.value.loading = true;
-  try {
-    const response = await apiClient[props.routeName].index();
-    const items = response.data ?? [];
-    data.value.data = items.map((item: any) => {
-      const itemid = generateId();
-      return mapActionsForItem({ ...item, itemid, actions: JSON.parse(JSON.stringify(props.actions)) });
-    });
-  } catch (error) {
-    console.error(error);
-    toast.error('Gagal memuat data');
-  } finally {
-    data.value.loading = false;
-  }
-}
+const { loadData, onSubmit, data, editFn, deleteFn } = useFormActionsPopup({
+  routeName: props.routeName,
+  mainContent: props.mainContent,
+  actions: props.actions,
+  // data: data,
+  editData: editData,
+  isDialogOpen: isDialogOpen,
+  resetFormFn: resetFormFn,
+  setValuesFn: setValuesFn,
+});
 
 function onTableReady(instance: any) {
   tabulator.value = instance;
@@ -79,103 +63,18 @@ function scrollToRowById(id: number | string) {
   }
 }
 
-function mapActionsForItem(item: any) {
-  item.actions = (item.actions || []).map((action: Action) => {
-    if (action.button) {
-      action.button.attributes = { itemid: item.itemid };
-      if (action.type === 'edit') {
-        action.button.onClick = () => {editFn(item)};
-      } else if (action.type === 'delete') {
-        action.button.onClick = () => {deleteFn(item)};
+onMounted(() => {
+  loadData();
+});
+
+function onSubmitForm(values: any) {
+  onSubmit(values,{
+      onSuccess: (savedItem: any) => {
+          setTimeout(() => scrollToRowById(savedItem.id), 100);
       }
-    }
-    return action;
-  });
-  return item;
-}
-
-function editFn(item: any) {
-  editData.value = item;
-  isDialogOpen.value = true;
-  resetFormFn.value?.();
-  const parsed = props.schema.safeParse(item);
-  if (parsed.success) {
-    setValuesFn.value?.(parsed.data);
-  } else {
-    console.error('Data tidak valid menurut schema:', parsed.error);
-  }
-}
-
-function deleteFn(item: any) {
-  dialog.confirm({
-    title: 'Hapus Data?',
-    description: 'Data yang dihapus tidak bisa dikembalikan.',
-    confirmText: 'Ya, Hapus',
-    cancelText: 'Batal',
-    onConfirm: () => {
-        onDelete(item)
-    }
   });
 }
-
-async function onDelete(values: any) {
-  toast.loading(`${props.mainContent} dalam penghapusan...`);
-  try {
-    const response = await apiClient[props.routeName].delete(values.id);
-    if (response.data) {
-        toast.success(`${props.mainContent} berhasil dihapus`);
-        data.value.data = data.value.data.filter(i => i.itemid !== values.itemid);
-    }else{
-        toast.error(`${props.mainContent} gagal dihapus`);
-    }
-  } catch (error) {
-    console.error(error);
-    toast.error('Gagal menghapus data');
-  } finally {
-    setTimeout(() => toast.dismiss(), 3000);
-  }
-}
-
-async function onSubmit(values: any) {
-  toast.loading(`${props.mainContent} dalam penyimpanan...`);
-  try {
-    const response = await apiClient[props.routeName].store(values);
-    let savedItem = response.data;
-    if (savedItem) {
-      toast.success(`${props.mainContent} berhasil disimpan`);
-
-      let itemid = editData.value?.itemid || generateId();
-      savedItem = mapActionsForItem({
-        ...savedItem,
-        itemid,
-        actions: JSON.parse(JSON.stringify(props.actions))
-      });
-
-      const idx = data.value.data.findIndex(i => i.itemid === itemid);
-
-      if (idx !== -1) {
-        data.value.data = data.value.data.filter(i => i.itemid !== values.itemid);
-        data.value.data.splice(idx, 1, savedItem);
-      } else {
-        data.value.data = [...data.value.data, savedItem];
-      }
-
-      isDialogOpen.value = false;
-      editData.value = null;
-      setTimeout(() => scrollToRowById(savedItem.id), 100);
-    }
-  } catch (error) {
-    console.error(error);
-    toast.error('Gagal menyimpan data');
-  } finally {
-    setTimeout(() => toast.dismiss(), 3000);
-  }
-}
-
-function addFn() {
-  editData.value = null;
-  isDialogOpen.value = true;
-}
+const formRef = ref<FormContext<any> | null>(null);
 
 watch(isDialogOpen, (isOpen) => {
   if (!isOpen) {
@@ -183,12 +82,28 @@ watch(isDialogOpen, (isOpen) => {
     resetFormFn.value?.();
   }
 });
+
+watch(
+  () => data.value.loading,
+  (isLoading) => {
+    console.log('Loading changed:', isLoading);
+  },
+);
+
+
+function addFn() {
+  editData.value = null;
+  isDialogOpen.value = true;
+  formRef.value?.resetForm();
+}
+
 </script>
 
 <template>
-  <Form
+<Form
+    ref="formRef"
     as=""
-    v-slot="{ handleSubmit, setValues, resetForm }"
+    v-slot="{ handleSubmit, setValues, resetForm, errorBag }"
     :validation-schema="formSchema"
     :keep-values="false"
     class="flex flex-col gap-2"
@@ -207,13 +122,18 @@ watch(isDialogOpen, (isOpen) => {
           </DialogDescription>
         </template>
 
-        <form :id="props.routeName + 'dataForm'" @submit.prevent="handleSubmit(onSubmit)">
+        <form :id="props.routeName + 'dataForm'" class="grid gap-2" @submit.prevent="handleSubmit(onSubmitForm)">
             <slot :editData="editData" :setValues="setValuesFn" :resetForm="resetFormFn"/>
         </form>
 
         <DialogFooter>
-          <Button type="submit" :form="props.routeName + 'dataForm'" buttonType="save">
-            Simpan
+          <Button
+            type="submit"
+            :form="props.routeName + 'dataForm'"
+            buttonType="save"
+            :disabled="data.loading"
+          >
+            {{data.loading ? 'Mohon tunggu...' : 'Simpan'}}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -232,15 +152,16 @@ watch(isDialogOpen, (isOpen) => {
     </CardHeader>
 
     <CardContent class="grid gap-4">
-      <TabulatorTable
+      <TabulatorTable hydrate-on-visible
         :usingFilter="false"
         :loading="data.loading"
         :data="data.data"
         :columns="props.columns"
         :id="'setting-' + props.routeName"
         tabulator-class="!h-[400px]"
-        :options="{}"
-        @table-ready="onTableReady"
+        :options="{
+            rowHeader:false
+        }"
       />
     </CardContent>
   </Card>

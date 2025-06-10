@@ -7,7 +7,6 @@ export interface ViewBank{
     created_at?: string;
     updated_at?: string;
 }
-
 export interface ShowBank extends ViewBank{
 }
 
