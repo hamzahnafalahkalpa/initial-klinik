@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Component\Jasa;
+namespace Projects\Klinik\Requests\API\Setting\Jasa;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 

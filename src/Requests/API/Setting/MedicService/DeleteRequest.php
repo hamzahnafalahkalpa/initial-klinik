@@ -1,12 +1,12 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Component\Jasa;
+namespace Projects\Klinik\Requests\API\Setting\MedicService;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
-class ViewRequest extends FormRequest
+class DeleteRequest extends FormRequest
 {
-    protected $__entity = 'Jasa';
+    protected $__entity = 'MedicService';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +23,8 @@ class ViewRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'id'   => ['required',$this->idValidation($this->__entity)],
+        ];
     }
 }

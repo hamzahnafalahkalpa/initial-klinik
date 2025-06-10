@@ -9,7 +9,7 @@ use Projects\Klinik\Requests\API\Setting\PatientTypeService\{
     ViewRequest, StoreRequest, DeleteRequest
 };
 
-class PatientTypeServiceServiceController extends ApiController{
+class PatientTypeServiceController extends ApiController{
     public function __construct(
         protected PatientTypeService $__schema
     ){
