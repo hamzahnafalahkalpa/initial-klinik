@@ -22,14 +22,14 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        $this->isNotTableExists(function() use ($table_name){
-            Schema::create($table_name, function (Blueprint $table) {
-                $table->id();
-                $table->string('name',100);
-                $table->string('flag', 45)->nullable();
-                $table->timestamps();
-            });
+        Schema::create($table_name, function (Blueprint $table) {
+            $table->id();
+            $table->string('name',100);
+            $table->string('flag', 45)->nullable();
+            $table->timestamps();
         });
+        // $this->isNotTableExists(function() use ($table_name){
+        // },true);
     }
 
     /**
