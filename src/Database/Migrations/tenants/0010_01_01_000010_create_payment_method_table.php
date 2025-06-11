@@ -1,5 +1,6 @@
 <?php
 
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\ModulePayment\Models\Payment\PaymentMethod;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -7,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use NowYouSeeMe;
 
     private $__table;
 
@@ -24,16 +25,16 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('name', 100)->unique();
-                $table->string('flag', 100)->unique();
+                $table->string('flag', 100);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });
-        }
+        });
     }
 
     /**

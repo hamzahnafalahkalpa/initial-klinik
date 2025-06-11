@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,8 +9,7 @@ use Hanafalah\ModuleSummary\Models\Summary\Summary;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
-
+    use NowYouSeeMe;
     private $__table;
 
     public function __construct()
@@ -25,7 +25,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('reference_type', 50)->nullable(false);
@@ -43,7 +43,7 @@ return new class extends Migration
                     ->index()->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
             });
-        }
+        });
     }
 
     /**

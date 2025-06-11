@@ -1,6 +1,6 @@
 <?php
 
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\ModuleTreatment\Enums\Treatment\TreatmentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -28,7 +28,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('name')->nullable(false);
@@ -42,7 +42,7 @@ return new class extends Migration
                 $table->foreignIdFor($this->__table_medic_service)->nullable()
                       ->after('id')->index()->constrained()->cascadeOnUpdate()->restrictOnDelete();
             });
-        }
+        });
     }
 
     /**
