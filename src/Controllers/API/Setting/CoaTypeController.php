@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\Setting\CoaType;
+namespace Projects\Klinik\Controllers\API\Setting;
 
 use Hanafalah\ModulePayment\Contracts\Schemas\CoaType;
 use Projects\Klinik\Controllers\API\ApiController;

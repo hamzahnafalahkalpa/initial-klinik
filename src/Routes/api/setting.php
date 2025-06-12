@@ -1,26 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use Projects\Klinik\Controllers\API\Setting\{
-    AgentController,
-    RoleController,
-    BankController,
-    BuildingController,
-    ClassRoomController,
-    CoaController,
-    EmployeeTypeController,
-    SupplierController,
-    EncodingController,
-    FundingController,
-    OccupationController,
-    PatientTypeController,
-    PatientTypeServiceController,
-    RoomController,
     SettingController
 };
-use Projects\Klinik\Concerns\HasInertiaRenderer;
-use Projects\Klinik\Controllers\API\ModuleOrganization\PayerManagement\PayerController;
 
 /*
 |--------------------------------------------------------------------------

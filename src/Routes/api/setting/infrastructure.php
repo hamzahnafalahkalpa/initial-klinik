@@ -5,8 +5,6 @@ use Projects\Klinik\Controllers\API\Setting\{
     AgentController,
     BuildingController,
     ClassRoomController,
-    PatientTypeController,
-    PatientTypeServiceController,
     PayerController,
     RoomController
 };
@@ -21,8 +19,7 @@ Route::group([
     Route::apiResource('/agent',AgentController::class)->parameters(['agent' => 'id']);
     Route::apiResource('/payer',PayerController::class)->parameters(['payer' => 'id']);
     Route::apiResource('/company',ClassRoomController::class)->parameters(['company' => 'id']);
-    Route::apiResource('/patient-type',PatientTypeController::class)->parameters(['patient-type' => 'id']);
-    Route::apiResource('/service-type',PatientTypeServiceController::class)->parameters(['service-type' => 'id']);
-    Route::apiResource('/medic-service',PatientTypeServiceController::class)->parameters(['medic-service' => 'id']);
-    Route::apiResource('/service-cluster',PatientTypeServiceController::class)->parameters(['service-cluster' => 'id']);
+    Route::apiResource('/pustu',RoomController::class)->parameters(['pustu' => 'id']);
+    Route::apiResource('/posyandu',RoomController::class)->parameters(['posyandu' => 'id']);
+    Route::apiResource('/external-facility',RoomController::class)->parameters(['external-facility' => 'id']);
 });

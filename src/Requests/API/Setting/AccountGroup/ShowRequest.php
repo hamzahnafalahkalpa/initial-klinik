@@ -1,10 +1,10 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Finance\AccountGroup;
+namespace Projects\Klinik\Requests\API\Setting\AccountGroup;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
-class DeleteRequest extends FormRequest
+class ShowRequest extends FormRequest
 {
     protected $__entity = 'AccountGroup';
 
@@ -24,7 +24,6 @@ class DeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['required',$this->idValidation($this->__entity)],
         ];
     }
 }

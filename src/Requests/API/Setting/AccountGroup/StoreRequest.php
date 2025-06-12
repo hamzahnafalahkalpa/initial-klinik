@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Finance\AccountGroup;
+namespace Projects\Klinik\Requests\API\Setting\AccountGroup;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 use Hanafalah\ModulePayment\Data\AccountGroupData;
@@ -24,7 +24,6 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->requestDTO(AccountGroupData::class);
         return [
         ];
     }

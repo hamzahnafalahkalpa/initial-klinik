@@ -1,26 +1,26 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\Finance\AccountGroup;
+namespace Projects\Klinik\Controllers\API\Setting;
 
 use Hanafalah\ModulePayment\Contracts\Schemas\AccountGroup;
 use Projects\Klinik\Controllers\API\ApiController;
-use Projects\Klinik\Requests\API\Finance\AccountGroup\{
+use Projects\Klinik\Requests\API\Setting\AccountGroup\{
     ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };
 
 class AccountGroupController extends ApiController{
     public function __construct(
-        protected AccountGroup $__account_group_schema
+        protected AccountGroup $__schema
     ){
         parent::__construct();
     }
 
     public function index(ViewRequest $request){
-        return $this->__account_group_schema->viewAccountGroupList();
+        return $this->__schema->viewAccountGroupList();
     }
 
     public function show(ShowRequest $request){
-        return $this->__account_group_schema->viewAccountGroupList();
+        return $this->__schema->viewAccountGroupList();
     }
 
     public function store(StoreRequest $request){
@@ -31,10 +31,10 @@ class AccountGroupController extends ApiController{
                 'coas' => $coas
             ]);
         }
-        return $this->__account_group_schema->storeAccountGroup();
+        return $this->__schema->storeAccountGroup();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->__account_group_schema->deleteAccountGroup();
+        return $this->__schema->deleteAccountGroup();
     }
 }

@@ -4,8 +4,8 @@ use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\ModulePatient\Models\Patient\{
-    PatientType
+use Hanafalah\ModuleMedicService\Models\{
+    MedicService
 };
 
 return new class extends Migration
@@ -16,7 +16,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->__table = app(config('database.models.PatientType', PatientType::class));
+        $this->__table = app(config('database.models.MedicService', MedicService::class));
     }
 
     /**

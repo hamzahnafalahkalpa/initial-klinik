@@ -18,6 +18,8 @@ export interface ViewAddress{
     province ?: ViewProvince | null;
     subdistrict_id ?: number | null;
     subdistrict ?: ViewSubdistrict | null;
+    latitude ?: string | null;
+    longitude ?: string | null;
 }
 
 export interface ShowAddress extends ViewAddress{

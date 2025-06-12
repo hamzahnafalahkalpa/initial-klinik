@@ -10,19 +10,19 @@ use Projects\Klinik\Requests\API\Setting\ClassRoom\{
 
 class ClassRoomController extends ApiController{
     public function __construct(
-        protected ClassRoom $_schema
+        protected ClassRoom $__schema
     ){
     }
 
     public function index(ViewRequest $request){
-        return $this->_schema->viewClassRoomList();
+        return $this->__schema->viewClassRoomList();
     }
 
     public function store(StoreRequest $request){
-        return $this->_schema->storeClassRoom();
+        return $this->__schema->storeClassRoom();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->_schema->deleteClassRoom();
+        return $this->__schema->deleteClassRoom();
     }
 }
