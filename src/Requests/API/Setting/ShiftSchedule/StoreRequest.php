@@ -1,13 +1,13 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Setting\Shift;
+namespace Projects\Klinik\Requests\API\Setting\ShiftSchedule;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 use Hanafalah\ModuleProfession\Enums\Profession\Flag;
 
 class StoreRequest extends FormRequest
 {
-    protected $__entity = 'Shift';
+    protected $__entity = 'ShiftSchedule';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,10 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'   => ['nullable',$this->idValidation($this->__entity)],
-            'name' => ['required', 'string', 'max:255'],
+            'id'       => ['nullable',$this->idValidation($this->__entity)],
+            'name'     => ['required', 'string', 'max:255'],
+            'start_at' => ['required', 'time', 'date_format:H:i:s'],
+            'end_at'   => ['required', 'time', 'date_format:H:i:s'],
         ];
     }
 }

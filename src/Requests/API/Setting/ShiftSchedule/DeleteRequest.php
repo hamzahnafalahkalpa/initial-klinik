@@ -1,12 +1,12 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Setting\Shift;
+namespace Projects\Klinik\Requests\API\Setting\ShiftSchedule;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
 class DeleteRequest extends FormRequest
 {
-    protected $__entity = 'Shift';
+    protected $__entity = 'ShiftSchedule';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class DeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'   => ['required',$this->idValidation($this->__entity)],
+            'id' => ['required',$this->idValidation($this->__entity)],
         ];
     }
 }
