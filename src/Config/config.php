@@ -60,9 +60,25 @@ return [
     "commands" => [
         Commands\SeedCommand::class,
         Commands\MigrateCommand::class,
-        Commands\InstallMakeCommand::class
+        Commands\InstallMakeCommand::class,
+        Commands\ImpersonateCacheCommand::class,
+        Commands\ImpersonateMigrateCommand::class,
+        Commands\ModelMakeCommand::class,
+        Commands\GenerateCommand::class,
+        Commands\AddTenantCommand::class,
     ],
     "encodings" => [
     ],
-    "provider" => "Projects\Klinik\\Providers\\KlinikServiceProvider"
+    "provider" => "Projects\Klinik\\Providers\\KlinikServiceProvider",
+    'laravel-package-generator' => [
+        'patterns'      => [
+            //Lihat config/laravel-package-generator.php
+            'repository' => [], 
+            'project'    => [],
+            
+            //Lihat config/micro-tenant.php
+            'group'      => [],
+            'tenant'     => [],
+        ]
+    ]
 ];
