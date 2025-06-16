@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\Setting\Shift;
+namespace Projects\Klinik\Controllers\API\Setting;
 
 use Hanafalah\ModuleEmployee\Contracts\Schemas\Shift;
 use Projects\Klinik\Controllers\API\ApiController;

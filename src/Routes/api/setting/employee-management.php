@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Projects\Klinik\Controllers\API\EmployeeManagement\Shift\ShiftController;
 use Projects\Klinik\Controllers\API\Setting\{
     ProfessionController,
     OccupationController,
-    EmployeeTypeController
+    EmployeeTypeController,
+    ShiftScheduleController,
+    ShiftController,
 };
 
 Route::group([
@@ -17,6 +18,6 @@ Route::group([
     Route::apiResource('/occupation',OccupationController::class)->parameters(['occupation' => 'id']);
     Route::apiResource('/employee-type',EmployeeTypeController::class)->parameters(['employee-type' => 'id']);   
     Route::apiResource('/shift',ShiftController::class)->parameters(['shift' => 'id']);
-    Route::apiResource('/shift-schedule',ProfessionController::class)->parameters(['shift' => 'id']);
+    Route::apiResource('/shift-schedule',ShiftScheduleController::class)->parameters(['shift-schedule' => 'id']);
 });
 

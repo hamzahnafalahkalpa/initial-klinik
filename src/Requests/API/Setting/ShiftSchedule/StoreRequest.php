@@ -27,8 +27,8 @@ class StoreRequest extends FormRequest
         return [
             'id'       => ['nullable',$this->idValidation($this->__entity)],
             'name'     => ['required', 'string', 'max:255'],
-            'start_at' => ['required', 'time', 'date_format:H:i:s'],
-            'end_at'   => ['required', 'time', 'date_format:H:i:s'],
+            'start_at' => ['required', 'date_format:H:i:s'],
+            'end_at'   => ['required', 'date_format:H:i:s'],
         ];
     }
 }

@@ -24,6 +24,7 @@ class KlinikServiceProvider extends KlinikEnvironment
     public function register()
     {
         $this->registerMainClass(Klinik::class)
+             ->setLocale('id')
              ->registerCommandService(CommandServiceProvider::class)
              ->registerServices(function(){
                  $this->binds([

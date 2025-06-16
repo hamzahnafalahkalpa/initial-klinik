@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\Setting\ShiftSchedule;
+namespace Projects\Klinik\Controllers\API\Setting;
 
 use Hanafalah\ModuleEmployee\Contracts\Schemas\ShiftSchedule;
 use Projects\Klinik\Controllers\API\ApiController;
@@ -14,14 +14,14 @@ class ShiftScheduleController extends ApiController{
     ){}
 
     public function index(ViewRequest $request){
-        return $this->__schema->viewShiftList();
+        return $this->__schema->viewShiftScheduleList();
     }
 
     public function store(StoreRequest $request){
-        return $this->__schema->storeShift();
+        return $this->__schema->storeShiftSchedule();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->__schema->deleteShift();
+        return $this->__schema->deleteShiftSchedule();
     }
 }

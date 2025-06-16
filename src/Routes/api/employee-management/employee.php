@@ -14,4 +14,4 @@ use Projects\Klinik\Controllers\API\EmployeeManagement\Employee\EmployeeControll
 |
 */
 Route::apiResource('employee', EmployeeController::class)
-     ->parameters(['employee' => 'uuid']);
+     ->parameters(['employee' => 'id']);
