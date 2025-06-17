@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::group([
-    "prefix" => "/patient-management",
-    "as"     => "patient-management.",
+    "prefix" => "/patient-emr",
+    "as"     => "patient-emr.",
 ],function() {
-    include_once(__DIR__."/patient-management/patient.php");
+    include_once(__DIR__."/patient-emr/patient.php");
 });
