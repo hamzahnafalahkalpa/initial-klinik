@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\Patient;
+namespace Projects\Klinik\Requests\API\PatientManagement\Patient;
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -31,7 +31,7 @@ class StoreRequest extends FormRequest
             "people.dob"                                           => ["required","date","date_format:Y-m-d"],
             "people.last_education"                                => ["nullable"],
             "people.country_id"                                    => ["nullable","integer"],
-            "people.sex"                                           => ["nullable","string","in:MALE,FEMALE"],
+            "people.sex"                                           => ["nullable","string","in:Male,Female"],
             "people.card_identity"                                 => ['nullable','array'],
             "people.card_identity.nik"                             => ['nullable','string','min:16','max:16'],
             "people.card_identity.kk"                              => ['nullable','string'],

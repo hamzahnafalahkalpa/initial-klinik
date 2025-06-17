@@ -2,8 +2,7 @@
 
 namespace Projects\Klinik\Controllers\API\PatientManagement\Patient;
 
-use Zahzah\ModulePatient\Enums\FamilyRelationship\Role;
-use Projects\Klinik\Requests\PatientManagement\Patient\{
+use Projects\Klinik\Requests\API\PatientManagement\Patient\{
     ShowRequest, ViewRequest, DeleteRequest, StoreRequest
 };
 

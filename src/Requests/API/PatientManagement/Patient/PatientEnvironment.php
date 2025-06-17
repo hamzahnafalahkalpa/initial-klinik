@@ -1,7 +1,7 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\Patient;
-use Zahzah\LaravelSupport\Requests\FormRequest;
+namespace Projects\Klinik\Requests\API\PatientManagement\Patient;
+use Hanafalah\LaravelSupport\Requests\FormRequest;
 
 class PatientEnvironment extends FormRequest
 {

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Projects\Klinik\Controllers\API\PatientManagement\Patient\PatientController;
 
 /*
 |--------------------------------------------------------------------------

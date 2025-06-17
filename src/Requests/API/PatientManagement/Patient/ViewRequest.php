@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\Patient;
+namespace Projects\Klinik\Requests\API\PatientManagement\Patient;
 
 class ViewRequest extends PatientEnvironment
 {

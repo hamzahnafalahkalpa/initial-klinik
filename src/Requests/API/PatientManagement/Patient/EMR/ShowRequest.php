@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\Patient\EMR;
+namespace Projects\Klinik\Requests\API\PatientManagement\Patient\EMR;
 
 use Illuminate\Validation\Rule;
 
