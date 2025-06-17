@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Projects\Klinik\Controllers\API\Setting\{
+    EducationController,
     EncodingController,
     WorkspaceController
 };
@@ -12,4 +13,5 @@ Route::group([
 ],function(){
     Route::apiResource('/workspace',WorkspaceController::class)->parameters(['workspace' => 'uuid']);
     Route::apiResource('/encoding',EncodingController::class)->parameters(['encoding' => 'id']);
+    Route::apiResource('/education',EducationController::class)->parameters(['education' => 'id']);
 });
