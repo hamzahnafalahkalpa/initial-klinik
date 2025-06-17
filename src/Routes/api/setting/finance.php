@@ -6,7 +6,8 @@ use Projects\Klinik\Controllers\API\Setting\{
     CoaController,
     FundingController,
     AccountGroupController,
-    CoaTypeController
+    CoaTypeController,
+    PaymentMethodController
 };
 
 Route::group([
@@ -18,5 +19,6 @@ Route::group([
     Route::apiResource('/coa',CoaController::class)->parameters(['coa' => 'id']);
     Route::apiResource('/coa-type',CoaTypeController::class)->parameters(['coa-type' => 'id']);
     Route::apiResource('/account-group',AccountGroupController::class)->parameters(['account-group' => 'id']);
+    Route::apiResource('/payment-method',PaymentMethodController::class)->parameters(['payment-method' => 'id']);
     // Route::apiResource('/tariff-component',TariffComponentController::class);
 });

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Hanafalah\MicroTenant\Models\Tenant\Tenant;
 use Hanafalah\ModulePatient\Enums\VisitPatient\VisitStatus;
 use Hanafalah\ModulePatient\Models\{
-    Emr\VisitPatient,
+    EMR\VisitPatient,
     Patient\Patient
 };
 
@@ -48,7 +48,7 @@ return new class extends Migration
                 $table->foreignIdFor($tenant::class)
                     ->nullable()->index()->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
-                $table->string('status',100)->comment(implode(', ',array_column(VisitStatus::cases(), 'value')));
+                $table->enum('status', array_column(VisitStatus::cases(), 'value'));
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();

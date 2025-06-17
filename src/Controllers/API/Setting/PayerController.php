@@ -3,7 +3,7 @@
 namespace Projects\Klinik\Controllers\API\Setting;
 
 use Hanafalah\ModulePayer\Contracts\Schemas\Payer;
-use Projects\Klinik\Requests\API\Setting\Organization\{
+use Projects\Klinik\Requests\API\Setting\Payer\{
     ViewRequest, StoreRequest, DeleteRequest
 };
 use Projects\Klinik\Controllers\API\ApiController;

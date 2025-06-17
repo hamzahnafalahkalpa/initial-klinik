@@ -6,7 +6,7 @@ use Hanafalah\LaravelSupport\Requests\FormRequest;
 
 class DeleteRequest extends FormRequest
 {
-    protected $__entity = 'PatientType';
+    protected $__entity = 'PatientTypeService';
 
     /**
      * Determine if the user is authorized to make this request.

@@ -1,12 +1,12 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Setting\PatientTypeService;
+namespace Projects\Klinik\Requests\API\Setting\PaymentMethod;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
-class StoreRequest extends FormRequest
+class DeleteRequest extends FormRequest
 {
-    protected $__entity = 'PatientTypeService';
+    protected $__entity = 'PaymentMethod';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'id'   => ['required',$this->idValidation($this->__entity)],
         ];
     }
 }

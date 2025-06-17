@@ -1,19 +1,19 @@
 <?php
 
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\ModuleMedicService\Models\MedicService;
+use Hanafalah\ModuleMedicService\Models\ServiceCluster;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Hanafalah\ModulePatient\Models\{
-    Emr\VisitRegistration,
-    Emr\VisitPatient,
+    EMR\VisitRegistration,
     Patient\PatientType,
 };
-use Hanafalah\ModulePatient\Models\EMR\Referral;
 
 return new class extends Migration
 {
-    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
+    use NowYouSeeMe;
 
     private $__table;
 
@@ -32,8 +32,9 @@ return new class extends Migration
         $table_name = $this->__table->getTable();
         $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
-                $patient_type  = app(config('database.models.PatientType', PatientType::class));
-                $medic_service = app(config('database.models.MedicService', MedicService::class));
+                $patient_type    = app(config('database.models.PatientType', PatientType::class));
+                $medic_service   = app(config('database.models.MedicService', MedicService::class));
+                $service_cluster = app(config('database.models.ServiceCluster', ServiceCluster::class));
 
                 $table->ulid('id')->primary();
                 $table->string('visit_registration_code', 100)->nullable();
@@ -45,7 +46,11 @@ return new class extends Migration
                     ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
 
                 $table->foreignIdFor($medic_service::class)
-                    ->nullable(false)->index()
+                    ->nullable(true)->index()
+                    ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+
+                $table->foreignIdFor($service_cluster::class)
+                    ->nullable(true)->index()
                     ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
 
                 $table->string('head_doctor_type', 50)->nullable(true);

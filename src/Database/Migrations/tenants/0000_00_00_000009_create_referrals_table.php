@@ -13,13 +13,12 @@ use Hanafalah\ModulePatient\Models\EMR\VisitRegistration;
 
 return new class extends Migration
 {
-    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
+    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
 
     private $__table;
 
     public function __construct()
     {
-        $this->__table = app(config('database.models.Referral', Referral::class));
         $this->__table = app(config('database.models.Referral', Referral::class));
     }
 
@@ -31,7 +30,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        $this->isNotTableExists(function() use ($table_name){
+        if (!$this->isTableExists()) {
             $visit_registration = app(config('database.models.VisitRegistration', VisitRegistration::class));
             Schema::create($table_name, function (Blueprint $table) use ($visit_registration) {
                 $table->ulid('id')->primary();
@@ -53,7 +52,7 @@ return new class extends Migration
                     ->nullable()->index()->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
             });
-        });
+        }
     }
 
     /**

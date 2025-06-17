@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\ModuleOrganization\CompanyManagement;
+namespace Projects\Klinik\Controllers\API\Setting;
 
 use Hanafalah\ModulePayer\Contracts\Schemas\Company;
 use Projects\Klinik\Requests\API\Setting\Organization\{

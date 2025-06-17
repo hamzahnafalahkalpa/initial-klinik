@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Hanafalah\ModulePatient\Enums\EvaluationEmployee\Commit;
 use Hanafalah\ModulePatient\Models\{
-    Emr\PractitionerEvaluation,
+    EMR\PractitionerEvaluation,
 };
 use Hanafalah\ModulePatient\Models\EMR\VisitExamination;
 

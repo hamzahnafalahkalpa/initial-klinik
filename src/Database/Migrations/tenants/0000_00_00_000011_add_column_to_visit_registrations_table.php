@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Projects\Klinik\Models\Patient\EMR\VisitExamination;
 use Hanafalah\ModulePatient\Enums\EvaluationEmployee\Commit;
 use Hanafalah\ModulePatient\Models\{
-    Emr\PractitionerEvaluation,
+    EMR\PractitionerEvaluation,
 };
 use Hanafalah\ModulePatient\Models\EMR\Referral;
 use Hanafalah\ModulePatient\Models\EMR\VisitRegistration;
@@ -32,8 +32,13 @@ return new class extends Migration
         $table_name = $this->__table->getTable();
         $this->isNotColumnExists('referral_id',function() use ($table_name){
             Schema::table($table_name, function (Blueprint $table) {
-                $table->char('referral_id', 36)->after('status')
-                    ->nullable(true)->index()->constrained()->cascadeOnUpdate()->restrictOnDelete();
+                $referral = app(config('database.models.Referral', Referral::class));
+
+                $table->foreignIdFor($referral::class)->after('status')
+                      ->nullable(true)->index()->constrained()->cascadeOnUpdate()->restrictOnDelete();
+
+                // $table->char('referral_id', 36)->after('status')
+                //     ->nullable(true)->index()->constrained()->cascadeOnUpdate()->restrictOnDelete();
             });
         });
     }
