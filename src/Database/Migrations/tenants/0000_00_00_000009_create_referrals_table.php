@@ -3,18 +3,13 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Projects\Klinik\Models\Patient\EMR\VisitExamination;
-use Hanafalah\ModulePatient\Enums\EvaluationEmployee\Commit;
-use Hanafalah\ModulePatient\Models\{
-    EMR\PractitionerEvaluation,
-};
 use Hanafalah\ModulePatient\Models\EMR\Referral;
 use Hanafalah\ModulePatient\Models\EMR\VisitRegistration;
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
-
+    use NowYouSeeMe;
     private $__table;
 
     public function __construct()
@@ -30,7 +25,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             $visit_registration = app(config('database.models.VisitRegistration', VisitRegistration::class));
             Schema::create($table_name, function (Blueprint $table) use ($visit_registration) {
                 $table->ulid('id')->primary();
@@ -52,7 +47,7 @@ return new class extends Migration
                     ->nullable()->index()->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
             });
-        }
+        });
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php
 
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\ModulePatient\Enums\EvaluationEmployee\Commit;
 use Hanafalah\ModulePatient\Enums\VisitExamination\ExaminationStatus;
 use Hanafalah\ModulePatient\Models\{
     EMR\VisitExamination,
@@ -13,7 +13,7 @@ use Hanafalah\ModulePatient\Models\EMR\VisitPatient;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use NowYouSeeMe;
 
     private $__table;
 
@@ -30,7 +30,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $visit_patient = app(config('database.models.VisitPatient', VisitPatient::class));
                 $visit_registration = app(config('database.models.VisitRegistration', VisitRegistration::class));
@@ -49,7 +49,7 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes();
             });
-        }
+        });
     }
 
     /**
