@@ -1,11 +1,11 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\Patient\EMR;
+namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\EMR;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 use Gii\ModuleExamination\Contracts\Examination\Assessment\Assessment;
 use Illuminate\Http\Request;
-use Projects\Klinik\Requests\PatientManagement\Patient\EMR\{
+use Projects\Klinik\Requests\PatientEmr\Patient\EMR\{
     ShowRequest,ViewRequest
 };
 use Illuminate\Support\Str;

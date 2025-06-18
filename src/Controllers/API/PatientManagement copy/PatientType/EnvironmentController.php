@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\PatientType;
+namespace Projects\Klinik\Controllers\API\PatientEmr\PatientType;
 
 use Projects\Klinik\Contracts\Patient\EMR\PatientType;
 use Projects\Klinik\Controllers\API\ApiController as ApiBaseController;

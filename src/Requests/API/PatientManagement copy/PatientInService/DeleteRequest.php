@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\PatientInService;
+namespace Projects\Klinik\Requests\PatientEmr\PatientInService;
 
 class DeleteRequest extends PatientInServiceEnvironment
 {

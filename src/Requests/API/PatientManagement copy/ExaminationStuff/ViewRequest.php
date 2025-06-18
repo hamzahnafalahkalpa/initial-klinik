@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\ExaminationStuff;
+namespace Projects\Klinik\Requests\PatientEmr\ExaminationStuff;
 
 use Illuminate\Validation\Rule;
 

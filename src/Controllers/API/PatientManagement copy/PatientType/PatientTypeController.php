@@ -1,8 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\PatientType;
+namespace Projects\Klinik\Controllers\API\PatientEmr\PatientType;
 
-use Projects\Klinik\Requests\PatientManagement\PatientType\{
+use Projects\Klinik\Requests\PatientEmr\PatientType\{
     DeleteRequest,
     StoreRequest,
     ViewRequest

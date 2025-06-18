@@ -1,9 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\PatientManagement\Patient;
-use Hanafalah\LaravelSupport\Requests\FormRequest;
+namespace Projects\Klinik\Requests\API\PatientEmr\Patient;
 
-class StoreRequest extends FormRequest
+class StoreRequest extends PatientEnvironment
 {
     protected $__entity = 'Patient';
 

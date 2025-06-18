@@ -1,8 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\VisitExamination\Examination\Practitioner;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Examination\Practitioner;
 
-use Projects\Klinik\Requests\PatientManagement\VisitExamination\Examination\Practitioner\{
+use Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination\Practitioner\{
     StoreRequest, ShowRequest, ViewRequest, DeleteRequest
 };
 

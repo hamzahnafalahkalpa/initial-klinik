@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\Patient\EMR;
+namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\EMR;
 
 use Illuminate\Http\Request;
 use Projects\Klinik\Controllers\API\ApiController as ApiBaseController;

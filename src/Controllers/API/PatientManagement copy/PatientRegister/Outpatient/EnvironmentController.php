@@ -1,8 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\PatientRegister\Outpatient;
+namespace Projects\Klinik\Controllers\API\PatientEmr\PatientRegister\Outpatient;
 
-use Projects\Klinik\Controllers\API\PatientManagement\PatientRegister\{
+use Projects\Klinik\Controllers\API\PatientEmr\PatientRegister\{
     EnvironmentController as PatientEnvironment
 };
 

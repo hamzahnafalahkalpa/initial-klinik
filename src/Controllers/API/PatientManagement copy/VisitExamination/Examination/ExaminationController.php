@@ -1,9 +1,9 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\VisitExamination\Examination;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Examination;
 
 use Carbon\Carbon;
-use Projects\Klinik\Requests\PatientManagement\VisitExamination\Examination\{
+use Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination\{
     StoreRequest, UpdateRequest
 };
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\PatientRegister;
+namespace Projects\Klinik\Controllers\API\PatientEmr\PatientRegister;
 
 use Aibnuhibban\ModuleMcu\Contracts\McuVisitRegistration;
 use Gii\ModuleOrganization\Schemas\ModelHasOrganization;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\VisitExamination;
+namespace Projects\Klinik\Requests\PatientEmr\VisitExamination;
 use Zahzah\LaravelSupport\Requests\FormRequest;
 
 class VisitExaminationEnvironment extends FormRequest

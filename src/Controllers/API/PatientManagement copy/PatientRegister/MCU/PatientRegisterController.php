@@ -1,9 +1,9 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\PatientRegister\MCU;
+namespace Projects\Klinik\Controllers\API\PatientEmr\PatientRegister\MCU;
 
 use Projects\Klinik\Jobs\SatuSehat\EncounterJob;
-use Projects\Klinik\Requests\PatientManagement\PatientRegister\{
+use Projects\Klinik\Requests\PatientEmr\PatientRegister\{
     StoreRequest
 };
 class PatientRegisterController extends EnvironmentController

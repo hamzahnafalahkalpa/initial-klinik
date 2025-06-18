@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\VisitExamination;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination;
 
 use Projects\Klinik\Controllers\API\ApiController;
 use Zahzah\ModulePatient\Contracts\VisitExamination;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\VisitExamination;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination;
 
-use Projects\Klinik\Requests\PatientManagement\VisitExamination\{CompateRequest, ViewRequest, ShowRequest};
+use Projects\Klinik\Requests\PatientEmr\VisitExamination\{CompateRequest, ViewRequest, ShowRequest};
 use Illuminate\Support\Facades\Hash;
 use Projects\Klinik\Jobs\LIS\RequestLabToLISJob;
 use Projects\Klinik\Jobs\SatuSehat\ObservationJob;

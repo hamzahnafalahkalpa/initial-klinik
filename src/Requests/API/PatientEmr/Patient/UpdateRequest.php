@@ -1,8 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\PatientManagement\Patient;
+namespace Projects\Klinik\Requests\API\PatientEmr\Patient;
 
-class ShowRequest extends PatientEnvironment
+class UpdateRequest extends PatientEnvironment
 {
   public function authorize()
   {

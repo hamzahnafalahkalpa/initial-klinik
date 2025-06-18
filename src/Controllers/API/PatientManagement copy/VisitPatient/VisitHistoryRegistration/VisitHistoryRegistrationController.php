@@ -1,12 +1,12 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\VisitPatient\VisitHistoryRegistration;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitPatient\VisitHistoryRegistration;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Projects\Klinik\Jobs\LIS\RequestLabToLISJob;
 use Projects\Klinik\Observers\Transaction\Summaries\CancelationDetailsReport;
-use Projects\Klinik\Requests\PatientManagement\VisitPatient\VisitHistoryRegistration\{
+use Projects\Klinik\Requests\PatientEmr\VisitPatient\VisitHistoryRegistration\{
     ViewRequest,
     ShowRequest,
     UpdateRequest

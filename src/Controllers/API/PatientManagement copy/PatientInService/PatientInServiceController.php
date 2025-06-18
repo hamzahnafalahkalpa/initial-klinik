@@ -1,9 +1,9 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\PatientInService;
+namespace Projects\Klinik\Controllers\API\PatientEmr\PatientInService;
 
 use Gii\ModuleMedicService\Enums\MedicServiceFlag;
-use Projects\Klinik\Requests\PatientManagement\PatientInService\{
+use Projects\Klinik\Requests\PatientEmr\PatientInService\{
     ViewRequest,
 };
 

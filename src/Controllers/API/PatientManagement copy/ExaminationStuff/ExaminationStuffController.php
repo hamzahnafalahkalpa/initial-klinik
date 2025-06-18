@@ -1,8 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\ExaminationStuff;
+namespace Projects\Klinik\Controllers\API\PatientEmr\ExaminationStuff;
 
-use Projects\Klinik\Requests\PatientManagement\ExaminationStuff\{
+use Projects\Klinik\Requests\PatientEmr\ExaminationStuff\{
     ViewRequest
 };
 use Illuminate\Support\Str;

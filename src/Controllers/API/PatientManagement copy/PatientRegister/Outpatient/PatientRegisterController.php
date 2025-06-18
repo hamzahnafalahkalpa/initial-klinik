@@ -1,10 +1,10 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\PatientRegister\Outpatient;
+namespace Projects\Klinik\Controllers\API\PatientEmr\PatientRegister\Outpatient;
 
 use Gii\ModuleMedicService\Models\MedicService;
 use Gii\ModuleService\Resources\ViewService;
-use Projects\Klinik\Requests\PatientManagement\PatientRegister\{
+use Projects\Klinik\Requests\PatientEmr\PatientRegister\{
     StoreRequest
 };
 use Zahzah\ModulePatient\Resources\VisitRegistration\ViewVisitRegistration;

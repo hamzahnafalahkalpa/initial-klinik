@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\Patient;
+namespace Projects\Klinik\Controllers\API\PatientEmr\Patient;
 
 use Projects\Klinik\Controllers\API\ApiController as ApiBaseController;
 use Zahzah\ModulePatient\Schemas\FamilyRelationship;

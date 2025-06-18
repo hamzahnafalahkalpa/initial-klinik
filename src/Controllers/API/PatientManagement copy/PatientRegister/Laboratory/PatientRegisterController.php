@@ -1,8 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\PatientRegister\Laboratory;
+namespace Projects\Klinik\Controllers\API\PatientEmr\PatientRegister\Laboratory;
 
-use Projects\Klinik\Requests\PatientManagement\PatientRegister\{
+use Projects\Klinik\Requests\PatientEmr\PatientRegister\{
     StoreRequest
 };
 

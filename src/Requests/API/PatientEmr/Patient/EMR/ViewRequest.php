@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Projects\Klinik\src\Requests\API\PatientManagement\Patient\EMR;
+namespace App\Projects\Klinik\src\Requests\API\PatientEmr\Patient\EMR;
 
 use Illuminate\Validation\Rule;
-use Projects\Klinik\Requests\API\PatientManagement\Patient\EMR\PatientEnvironment;
+use Projects\Klinik\Requests\API\PatientEmr\Patient\EMR\PatientEnvironment;
 
 class ViewRequest extends PatientEnvironment
 {

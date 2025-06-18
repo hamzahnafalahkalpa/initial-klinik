@@ -1,9 +1,9 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\VisitPatient;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitPatient;
 
 use Projects\Klinik\Contracts\Patient\EMR\VisitPatient;
-use Projects\Klinik\Schemas\PatientManagement\EMR\VisitPatient as VisitPatientSchema;
+use Projects\Klinik\Schemas\PatientEmr\EMR\VisitPatient as VisitPatientSchema;
 use Projects\Klinik\Controllers\API\ApiController as ApiBaseController;
 
 class EnvironmentController extends ApiBaseController{

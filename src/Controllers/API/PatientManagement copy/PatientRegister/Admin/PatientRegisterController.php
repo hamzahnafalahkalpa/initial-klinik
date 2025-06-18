@@ -1,9 +1,9 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\PatientRegister\Admin;
+namespace Projects\Klinik\Controllers\API\PatientEmr\PatientRegister\Admin;
 
 use Gii\ModuleService\Resources\ViewService;
-use Projects\Klinik\Requests\PatientManagement\PatientRegister\{
+use Projects\Klinik\Requests\PatientEmr\PatientRegister\{
     StoreRequest
 };
 

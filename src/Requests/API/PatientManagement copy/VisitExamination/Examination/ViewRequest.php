@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\VisitExamination\Examination;
+namespace Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination;
 
 class ViewRequest extends ExaminationEnvironment
 {

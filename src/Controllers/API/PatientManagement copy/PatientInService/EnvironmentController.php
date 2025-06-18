@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\PatientInService;
+namespace Projects\Klinik\Controllers\API\PatientEmr\PatientInService;
 
 use Projects\Klinik\Controllers\API\ApiController as ApiBaseController;
 use Zahzah\ModulePatient\Contracts\VisitPatient;

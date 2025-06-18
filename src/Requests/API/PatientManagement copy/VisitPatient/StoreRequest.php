@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\VisitPatient;
+namespace Projects\Klinik\Requests\PatientEmr\VisitPatient;
 
 class StoreRequest extends Environment
 {

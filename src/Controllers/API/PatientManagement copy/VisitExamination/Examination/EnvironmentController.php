@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\VisitExamination\Examination;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Examination;
 
 use Gii\ModuleExamination\Contracts\Examination;
 use Projects\Klinik\Controllers\API\ApiController;

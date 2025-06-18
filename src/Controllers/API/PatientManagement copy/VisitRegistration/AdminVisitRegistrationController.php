@@ -1,8 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\VisitRegistration;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration;
 
-use Projects\Klinik\Requests\PatientManagement\VisitExamination\{
+use Projects\Klinik\Requests\PatientEmr\VisitExamination\{
     ViewRequest
 };
 use Zahzah\ModulePatient\Resources\VisitRegistration\ViewVisitRegistration;

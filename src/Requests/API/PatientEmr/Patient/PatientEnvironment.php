@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\PatientManagement\Patient;
+namespace Projects\Klinik\Requests\API\PatientEmr\Patient;
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
 class PatientEnvironment extends FormRequest

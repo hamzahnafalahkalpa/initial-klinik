@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\PatientType;
+namespace Projects\Klinik\Requests\PatientEmr\PatientType;
 
 use Zahzah\LaravelSupport\Requests\FormRequest;
 

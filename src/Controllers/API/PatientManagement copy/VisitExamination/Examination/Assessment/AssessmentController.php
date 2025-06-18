@@ -1,9 +1,9 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\VisitExamination\Examination\Assessment;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Examination\Assessment;
 
 use Illuminate\Support\Str;
-use Projects\Klinik\Requests\PatientManagement\VisitExamination\Examination\{
+use Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination\{
     ViewRequest, StoreRequest, ShowRequest
 };
 

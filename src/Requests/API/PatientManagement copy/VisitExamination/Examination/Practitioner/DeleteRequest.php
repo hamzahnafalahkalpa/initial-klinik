@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\VisitExamination\Examination\Practitioner;
+namespace Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination\Practitioner;
 
 class DeleteRequest extends Environment
 {

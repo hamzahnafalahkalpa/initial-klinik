@@ -1,9 +1,9 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\Patient;
+namespace Projects\Klinik\Controllers\API\PatientEmr\Patient;
 
 use Zahzah\ModulePatient\Enums\FamilyRelationship\Role;
-use Projects\Klinik\Requests\PatientManagement\Patient\{
+use Projects\Klinik\Requests\PatientEmr\Patient\{
     ShowRequest, ViewRequest, DeleteRequest, StoreRequest
 };
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientManagement\Patient;
+namespace Projects\Klinik\Controllers\API\PatientEmr\Patient;
 
-use Projects\Klinik\Requests\API\PatientManagement\Patient\{
+use Projects\Klinik\Requests\API\PatientEmr\Patient\{
     ShowRequest, ViewRequest, DeleteRequest, StoreRequest
 };
 

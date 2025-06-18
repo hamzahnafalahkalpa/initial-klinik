@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientManagement\VisitPatient\VisitHistoryRegistration;
+namespace Projects\Klinik\Requests\PatientEmr\VisitPatient\VisitHistoryRegistration;
 use Zahzah\LaravelSupport\Requests\FormRequest;
 
 class VisitHistoryRegistrationEnvironment extends FormRequest
