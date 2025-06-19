@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Projects\Klinik\Controllers\API\PatientEmr\Patient\PatientController;
+use Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitPatient\VisitPatientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,8 @@ use Projects\Klinik\Controllers\API\PatientEmr\Patient\PatientController;
 
 Route::apiResource('/patient',PatientController::class)->parameters(['patient' => 'id']);
 Route::group([
-    "prefix" => "/patient",
-    "as"     => "patient.",
+    "prefix" => "/patient/{patient_id}",
+    "as"     => "patient.show.",
 ],function() {
+    Route::apiResource('/visit-patient',VisitPatientController::class)->parameters(['visit-patient' => 'id']);
 });

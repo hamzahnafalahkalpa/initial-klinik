@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientEmr\VisitPatient;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitPatients;
 
 use Projects\Klinik\Requests\PatientEmr\VisitPatient\{
     ShowRequest,ViewRequest,
@@ -10,29 +10,18 @@ use Projects\Klinik\Requests\PatientEmr\VisitPatient\{
 class VisitPatientController extends EnvironmentController
 {
     public function index(ViewRequest $request){
-        if (isset(request()->search_value)){
-            $value = request()->search_value;
-            request()->merge([
-                'search_name'           => $value,
-                'search_dob'            => $value,
-                'search_created_at'     => $value,
-                'search_nik'            => $value,
-                'search_medical_record' => $value,
-                'search_value'          => null
-            ]);
-        }
-        return $this->__visit_patient_schema->viewVisitPatientPaginate();
+        return $this->__schema->viewVisitPatientPaginate();
     }
 
     public function store(StoreRequest $request){
-        return $this->__visit_patient_schema->storeVisitPatient();
+        return $this->__schema->storeVisitPatient();
     }
 
     public function show(ShowRequest $request){
-        return $this->__visit_patient_schema->showVisitPatient();
+        return $this->__schema->showVisitPatient();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->__visit_patient_schema->deleteVisitPatient();
+        return $this->__schema->deleteVisitPatient();
     }
 }

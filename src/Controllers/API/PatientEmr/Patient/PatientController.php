@@ -14,6 +14,10 @@ class PatientController extends EnvironmentController{
     }
 
     public function store(StoreRequest $request){
+        request()->merge([
+            'reference' => request()->people,
+            'people' => null
+        ]);
         return $this->__schema->storePatient();
     }
 
