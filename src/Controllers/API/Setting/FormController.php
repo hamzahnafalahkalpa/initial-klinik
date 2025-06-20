@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Controllers\API\Setting;
 
-use Hanafalah\ModuleExamination\Contracts\Form;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Form\Form;
 use Projects\Klinik\Controllers\API\ApiController;
 use Illuminate\Http\Request;
 

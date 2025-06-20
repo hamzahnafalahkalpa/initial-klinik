@@ -5,8 +5,7 @@ namespace Projects\Klinik\Controllers\API\Setting;
 use Hanafalah\LaravelPermission\Contracts\Schemas\Role;
 use Projects\Klinik\Controllers\API\ApiController;
 use Projects\Klinik\Requests\API\Setting\Role\{
-    DeleteRequest,
-    ViewRequest, ShowRequest, StoreRequest
+    DeleteRequest, ViewRequest, ShowRequest, StoreRequest
 };
 
 class RoleController extends ApiController{

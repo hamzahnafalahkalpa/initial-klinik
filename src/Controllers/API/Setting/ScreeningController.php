@@ -2,28 +2,29 @@
 
 namespace Projects\Klinik\Controllers\API\Setting;
 
-use Hanafalah\ModuleExamination\Contracts\Schemas\Screening;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Form\Screening;
 use Projects\Klinik\Controllers\API\ApiController;
-use Illuminate\Http\Request;
-
+use Projects\Klinik\Requests\API\Setting\Screening\{
+    DeleteRequest, ViewRequest, ShowRequest, StoreRequest
+};
 class ScreeningController extends ApiController{
     public function __construct(
         protected  Screening $__schema
     ){ }
 
-    public function index(Request $req) {
+    public function index(ViewRequest $req) {
         return $this->__schema->viewScreeningList();
     }
 
-    public function show(Request $req) {
+    public function show(ShowRequest $req) {
         return $this->__schema->showScreening();
     }
 
-    public function store(Request $request) {
-       return $this->__schema->storeScreening();
+    public function store(StoreRequest $request) {
+        return $this->__schema->storeScreening();
     }
 
-    public function delete(Request $req) {
+    public function delete(DeleteRequest $req) {
        return $this->__schema->deleteScreening();
     }
 }

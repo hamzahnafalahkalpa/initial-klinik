@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Projects\Klinik\Controllers\API\Setting\{
+    FormController,
     MedicServiceController,
     PatientTypeController,
     PatientTypeServiceController,
@@ -19,5 +20,6 @@ Route::group([
     Route::apiResource('/medic-service',MedicServiceController::class)->parameters(['medic-service' => 'id']);
     Route::apiResource('/service-cluster',ServiceClusterController::class)->parameters(['service-cluster' => 'id']);
     Route::apiResource('/screening',ScreeningController::class)->parameters(['screening' => 'id']);
+    Route::apiResource('/form',FormController::class)->parameters(['form' => 'id']);
     Route::apiResource('/jasa',JasaController::class)->parameters(['jasa' => 'id']);
 });
