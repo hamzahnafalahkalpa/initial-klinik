@@ -24,7 +24,7 @@ class ScreeningController extends ApiController{
         return $this->__schema->storeScreening();
     }
 
-    public function delete(DeleteRequest $req) {
+    public function destroy(DeleteRequest $req) {
        return $this->__schema->deleteScreening();
     }
 }
