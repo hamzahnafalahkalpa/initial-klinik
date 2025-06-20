@@ -6,6 +6,7 @@ use Projects\Klinik\Controllers\API\Setting\{
     PatientTypeController,
     PatientTypeServiceController,
     ServiceClusterController,
+    ScreeningController,
     JasaController,
 };
 
@@ -17,5 +18,6 @@ Route::group([
     Route::apiResource('/patient-type-service',PatientTypeServiceController::class)->parameters(['patient-type-service' => 'id']);
     Route::apiResource('/medic-service',MedicServiceController::class)->parameters(['medic-service' => 'id']);
     Route::apiResource('/service-cluster',ServiceClusterController::class)->parameters(['service-cluster' => 'id']);
+    Route::apiResource('/screening',ScreeningController::class)->parameters(['screening' => 'id']);
     Route::apiResource('/jasa',JasaController::class)->parameters(['jasa' => 'id']);
 });

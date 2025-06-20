@@ -24,10 +24,6 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        request()->merge([
-            'flag' => Flag::JOB_DESK->value
-        ]);
-
         return [
             'id'   => ['nullable',$this->idValidation($this->__entity)],
             'name' => ['required', 'string', 'max:255'],

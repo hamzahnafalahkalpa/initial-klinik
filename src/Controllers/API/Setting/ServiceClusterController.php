@@ -10,6 +10,7 @@ use Projects\Klinik\Requests\API\Setting\ServiceCluster\{
 };
 
 class ServiceClusterController extends ApiController{
+    
     public function __construct(
         protected SchemasServiceCluster $__schema
     ){
