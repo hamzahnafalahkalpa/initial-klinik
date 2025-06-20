@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Setting;
 
-use Hanafalah\ModuleExamination\Contracts\Screening;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Screening;
 use Projects\Klinik\Controllers\API\ApiController;
 use Illuminate\Http\Request;
 
