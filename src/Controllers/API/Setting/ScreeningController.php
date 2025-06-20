@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Setting;
+namespace Projects\Klinik\Controllers\API\Setting;
 
 use Hanafalah\ModuleExamination\Contracts\Schemas\Screening;
 use Projects\Klinik\Controllers\API\ApiController;
