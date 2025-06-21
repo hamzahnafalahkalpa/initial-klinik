@@ -13,5 +13,4 @@ Route::group([
 ],function(){
     Route::apiResource('/workspace',WorkspaceController::class)->parameters(['workspace' => 'uuid']);
     Route::apiResource('/encoding',EncodingController::class)->parameters(['encoding' => 'id']);
-    Route::apiResource('/education',EducationController::class)->parameters(['education' => 'id']);
 });

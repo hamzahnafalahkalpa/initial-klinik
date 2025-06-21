@@ -4,8 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
-use Hanafalah\ModulePeople\Enums\FamilyRelationship\Flag;
 use Hanafalah\ModulePeople\Models\FamilyRelationship\FamilyRelationship;
+use Hanafalah\ModulePeople\Models\FamilyRole;
 use Hanafalah\ModulePeople\Models\People\People;
 
 return new class extends Migration
@@ -29,18 +29,22 @@ return new class extends Migration
         $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $people = app(config('database.models.People', People::class));
+                $family_role = app(config('database.models.FamilyRole', FamilyRole::class));
 
-                $table->id();
-                $table->foreignIdFor($people::class,'people_id')
-                      ->index()->constrained()->cascadeOnUpdate()->restrictOnDelete();
+                $table->ulid('id')->primary();
+                $table->foreignIdFor($people,'people_id')
+                      ->after('id')->index()->constrained()->cascadeOnUpdate()->restrictOnDelete();
                 $table->string('name',50)->nullable(true);
                 $table->string('phone',50)->nullable(true);
-                $table->string('role', 100)->nullable();
+                $table->foreignIdFor($family_role)
+                        ->after('id')->index()->constrained()
+                        ->cascadeOnUpdate()->restrictOnDelete();
                 $table->string('reference_type',50)->nullable(true);
                 $table->string('reference_id',36)->nullable(true);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
+                
                 $table->index(['reference_type','reference_id']);
             });
         });
