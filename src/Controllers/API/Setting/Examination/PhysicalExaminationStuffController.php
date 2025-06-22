@@ -14,14 +14,14 @@ class PhysicalExaminationStuffController extends ApiController{
     ){}
 
     public function index(ViewRequest $request){
-        return $this->__schema->viewPhysicalExaminationList();
+        return $this->__schema->viewPhysicalExaminationStuffList();
     }
 
     public function store(StoreRequest $request){
-        return $this->__schema->storePhysicalExamination();
+        return $this->__schema->storePhysicalExaminationStuff();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->__schema->deletePhysicalExamination();
+        return $this->__schema->deletePhysicalExaminationStuff();
     }
 }
