@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\Trademark;
+namespace Projects\Klinik\Controllers\API\Setting;
 
 use Hanafalah\ModuleMedicalItem\Contracts\Schemas\Trademark;
 use Projects\Klinik\Controllers\API\ApiController;

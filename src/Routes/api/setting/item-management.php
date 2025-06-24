@@ -10,7 +10,8 @@ use Projects\Klinik\Controllers\API\Setting\{
     UsageRouteController,
     NetUnitController,
     SellingFormController,
-    UnitOfMeasureController
+    UnitOfMeasureController,
+    TrademarkController
 };
 
 Route::group([
@@ -30,6 +31,7 @@ Route::group([
         Route::apiResource('/therapeutic-class',TherapeuticClassController::class)->parameters(['therapeutic-class' => 'id']);
         Route::apiResource('/usage-location',UsageLocationController::class)->parameters(['usage-location' => 'id']);
         Route::apiResource('/usage-route',UsageRouteController::class)->parameters(['usage-route' => 'id']);
+        Route::apiResource('/trademark',TrademarkController::class)->parameters(['trademark' => 'id']);
     });
 });
 

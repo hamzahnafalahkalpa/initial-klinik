@@ -6,6 +6,7 @@ use Hanafalah\LaravelSupport\Requests\FormRequest;
 
 class ViewRequest extends FormRequest
 {
+  protected $__entity = 'MedicalItem';
 
   public function authorize()
   {
