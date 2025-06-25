@@ -1,9 +1,9 @@
 <?php
 
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
 use Hanafalah\ModuleExamination\Models\ExaminationStuff;
 
 return new class extends Migration
@@ -25,7 +25,7 @@ return new class extends Migration
     public function up()
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('flag',100)->nullable(false);
@@ -47,7 +47,7 @@ return new class extends Migration
                     ->nullable()->after($this->__table->getKeyName())
                     ->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             });
-        }
+        });
     }
 
     /**

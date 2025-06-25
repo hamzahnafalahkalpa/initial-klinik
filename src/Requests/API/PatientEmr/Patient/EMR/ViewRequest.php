@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Projects\Klinik\src\Requests\API\PatientEmr\Patient\EMR;
+namespace Projects\Klinik\Requests\API\PatientEmr\Patient\EMR;
 
 use Illuminate\Validation\Rule;
 use Projects\Klinik\Requests\API\PatientEmr\Patient\EMR\PatientEnvironment;

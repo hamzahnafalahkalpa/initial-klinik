@@ -1,10 +1,12 @@
 <?php
 
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
-use Hanafalah\LaravelSupport\Models\Unicode\Unicode;
+use Hanafalah\ModuleItem\Models\{
+    InventoryAsset
+};
 
 return new class extends Migration
 {
@@ -14,7 +16,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->__table = app(config('database.models.Unicode', Unicode::class));
+        $this->__table = app(config('database.models.InventoryAsset', InventoryAsset::class));
     }
 
     /**
@@ -22,25 +24,24 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
-                $table->id();
-                $table->string('unicode_type', 50)->nullable(false);
-                $table->unsignedInteger('flag')->nullable(false);
-                $table->string('name', 100)->nullable(false);
+                $table->ulid('id')->primary();
+                $table->string('name', 255)->nullable(false);
+                $table->json('props')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
             });
-        }
+        });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists($this->__table->getTable());
     }

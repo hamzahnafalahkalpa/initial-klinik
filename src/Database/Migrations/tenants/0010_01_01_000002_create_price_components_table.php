@@ -1,5 +1,6 @@
 <?php
 
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Hanafalah\ModuleService\Models\Service;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -8,7 +9,7 @@ use Hanafalah\ModuleService\Models\PriceComponent;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use NowYouSeeMe;
 
     private $__table;
 
@@ -25,7 +26,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $service = app(config('database.models.Service', Service::class));
 
@@ -45,7 +46,7 @@ return new class extends Migration
                 $table->index(['model_type', 'model_id'], 'pc_model');
                 $table->index(['component_type', 'component_id'], 'pc_component');
             });
-        }
+        });
     }
 
     /**

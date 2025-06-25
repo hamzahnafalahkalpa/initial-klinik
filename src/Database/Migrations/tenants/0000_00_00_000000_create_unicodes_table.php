@@ -39,7 +39,6 @@ return new class extends Migration
 
                 $table->index(["flag"], "unicode_flag");
                 $table->index(['flag','label'], "ucd_lbl_flag");
-
             });
 
             Schema::table($table_name, function (Blueprint $table) {
