@@ -9,7 +9,6 @@ use Hanafalah\LaravelSupport\{
     Supports\PathRegistry
 };
 use Illuminate\Support\Str;
-use Hanafalah\ModuleWorkspace\Contracts\Data as WorkspaceDTO;
 use Projects\Klinik\{
     Klinik,
     Contracts,
@@ -41,10 +40,6 @@ class KlinikServiceProvider extends KlinikEnvironment
         $model   = Facades\Klinik::myModel($this->TenantModel()->find(Klinik::ID));
         $this->deferredProviders($model);
         
-        // tenancy()->initialize(Klinik::ID);
-        // $tenant = tenancy()->tenant;
-        // $tenant->save();
-
         $config_name = Str::kebab($model->name); 
 
         $this->registers([

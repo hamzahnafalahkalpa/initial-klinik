@@ -5,7 +5,7 @@ namespace Projects\Klinik\Controllers\API\ItemManagement\Inventory;
 use Hanafalah\ModuleItem\Contracts\Schemas\Inventory;
 use Hanafalah\ModuleItem\Controllers\API\ApiController;
 use Projects\Klinik\Requests\API\ItemManagement\Inventory\{
-    ViewRequest, StoreRequest, DeleteRequest
+    ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };
 
 class InventoryController extends ApiController{
@@ -19,7 +19,18 @@ class InventoryController extends ApiController{
         return $this->__schema->viewInventoryPaginate();
     }
 
+    public function show(ShowRequest $request){
+        return $this->__schema->showInventory();
+    }
+
     public function store(StoreRequest $request){
+        $reference = request()->office_supply ?? request()->stuff_supply ?? request()->healthcare_equipment;
+        request()->merge([
+            'reference'            => $reference,
+            'office_supply'        => null,
+            'stuff_supply'         => null,
+            'healthcare_equipment' => null,
+        ]);
         return $this->__schema->storeInventory();
     }
 

@@ -20,6 +20,7 @@ class ViewRoom extends RoomViewRoom
       'medic_service_id'      => $this->medic_service_id,
       'medic_service'         => $this->prop_medic_service,
     ];
+    $arr = $this->mergeArray(parent::toArray($request),$arr);
     return $arr;
   }
 }

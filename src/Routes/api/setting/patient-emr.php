@@ -2,9 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Projects\Klinik\Controllers\API\Setting\{
-    EducationController,
-    FamilyRoleController,
-    MaritalStatusController,
     ServiceLabelController
 };
 use Projects\Klinik\Controllers\API\Setting\Examination\{
@@ -20,9 +17,6 @@ Route::group([
     'prefix' => '/patient-emr',
     'as' => 'patient-emr.'
 ],function(){
-    Route::apiResource('/marital-status',MaritalStatusController::class)->parameters(['marital-status' => 'id']);
-    Route::apiResource('/family-role',FamilyRoleController::class)->parameters(['family-role' => 'id']);
-    Route::apiResource('/education',EducationController::class)->parameters(['education' => 'id']);
     Route::apiResource('/service-label',ServiceLabelController::class)->parameters(['service-label' => 'id']);
     Route::group([
         'prefix' => '/examination',

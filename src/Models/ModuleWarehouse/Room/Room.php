@@ -43,5 +43,31 @@ class Room extends BuildingRoom
 
     public function medicService(){return $this->morphOneModel('ModelHasRoom', 'reference');}
     public function serviceCluster(){return $this->morphManyModel('ModelHasRoom', 'reference');}
+    public function employees(){
+        return $this->belongsToManyModel(
+            'Employee',
+            'ModelHasRoom',
+            $this->getForeignKey(),
+            'reference_id'
+        )->where('reference_type',$this->EmployeeModel()->getMorphClass());
+    }
+
+    public function rooms(){
+        return $this->belongsToManyModel(
+            'Room','ModelHasRoom',
+            'reference_id','room_id'
+        )->where('reference_type',$this->getMorphClass());
+    }
+
+    public function pharmacy(){
+        return $this->hasOneThroughModel(
+            'Room', 
+            'ModelHasRoom',
+            'reference_id',
+            $this->getKeyName(),
+            $this->getKeyName(),
+            $this->getForeignKey()
+        )->where('reference_type',$this->getMorphClass());
+    }
     //END EIGER SECTION
 }

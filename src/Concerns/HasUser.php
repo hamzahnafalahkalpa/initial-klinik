@@ -3,7 +3,6 @@
 namespace Projects\Klinik\Concerns;
 
 use Hanafalah\ApiHelper\Facades\ApiAccess;
-use Illuminate\Support\Facades\Auth;
 
 trait HasUser
 {
@@ -19,7 +18,10 @@ trait HasUser
         if (isset($user)){
             $user->load([
                 'userReference' => function($query){
-                    $query->with('role')->where('reference_type', $this->EmployeeModelMorph());
+                    $query->with([
+                        'role', 'reference',
+                        'workspace'
+                    ])->where('reference_type', $this->EmployeeModelMorph());
                 }
             ]);
             $user_reference = $user->userReference;

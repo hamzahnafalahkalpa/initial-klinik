@@ -3,7 +3,6 @@
 namespace Projects\Klinik\Requests\API\Setting\ClassRoom;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
-use Hanafalah\ModulePayment\Data\ClassRoomData;
 
 class StoreRequest extends FormRequest
 {
@@ -24,7 +23,6 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->requestDTO(ClassRoomData::class);
         return [
 
         ];

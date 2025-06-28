@@ -42,16 +42,17 @@ return new class extends Migration
                 $table->text('name')->nullable(false);
                 $table->string('model_type', 50)->nullable(false);
                 $table->string('model_id', 36)->nullable(false);
-                $table->enum('flag', [
-                    Flag::KTP->value,
-                    Flag::RESIDENCE->value,
-                    Flag::OTHER->value
-                ])->nullable(false);
-
-                $table->foreignIdFor($province::class)->nullable(true)->index()->cascadeOnUpdate()->cascadeOnDelete();
-                $table->foreignIdFor($district::class)->nullable(true)->index()->cascadeOnUpdate()->cascadeOnDelete();
-                $table->foreignIdFor($subdistrict::class)->nullable(true)->index()->cascadeOnUpdate()->cascadeOnDelete();
-                $table->foreignIdFor($village::class)->nullable(true)->index()->cascadeOnUpdate()->cascadeOnDelete();
+                $table->string('flag', 50)->nullable(false);
+                $table->foreignIdFor($province::class)->nullable(true)->index()
+                      ->cascadeOnUpdate()->cascadeOnDelete();
+                $table->foreignIdFor($district::class)->nullable(true)->index()
+                      ->cascadeOnUpdate()->cascadeOnDelete();
+                $table->foreignIdFor($subdistrict::class)->nullable(true)->index()
+                      ->cascadeOnUpdate()->cascadeOnDelete();
+                $table->foreignIdFor($village::class)->nullable(true)->index()
+                      ->cascadeOnUpdate()->cascadeOnDelete();
+                $table->string('latitude', 50)->nullable();
+                $table->string('longitude', 50)->nullable();
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();

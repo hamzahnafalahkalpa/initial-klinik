@@ -16,7 +16,7 @@ class ShowRoom extends ViewRoom
   {
     $arr = [
     ];
-    $show = $this->resolveNow(RoomShowRoom::class);
+    $show = $this->resolveNow(new RoomShowRoom($this));
     $arr = $this->mergeArray(parent::toArray($request), $show, $arr);
     return $arr;
   }

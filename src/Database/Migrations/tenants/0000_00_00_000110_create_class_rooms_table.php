@@ -32,7 +32,8 @@ return new class extends Migration
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('name')->nullable(false);
-                $table->tinyInteger('status')->default(TreatmentStatus::ACTIVE->value);
+                $table->unsignedBigInteger('daily_rate')->default(0)->nullable(false);
+                $table->string('status',50);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();

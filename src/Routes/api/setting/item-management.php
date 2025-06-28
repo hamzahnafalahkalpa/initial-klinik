@@ -1,8 +1,10 @@
 <?php
 
+use Hanafalah\ModuleItem\Contracts\Schemas\SupplyCategory;
 use Illuminate\Support\Facades\Route;
 use Projects\Klinik\Controllers\API\Setting\{
     BrandController,
+    CompositionUnitController,
     DosageFormController,
     PackageFormController,
     TherapeuticClassController,
@@ -10,6 +12,7 @@ use Projects\Klinik\Controllers\API\Setting\{
     UsageRouteController,
     NetUnitController,
     SellingFormController,
+    SupplyCategoryController,
     UnitOfMeasureController,
     TrademarkController
 };
@@ -22,6 +25,13 @@ Route::group([
     Route::apiResource('/net-unit',NetUnitController::class)->parameters(['net-unit' => 'id']);
     Route::apiResource('/selling-form',SellingFormController::class)->parameters(['selling-form' => 'id']);
     Route::apiResource('/unit-of-measure',UnitOfMeasureController::class)->parameters(['unit-of-measure' => 'id']);
+    Route::apiResource('/composition-unit',CompositionUnitController::class)->parameters(['composition-unit' => 'id']);
+    Route::group([
+        'prefix' => '/inventory',
+        'as' => 'inventory.'
+    ],function(){
+        Route::apiResource('/supply-category',SupplyCategoryController::class)->parameters(['supply-category' => 'id']);
+    });
     Route::group([
         'prefix' => '/medicine',
         'as' => 'medicine.'
@@ -32,6 +42,12 @@ Route::group([
         Route::apiResource('/usage-location',UsageLocationController::class)->parameters(['usage-location' => 'id']);
         Route::apiResource('/usage-route',UsageRouteController::class)->parameters(['usage-route' => 'id']);
         Route::apiResource('/trademark',TrademarkController::class)->parameters(['trademark' => 'id']);
+    });
+    Route::group([
+        'prefix' => '/supply-chain',
+        'as' => 'supply-chain.'
+    ],function(){
+        Route::apiResource('/purchasing',TrademarkController::class)->parameters(['purchasing' => 'id']);
     });
 });
 
