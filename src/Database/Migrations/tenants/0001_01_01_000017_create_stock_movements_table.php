@@ -41,6 +41,7 @@ return new class extends Migration
                     ->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
                 $table->string('reference_type', 50);
                 $table->string('reference_id', 36);
+
                 $table->foreignIdFor($item_stock::class)->nullable(true)
                     ->index()->constrained()->restrictOnDelete()->cascadeOnUpdate();
 
@@ -50,6 +51,7 @@ return new class extends Migration
 
                 $table->decimal('qty', 14, 6)->default(0)->nullable(false);
                 $table->unsignedBigInteger('cogs')->default(0)->nullable(false);
+
                 $table->foreignIdFor($item_stuff::class, 'qty_unit_id')->nullable(true)
                     ->index()->constrained($item_stuff->getTable(), $item_stock->getKeyName(), 'idx_stuff_unit')
                     ->restrictOnDelete()->cascadeOnUpdate();

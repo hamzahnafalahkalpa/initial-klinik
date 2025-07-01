@@ -25,7 +25,7 @@ Route::group([
     include __DIR__.'/setting/general-setting.php';
     include __DIR__.'/setting/infrastructure.php';
     include __DIR__.'/setting/item-management.php';
-    include __DIR__.'/setting/procurement.php'; 
+    include __DIR__.'/setting/supply-chain.php'; 
     include __DIR__.'/setting/employee-management.php'; 
     include __DIR__.'/setting/stakeholder.php'; 
     include __DIR__.'/setting/patient-emr.php'; 

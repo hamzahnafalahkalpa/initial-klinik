@@ -30,49 +30,52 @@ class ProcurementController extends ApiController{
 
     protected function receiveOrderSetup(){
         $attributes     = request()->all();
-        $new_attributes = $attributes['receive_order'];
-        $purchase_order = $this->PurchaseOrderModel()->findOrFail($attributes['id']);
-        $new_attributes['purchase_order_id'] = $attributes['id'];
-        $new_attributes['purchasing_id']     = $purchase_order->purchasing_id;
-        $new_attributes['prop_purchase_order']    = [
-            'id'          => $attributes['id'],
-            'warehouse_id'     => $attributes['warehouse_id'],
-            'procurement' => $attributes['procurement']
-        ];
-        $new_attributes['procurement']['card_stocks'] ??= [];
-        $ro_card_stocks = &$new_attributes['procurement']['card_stocks'];
-        foreach ($new_attributes['prop_purchase_order']['procurement']['card_stocks'] as &$card_stock) {
-            $card_stock_model = $this->CardStockModel()->find($card_stock['id']);
-            if (isset($new_attributes['procurement']['id'])){
-                $card_stock_ro    = $this->CardStockModel()->parentId($card_stock_model->getKey())
-                                         ->where('reference_type','Procurement')
-                                         ->where('reference_id',$new_attributes['procurement']['id'])
-                                         ->where('item_id',$card_stock_model->item_id)->first();
-            }
-            $parent_card_stock_model = $this->CardStockModel()->with(['item','stockMovement'])->find($card_stock['id']);
-            $card_stock['receive_qty'] = floatval($card_stock['receive_qty']);
-            $ro_card_stocks[] = [
-                'id'        => $card_stock_ro->id ?? null,
-                'parent_id' => $card_stock['id'],
-                'item_id'   => $card_stock_model->item_id,
-                'qty'       => $card_stock['receive_qty'],
-                'stock_movement' => [
-                    'id'        => $card_stock_ro?->stockMovement->id ?? null,
-                    'parent_id' => $card_stock_model->stockMovement->id ?? null,
-                    'cogs'      => floatval($card_stock['cogs'] ?? 0),
-                    'receive_qty' => $card_stock['receive_qty'],
-                ]
-            ];
-
-            $card_stock['total_receive_qty'] = ($parent_card_stock_model->total_receive_qty ?? 0) + $card_stock['receive_qty'];
-            $card_stock['item']              = [
-                'id' => $parent_card_stock_model->item->getKey(),
-                'name' => $parent_card_stock_model->item->name,
-                'unit' => $parent_card_stock_model->item->prop_unit
-            ];
+        $attributes['purchase_order_id'] ??= request()->purchase_order_id;
+        if (isset($attributes['form'])){
+            $attr_po        = $attributes['form'];
+            $attributes['purchase_order_id'] ??= $attr_po['id'];
+            $attr_po['procurement'] = $this->procurementSetup($attr_po['procurement']);
+        }else{
+            $attributes['procurement'] = $this->procurementSetup($attributes['procurement']);
         }
-        $new_attributes['procurement'] = $this->procurementSetup($new_attributes['procurement']);
-        request()->replace($new_attributes);
+        // $attributes['prop_purchase_order']    = [
+        //     'id'           => $attr_po['id'],
+        //     'warehouse_id' => $attr_po['warehouse_id'],
+        //     'procurement'  => $attr_po['procurement']
+        // ];
+        // $attributes['procurement']['card_stocks'] ??= [];
+        // $ro_card_stocks = &$attributes['procurement']['card_stocks'];
+        // foreach ($attributes['procurement']['card_stocks'] as &$card_stock) {
+        //     $card_stock_model = $this->CardStockModel()->find($card_stock['id']);
+        //     if (isset($attributes['procurement']['id'])){
+        //         $card_stock_ro    = $this->CardStockModel()->parentId($card_stock_model->getKey())
+        //                                  ->where('reference_type','Procurement')
+        //                                  ->where('reference_id',$attributes['procurement']['id'])
+        //                                  ->where('item_id',$card_stock_model->item_id)->first();
+        //     }
+        //     $parent_card_stock_model = $this->CardStockModel()->with(['item','stockMovement'])->find($card_stock['id']);
+        //     $card_stock['receive_qty'] = floatval($card_stock['receive_qty']);
+        //     $ro_card_stocks[] = [
+        //         'id'        => $card_stock_ro->id ?? null,
+        //         'parent_id' => $card_stock['id'],
+        //         'item_id'   => $card_stock_model->item_id,
+        //         'qty'       => $card_stock['receive_qty'],
+        //         'stock_movement' => [
+        //             'id'        => $card_stock_ro?->stockMovement->id ?? null,
+        //             'parent_id' => $card_stock_model->stockMovement->id ?? null,
+        //             'cogs'      => floatval($card_stock['cogs'] ?? 0),
+        //             'receive_qty' => $card_stock['receive_qty'],
+        //         ]
+        //     ];
+
+        //     $card_stock['total_receive_qty'] = ($parent_card_stock_model->total_receive_qty ?? 0) + $card_stock['receive_qty'];
+        //     $card_stock['item']              = [
+        //         'id' => $parent_card_stock_model->item->getKey(),
+        //         'name' => $parent_card_stock_model->item->name,
+        //         'unit' => $parent_card_stock_model->item->prop_unit
+        //     ];
+        // }
+        request()->replace($attributes);
     }
 
     protected function purchasingProcurementSetup(array $purchase_orders){

@@ -29,15 +29,12 @@ class PurchasingController extends ProcurementController
     }
 
     public function store(StoreRequest $request){
-        if (isset(request()->room_id)){
-            $procurement = request()->procurement;
-            $procurement['warehouse_type'] = 'Room';
-            $procurement['warehouse_id']   = request()->room_id;
-            $procurement['total_tax']      = [
-                'total' => 0
-            ];
-            request()->merge(['procurement' => $procurement]);
-        }
+        $procurement = request()->procurement;
+        $procurement['warehouse_type'] ??= 'Room';
+        $procurement['total_tax']      = [
+            'total' => 0
+        ];
+        request()->merge(['procurement' => $procurement]);
         $purchase_orders = $this->purchasingProcurementSetup(request()->purchase_orders);
         request()->merge([
             'purchase_orders' => $purchase_orders,
@@ -45,10 +42,6 @@ class PurchasingController extends ProcurementController
                 'note' => null,
                 'status' => null,
                 'approver' => [
-                    'estimator_id' => null,
-                    'coo_id' => null,
-                    'cto_id' => null,
-                    'ceo_id' => null,
                     'finance_id' => null
                 ]
             ]
@@ -59,8 +52,7 @@ class PurchasingController extends ProcurementController
     public function approval(ApprovalRequest $request){
         $approval = $this->approver('Purchasing');
         request()->merge([
-            'approval' => $approval,
-            'reported_at' => now()
+            'approval' => $approval
         ]);
         return $this->__schema->updatePurchasing();
     }

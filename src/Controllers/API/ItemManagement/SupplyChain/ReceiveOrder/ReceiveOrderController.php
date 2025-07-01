@@ -15,13 +15,7 @@ class ReceiveOrderController extends ProcurementController
     ){}
 
     public function index(ViewRequest $request){
-        return $this->__schema->conditionals(function($query){
-            $query->when(isset(request()->room_id),function($query){
-                $query->whereHas('procurement',function($query){
-                    $query->where('warehouse_type','Room')->where('warehouse_id',request()->room_id);
-                });
-            }); 
-        })->viewReceiveOrderPaginate();
+        return $this->__schema->viewReceiveOrderPaginate();
     }
 
     public function show(ShowRequest $request){

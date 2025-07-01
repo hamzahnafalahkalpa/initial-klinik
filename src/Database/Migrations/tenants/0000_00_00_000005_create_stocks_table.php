@@ -34,11 +34,16 @@ return new class extends Migration
                     ->index()->constrained()
                     ->restrictOnDelete()
                     ->cascadeOnUpdate();
+                $table->decimal('stock', 12, 4)->nullable(false);
+                
                 $table->string('subject_type', 50)->nullable(false);
                 $table->string('subject_id', 36)->nullable(false);
                 $table->string('warehouse_type', 50)->nullable(false);
                 $table->string('warehouse_id', 36)->nullable(false);
-                $table->decimal('stock', 12, 4)->nullable(false);
+                $table->string('supplier_type', 50)->nullable(true);
+                $table->string('supplier_id', 36)->nullable(true);
+                $table->string('procurement_type', 50)->nullable(true);
+                $table->string('procurement_id', 36)->nullable(true);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
