@@ -12,16 +12,12 @@ class PurchaseRequestController extends ProcurementController
 {
     public function __construct(
         protected PurchaseRequest $__schema
-    ){}
+    ){
+        parent::__construct();
+    }
 
     public function index(ViewRequest $request){
-        return $this->__schema->conditionals(function($query){
-            $query->when(isset(request()->room_id),function($query){
-                $query->whereHas('procurement',function($query){
-                    $query->where('warehouse_type','Room')->where('warehouse_id',request()->room_id);
-                });
-            }); 
-        })->viewPurchaseRequestPaginate();
+        return $this->getPurchaseRequestPaginate($this->__schema);
     }
 
     public function show(ShowRequest $request){

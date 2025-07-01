@@ -1,10 +1,10 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Procurement\Purchasing;
+namespace Projects\Klinik\Requests\API\SupplyChain\Purchasing;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
-class DeleteRequest extends FormRequest
+class ViewRequest extends FormRequest
 {
     protected $__entity = 'Purchasing';
 
@@ -23,8 +23,6 @@ class DeleteRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'id'   => ['required',$this->idValidation($this->__entity)],
-        ];
+        return [];
     }
 }

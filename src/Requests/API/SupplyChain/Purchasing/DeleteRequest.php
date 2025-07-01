@@ -1,10 +1,10 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Procurement\Purchasing;
+namespace Projects\Klinik\Requests\API\SupplyChain\Purchasing;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
-class UpdateRequest extends FormRequest
+class DeleteRequest extends FormRequest
 {
     protected $__entity = 'Purchasing';
 
@@ -24,6 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id'   => ['required',$this->idValidation($this->__entity)],
         ];
     }
 }

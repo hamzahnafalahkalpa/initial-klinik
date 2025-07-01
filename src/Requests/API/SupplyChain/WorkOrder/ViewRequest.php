@@ -1,10 +1,10 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Procurement\WorkOrder;
+namespace Projects\Klinik\Requests\API\SupplyChain\WorkOrder;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
-class StoreRequest extends FormRequest
+class ViewRequest extends FormRequest
 {
     protected $__entity = 'WorkOrder';
 
@@ -23,7 +23,6 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-        ];
+        return [];
     }
 }

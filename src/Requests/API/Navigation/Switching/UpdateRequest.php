@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'type' => ['required',Rule::in([
-                'role'
+                'role', 'room'
             ])]
         ];
     }

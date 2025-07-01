@@ -1,12 +1,12 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Procurement\Purchasing;
+namespace Projects\Klinik\Requests\API\SupplyChain\WorkOrder;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
-class ViewRequest extends FormRequest
+class DeleteRequest extends FormRequest
 {
-    protected $__entity = 'Purchasing';
+    protected $__entity = 'WorkOrder';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +23,8 @@ class ViewRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'id'   => ['required',$this->idValidation($this->__entity)],
+        ];
     }
 }

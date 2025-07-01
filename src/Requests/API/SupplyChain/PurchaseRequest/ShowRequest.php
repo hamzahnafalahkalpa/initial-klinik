@@ -1,12 +1,12 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Procurement\WorkOrder;
+namespace Projects\Klinik\Requests\API\SupplyChain\PurchaseRequest;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
-class DeleteRequest extends FormRequest
+class ShowRequest extends FormRequest
 {
-    protected $__entity = 'WorkOrder';
+    protected $__entity = 'PurchaseRequest';
 
     /**
      * Determine if the user is authorized to make this request.

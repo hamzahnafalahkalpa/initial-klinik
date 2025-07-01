@@ -16,13 +16,12 @@ class SwitchingController extends ApiController{
     public function update(UpdateRequest $request){
         $this->userAttempt();
 
-        $role = $this->transaction(function() use ($request){
+        $response = $this->transaction(function() use ($request){
             switch ($request->type) {
-                case 'role':
-                    return $this->global_user_reference->switchRoleTo($request->id);
-                break;
+                case 'room': return $this->global_employee->switchRoomTo($request->id);break;
+                case 'role': return $this->global_user_reference->switchRoleTo($request->id);break;
             }
         });
-        return $role->toViewApi();
+        return $response->toViewApi()->resolve();
     }
 }

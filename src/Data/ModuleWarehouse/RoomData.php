@@ -2,12 +2,17 @@
 
 namespace Projects\Klinik\Data\ModuleWarehouse;
 
+use Hanafalah\ModuleMedicService\Enums\Label;
 use Hanafalah\ModuleWarehouse\Data\RoomData as DataRoomData;
 use Projects\Klinik\Contracts\Data\ModuleWarehouse\RoomData as DataModuleWarehouseRoomData;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
 
 class RoomData extends DataRoomData implements DataModuleWarehouseRoomData{
+    #[MapInputName('as_pharmacy')]
+    #[MapName('as_pharmacy')]
+    public mixed $as_pharmacy = false;
+
     #[MapInputName('medic_service_id')]
     #[MapName('medic_service_id')]
     public mixed $medic_service_id = null;
@@ -26,6 +31,7 @@ class RoomData extends DataRoomData implements DataModuleWarehouseRoomData{
 
     public static function before(array &$attributes){
         $new = static::new();
+
         $attributes['employees'] ??= [];
         $model_has_rooms = &$attributes['model_has_rooms'];
         $employees = [];
@@ -68,6 +74,8 @@ class RoomData extends DataRoomData implements DataModuleWarehouseRoomData{
         $medic_service = $new->MedicServiceModel();
         $medic_service = isset($data->medic_service_id) ? $medic_service->findOrFail($data->medic_service_id) : $medic_service;
         $props['prop_medic_service'] = $medic_service->toViewApi()->only(['id','name']);
+
+        $data->as_pharmacy = (isset($medic_service) && $medic_service->label == Label::PHARMACY_UNIT->value);
 
         $service_cluster = $new->ServiceClusterModel();
         $service_cluster = isset($data->service_cluster_id) ? $service_cluster->findOrFail($data->service_cluster_id) : $service_cluster;

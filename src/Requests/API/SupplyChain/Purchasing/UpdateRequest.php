@@ -1,12 +1,12 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Procurement\WorkOrder;
+namespace Projects\Klinik\Requests\API\SupplyChain\Purchasing;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
-class ShowRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
-    protected $__entity = 'WorkOrder';
+    protected $__entity = 'Purchasing';
 
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class ShowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'   => ['required',$this->idValidation($this->__entity)],
         ];
     }
 }

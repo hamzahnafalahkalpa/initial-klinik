@@ -63,7 +63,7 @@ return new class extends Migration
                     ->nullable()->index()->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
 
-                $table->string('status', 60)->default(0);
+                $table->string('status', 60)->nullable();
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();

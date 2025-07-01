@@ -15,6 +15,11 @@ class ShowRoom extends ViewRoom
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr = [
+      'employees' => $this->relationValidation('employees',function(){
+        return $this->employees->transform(function($employee){
+          return $employee->toViewApi()->resolve();
+        });
+      })
     ];
     $show = $this->resolveNow(new RoomShowRoom($this));
     $arr = $this->mergeArray(parent::toArray($request), $show, $arr);

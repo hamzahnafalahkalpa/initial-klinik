@@ -41,33 +41,43 @@ class Room extends BuildingRoom
         return ViewRoom::class;
     }
 
-    public function medicService(){return $this->morphOneModel('ModelHasRoom', 'reference');}
-    public function serviceCluster(){return $this->morphManyModel('ModelHasRoom', 'reference');}
+    public function showUsingRelation(): array{
+        return [
+            'employees',
+            'warehouseItems'
+        ];
+    }
+
+    public function medicService(){return $this->morphOneModel('ModelHasRoom', 'model');}
+    public function serviceCluster(){return $this->morphManyModel('ModelHasRoom', 'model');}
     public function employees(){
         return $this->belongsToManyModel(
             'Employee',
             'ModelHasRoom',
             $this->getForeignKey(),
-            'reference_id'
-        )->where('reference_type',$this->EmployeeModel()->getMorphClass());
+            'model_id'
+        )->where('model_type',$this->EmployeeModel()->getMorphClass())
+         ->where('warehouse_type','Room');
     }
 
     public function rooms(){
         return $this->belongsToManyModel(
             'Room','ModelHasRoom',
-            'reference_id','room_id'
-        )->where('reference_type',$this->getMorphClass());
+            'model_id','warehouse_id'
+        )->where('model_type',$this->getMorphClass())
+         ->where('warehouse_type','Room');
     }
 
     public function pharmacy(){
         return $this->hasOneThroughModel(
             'Room', 
             'ModelHasRoom',
-            'reference_id',
+            'model_id',
             $this->getKeyName(),
             $this->getKeyName(),
             $this->getForeignKey()
-        )->where('reference_type',$this->getMorphClass());
+        )->where('model_type',$this->getMorphClass())
+         ->where('warehouse_type','Room');
     }
     //END EIGER SECTION
 }

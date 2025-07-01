@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Procurement\Purchasing;
+namespace Projects\Klinik\Requests\API\SupplyChain\Purchasing;
 
 use Hanafalah\LaravelSupport\Requests\FormRequest;
 
