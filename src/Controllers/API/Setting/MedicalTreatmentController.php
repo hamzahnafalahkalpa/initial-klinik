@@ -1,0 +1,32 @@
+<?php
+
+namespace Projects\Klinik\Controllers\API\Setting;
+
+use Projects\Klinik\Controllers\API\ApiController;
+use Hanafalah\ModuleMedicalTreatment\Contracts\Schemas\MedicalTreatment as SchemasMedicalTreatment;
+use Projects\Klinik\Requests\API\Setting\MedicalTreatment\{
+    ViewRequest, StoreRequest, DeleteRequest, ShowRequest
+};
+class MedicalTreatmentController extends ApiController{
+    public function __construct(
+        protected SchemasMedicalTreatment $__schema
+    ){
+        parent::__construct();
+    }
+
+    public function index(ViewRequest  $request){
+        return $this->__schema->viewMedicalTreatmentPaginate();
+    }
+
+    public function store(StoreRequest $request){
+        return $this->__schema->storeMedicalTreatment();
+    }
+
+    public function destroy(DeleteRequest $request){
+        return $this->__schema->deleteMedicalTreatment();
+    }
+
+    public function show(ShowRequest $request){
+        return $this->__schema->showMedicalTreatment();
+    }
+}

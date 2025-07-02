@@ -30,4 +30,5 @@ Route::group([
     include __DIR__.'/setting/stakeholder.php'; 
     include __DIR__.'/setting/patient-emr.php'; 
     include __DIR__.'/setting/faskes-service.php'; 
+    include __DIR__.'/setting/treatment.php'; 
 });
