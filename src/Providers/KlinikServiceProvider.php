@@ -8,6 +8,7 @@ use Hanafalah\LaravelSupport\{
     Concerns\NowYouSeeMe,
     Supports\PathRegistry
 };
+use Hanafalah\LaravelSupport\Contracts\Data\UnicodeData;
 use Illuminate\Support\Str;
 use Projects\Klinik\{
     Klinik,

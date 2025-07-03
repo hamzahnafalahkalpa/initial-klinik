@@ -31,7 +31,7 @@ return [
                 "Anatomy"
             ],
             "central_tenant" => [
-                "Transaction",
+                "Transaction"
             ]
         ]
     ],

@@ -28,7 +28,7 @@ class Employee extends EmployeeEmployee{
         $model_has_room->save();
         return $room;
     }
-
+    
     //EIGER SECTION
     public function rooms(){        
         return $this->belongsToManyModel(
