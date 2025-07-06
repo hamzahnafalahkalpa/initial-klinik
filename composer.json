@@ -5,7 +5,7 @@
             "Projects\\Klinik\\": "src/"
         },
         "files": [
-            "src/helpers.php"
+            "src/helper.php"
         ]
     },
     "authors": [

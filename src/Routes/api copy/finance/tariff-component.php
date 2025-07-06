@@ -14,5 +14,5 @@ use Projects\Klinik\Controllers\API\Component\TariffComponent\TariffServiceCompo
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('tariff-component/service/{flag}',TariffServiceComponentController::class)->only(['index']);
+// Route::apiResource('tariff-component/service/{flag}',TariffServiceComponentController::class)->only(['index']);
 Route::apiResource('tariff-component',TariffComponentController::class)->parameters(['tariff-component' => 'id']);
