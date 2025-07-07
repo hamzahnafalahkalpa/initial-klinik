@@ -35,7 +35,10 @@ return new class extends Migration
                     ->cascadeOnUpdate()->restrictOnDelete();
                 $table->string("service_item_id", 36);
                 $table->string("service_item_type", 50);
-                $table->bigInteger("price");
+                $table->unsignedBigInteger('price')->default(0);
+                $table->unsignedBigInteger('cogs')->default(0);
+                $table->unsignedSmallInteger('tax')->default(0);
+                $table->unsignedSmallInteger('margin')->default(0);
                 $table->boolean('current')->default(1)->nullable(false);
                 $table->json('props')->nullable();
                 $table->timestamps();

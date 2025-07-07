@@ -19,6 +19,11 @@ class MedicalTreatmentController extends ApiController{
     }
 
     public function store(StoreRequest $request){
+        $treatment = request()->treatment;
+        foreach ($treatment['service_prices'] as &$service_price) {
+            $service_price['service_item_type'] ??= 'TariffComponent';
+        }
+        request()->merge(['treatment' => $treatment]);
         return $this->__schema->storeMedicalTreatment();
     }
 
