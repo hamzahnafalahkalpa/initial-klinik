@@ -1,10 +1,10 @@
 <?php
 
-use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\ModuleAnatomy\Models\Anatomy;
+use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\ModuleExamination\Models\ExaminationStuff;
 
 return new class extends Migration
 {
@@ -14,7 +14,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->__table = app(config('database.models.Anatomy', Anatomy::class));
+        $this->__table = app(config('database.models.ExaminationStuff', ExaminationStuff::class));
     }
 
     /**
@@ -25,7 +25,7 @@ return new class extends Migration
     public function up()
     {
         $table_name = $this->__table->getTable();
-        $this->isNotTableExists(function() use ($table_name){
+        if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('flag',100)->nullable(false);
@@ -39,6 +39,7 @@ return new class extends Migration
 
                 $table->index(["flag"], "ex_st_flag");
                 $table->index(['flag','label'], "ex_st_lbl_flag");
+
             });
 
             Schema::table($table_name, function (Blueprint $table) {
@@ -46,7 +47,7 @@ return new class extends Migration
                     ->nullable()->after($this->__table->getKeyName())
                     ->index()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             });
-        });
+        }
     }
 
     /**

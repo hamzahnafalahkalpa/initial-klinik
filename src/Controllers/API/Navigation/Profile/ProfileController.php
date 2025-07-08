@@ -2,7 +2,6 @@
 
 namespace Projects\Klinik\Controllers\API\Navigation\Profile;
 
-use Hanafalah\ModuleEmployee\Contracts\Schemas\Employee;
 use Hanafalah\ModuleEmployee\Contracts\Schemas\ProfileEmployee;
 use Projects\Klinik\Controllers\API\ApiController;
 use Projects\Klinik\Requests\API\Navigation\Profile\{

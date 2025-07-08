@@ -28,7 +28,6 @@ return [
                 "Encoding",
                 "MasterFeature",
                 "ModelHasFeature",
-                "Anatomy"
             ],
             "central_tenant" => [
                 "Transaction"
