@@ -9,6 +9,7 @@ use Projects\Klinik\Controllers\API\Setting\{
     ServiceClusterController,
     ScreeningController,
     JasaController,
+    ServiceLabelController,
 };
 
 Route::group([
@@ -22,4 +23,5 @@ Route::group([
     Route::apiResource('/screening',ScreeningController::class)->parameters(['screening' => 'id']);
     Route::apiResource('/form',FormController::class)->parameters(['form' => 'id']);
     Route::apiResource('/jasa',JasaController::class)->parameters(['jasa' => 'id']);
+    Route::apiResource('/service-label',ServiceLabelController::class)->parameters(['service-label' => 'id']);
 });

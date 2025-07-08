@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Projects\Klinik\Controllers\API\Setting\{
-    ServiceLabelController
-};
 use Projects\Klinik\Controllers\API\Setting\Examination\{
     AllergyStuffController,
     GcsStuffController,
@@ -17,7 +14,6 @@ Route::group([
     'prefix' => '/patient-emr',
     'as' => 'patient-emr.'
 ],function(){
-    Route::apiResource('/service-label',ServiceLabelController::class)->parameters(['service-label' => 'id']);
     Route::group([
         'prefix' => '/examination',
         'as' => 'examination.'
