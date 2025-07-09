@@ -5,6 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
+use Hanafalah\MicroTenant\Models\Activity\CentralActivity;
 
 return new class extends Migration
 {
@@ -14,7 +15,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->__table = app(config('database.models.Activity', Activity::class));
+        $this->__table = app(config('database.models.CentralActivity', CentralActivity::class));
     }
 
     /**

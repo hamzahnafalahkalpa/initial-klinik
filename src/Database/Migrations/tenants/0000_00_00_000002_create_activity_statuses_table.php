@@ -1,13 +1,11 @@
 <?php
 
+use Hanafalah\LaravelSupport\Models\Activity\Activity;
+use Hanafalah\LaravelSupport\Models\Activity\ActivityStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
-use Hanafalah\MicroTenant\Models\Activity\{
-    CentralActivity,
-    CentralActivityStatus
-};
+use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
 return new class extends Migration
 {
@@ -17,7 +15,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->__table = app(config('database.models.CentralActivityStatus', CentralActivityStatus::class));
+        $this->__table = app(config('database.models.ActivityStatus', ActivityStatus::class));
     }
 
     /**
@@ -27,19 +25,20 @@ return new class extends Migration
      */
     public function up()
     {
-        $table_name = $this->__table->getTableName();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function(){
+            $table_name = $this->__table->getTableName();
             Schema::create($table_name, function (Blueprint $table) {
-                $centralActivity = app(config('database.models.CentralActivity', CentralActivity::class));
+                $activity = app(config('database.models.Activity', Activity::class));
+
                 $table->ulid('id')->primary();
-                $table->foreignIdFor($centralActivity::class, 'activity_id')->nullable()->index()
+                $table->foreignIdFor($activity::class, 'activity_id')->nullable()->index()
                     ->constrained('activities', 'id')->cascadeOnUpdate()->cascadeOnDelete();
                 $table->unsignedBigInteger('status');
                 $table->unsignedTinyInteger('active')->default(1);
                 $table->text('message');
                 $table->timestamps();
             });
-        }
+        });
     }
 
     /**

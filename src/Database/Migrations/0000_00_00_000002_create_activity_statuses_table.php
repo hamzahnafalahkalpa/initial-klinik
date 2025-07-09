@@ -4,10 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
-use Hanafalah\MicroTenant\Models\Activity\{
-    CentralActivity,
-    CentralActivityStatus
-};
+use Hanafalah\MicroTenant\Models\Activity\CentralActivity;
+use Hanafalah\MicroTenant\Models\Activity\CentralActivityStatus;
 
 return new class extends Migration
 {
@@ -30,9 +28,10 @@ return new class extends Migration
         $this->isNotTableExists(function(){
             $table_name = $this->__table->getTableName();
             Schema::create($table_name, function (Blueprint $table) {
-                $centralActivity = app(config('database.models.CentralActivity', CentralActivity::class));
+                $activity = app(config('database.models.Activity', CentralActivity::class));
+
                 $table->ulid('id')->primary();
-                $table->foreignIdFor($centralActivity::class, 'activity_id')->nullable()->index()
+                $table->foreignIdFor($activity::class, 'activity_id')->nullable()->index()
                     ->constrained('activities', 'id')->cascadeOnUpdate()->cascadeOnDelete();
                 $table->unsignedBigInteger('status');
                 $table->unsignedTinyInteger('active')->default(1);

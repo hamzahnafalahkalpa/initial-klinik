@@ -26,26 +26,19 @@ return new class extends Migration
     {
         $table_name = $this->__table->getTable();
         $this->isNotTableExists(function() use ($table_name){
-            $visit_registration = app(config('database.models.VisitRegistration', VisitRegistration::class));
-            Schema::create($table_name, function (Blueprint $table) use ($visit_registration) {
+            Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('referral_code', 50)->nullable(false);
                 $table->string('reference_type', 50)->nullable(false);
                 $table->string('reference_id', 36)->nullable(false);
-                $table->foreignIdFor($visit_registration::class)->nullable(false)
-                    ->index()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-                $table->json('props')->nullable();
+                $table->string('visit_type', 50)->nullable(false);
+                $table->string('visit_id', 36)->nullable(false);
                 $table->string('status', 50)->nullable(true);
+                $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
 
                 $table->index(['reference_type', 'reference_id'], 'referral_ref');
-            });
-
-            Schema::table($visit_registration->getTable(), function (Blueprint $table) use ($visit_registration) {
-                $table->foreignIdFor($visit_registration::class)
-                    ->nullable()->index()->constrained()
-                    ->cascadeOnUpdate()->restrictOnDelete();
             });
         });
     }

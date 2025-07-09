@@ -23,8 +23,4 @@ class ViewExamination extends ApiResource{
         ];
     }
 
-    private function getAssessmentData(){
-        $response_as = $this->__local_model->response_model;
-        
-    }
 }
