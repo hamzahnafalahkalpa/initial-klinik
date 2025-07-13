@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Controllers\API\Setting;
 
-use Hanafalah\ModuleExamination\Contracts\Schemas\ServiceLabel;
+use Hanafalah\ModuleService\Contracts\Schemas\ServiceLabel;
 use Projects\Klinik\Controllers\API\ApiController;
 use Projects\Klinik\Requests\API\Setting\ServiceLabel\{
     ViewRequest, StoreRequest, DeleteRequest

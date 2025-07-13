@@ -9,6 +9,7 @@ use Projects\Klinik\Controllers\API\Setting\{
     ServiceClusterController,
     ScreeningController,
     JasaController,
+    MasterInformedConsentController,
     ServiceLabelController,
 };
 
@@ -24,4 +25,5 @@ Route::group([
     Route::apiResource('/form',FormController::class)->parameters(['form' => 'id']);
     Route::apiResource('/jasa',JasaController::class)->parameters(['jasa' => 'id']);
     Route::apiResource('/service-label',ServiceLabelController::class)->parameters(['service-label' => 'id']);
+    Route::apiResource('/master-informed-consent',MasterInformedConsentController::class)->parameters(['service-label' => 'id']);
 });
