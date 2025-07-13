@@ -1,13 +1,21 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration;
+namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitPatient\VisitRegistration;
 
+use Hanafalah\ModulePatient\Contracts\Schemas\VisitRegistration;
+use Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitRegistration\EnvironmentController;
 use Projects\Klinik\Requests\PatientEmr\VisitExamination\{
     ViewRequest
 };
 
 class VisitRegistrationController extends EnvironmentController
 {
+    public function __construct(
+        protected VisitRegistration $__visit_registration_schema,
+    ){
+        parent::__construct();
+    }
+
     public function index(ViewRequest $request){
         $is_perawat = false;
         if (isset($this->global_employee)){

@@ -29,6 +29,7 @@ trait HasUser
 
             if ($user_reference->reference_type == $this->EmployeeModelMorph()){
                 $this->global_employee = $user_reference->reference;
+                $this->global_employee->load('profession');
             }
 
             $workspace = &$user_reference->workspace;

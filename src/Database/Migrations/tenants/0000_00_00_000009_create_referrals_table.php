@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Hanafalah\ModulePatient\Models\EMR\Referral;
 use Hanafalah\ModulePatient\Models\EMR\VisitRegistration;
 use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
+use Hanafalah\ModuleMedicService\Models\MedicService;
 
 return new class extends Migration
 {
@@ -27,13 +28,16 @@ return new class extends Migration
         $table_name = $this->__table->getTable();
         $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
+                $medic_service = app(config('database.models.MedicService',MedicService::class));
+
                 $table->ulid('id')->primary();
                 $table->string('referral_code', 50)->nullable(false);
-                $table->string('reference_type', 50)->nullable(false);
-                $table->string('reference_id', 36)->nullable(false);
+                $table->string('referral_type', 50)->nullable(false);
                 $table->string('visit_type', 50)->nullable(false);
                 $table->string('visit_id', 36)->nullable(false);
                 $table->string('status', 50)->nullable(true);
+                $table->foreignIdFor($medic_service::class)->index()->constrained()
+                      ->cascadeOnUpdate()->restrictOnDelete();
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();

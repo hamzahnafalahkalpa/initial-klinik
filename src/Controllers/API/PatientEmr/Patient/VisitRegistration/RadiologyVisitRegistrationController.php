@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration;
+namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitRegistration;
 
 use Projects\Klinik\Requests\PatientEmr\VisitExamination\{
     ViewRequest

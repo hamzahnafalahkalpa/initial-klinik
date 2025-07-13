@@ -1,14 +1,13 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientEmr\VisitPatients;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitPatient;
 
-use Projects\Klinik\Requests\PatientEmr\VisitPatient\{
-    ShowRequest,ViewRequest,
-    DeleteRequest, StoreRequest
+use Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient\{
+    ShowRequest, ViewRequest, DeleteRequest, StoreRequest
 };
 
-class VisitPatientController extends EnvironmentController
-{
+class VisitPatientController extends EnvironmentController{
+
     public function index(ViewRequest $request){
         return $this->__schema->viewVisitPatientPaginate();
     }
