@@ -26,7 +26,7 @@ return new class extends Migration
         $table_name = $this->__table->getTable();
         $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
-                $table->id();
+                $table->ulid('id')->primary();
                 $table->string('name', 200)->nullable(false);
                 $table->string('alias', 100)->nullable(false);
                 $table->string('root', 255)->nullable(true);

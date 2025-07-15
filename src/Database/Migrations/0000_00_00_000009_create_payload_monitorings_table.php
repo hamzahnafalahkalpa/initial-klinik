@@ -27,7 +27,7 @@ return new class extends Migration
         $this->isNotTableExists(function(){
             $table_name = $this->__table->getTableName();
             Schema::create($table_name, function (Blueprint $table) {
-                $table->id();
+                $table->ulid('id')->primary();
                 $table->text('url')->nullable();
                 $table->timestamp('start_at')->nullable();
                 $table->timestamp('end_at')->nullable();

@@ -3,9 +3,10 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
+use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
 use Hanafalah\MicroTenant\Models\Tenant\Domain;
 use Hanafalah\MicroTenant\Models\Tenant\Tenant;
+use Hanafalah\MicroTenant\Models\Application\App;
 
 return new class extends Migration
 {
@@ -26,11 +27,11 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTableName();
-        $this->isNotTableExists(function() use ($table_name){
+        if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
                 $domain = app(config('database.models.Domain', Domain::class));
 
-                $table->ulid('id')->primary();
+                $table->id();
                 $table->string('uuid', 36)->nullable(false);
                 $table->string('name', 50)->unique()->nullable(false);
                 $table->string('reference_type', 50)->nullable();
@@ -48,8 +49,7 @@ return new class extends Migration
 
                 $table->index(['reference_id', 'reference_type'], 'tenants_reference_index');
             });
-        });
-        $this->isNotColumnExists('parent_id',function() use ($table_name){
+
             Schema::table($table_name, function (Blueprint $table) use ($table_name) {
                 $model = $this->__table;
                 $table->foreignIdFor($model::class, 'parent_id')
@@ -58,7 +58,7 @@ return new class extends Migration
                     ->index()->constrained($table_name, $model->getKeyName())
                     ->restrictOnDelete()->cascadeOnUpdate();
             });
-        });
+        }
     }
 
     /**
