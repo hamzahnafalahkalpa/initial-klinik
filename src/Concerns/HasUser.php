@@ -25,26 +25,28 @@ trait HasUser
                 }
             ]);
             $user_reference = $user->userReference;
-            $this->global_user_reference = &$user_reference;
-
-            if ($user_reference->reference_type == $this->EmployeeModelMorph()){
-                $this->global_employee = $user_reference->reference;
-                $this->global_employee->load('profession');
-            }
-
-            $workspace = &$user_reference->workspace;
-            if(isset($workspace)) {
-                $this->global_workspace = $workspace;
-
-                if (isset($workspace->setting)){
-                    $setting = $workspace->setting;
+            if (isset($user_reference)){
+                $this->global_user_reference = &$user_reference;
+    
+                if ($user_reference->reference_type == $this->EmployeeModelMorph()){
+                    $this->global_employee = $user_reference->reference;
+                    $this->global_employee->load('profession');
                 }
+    
+                $workspace = &$user_reference->workspace;
+                if(isset($workspace)) {
+                    $this->global_workspace = $workspace;
+    
+                    if (isset($workspace->setting)){
+                        $setting = $workspace->setting;
+                    }
+                }
+                $impersonate = config()->get('app.impersonate');
+                config()->set('app.impersonate', $this->mergeArray($impersonate,[
+                    'auth'      => $user,
+                    'workspace' => $workspace ?? null,
+                ]));
             }
-            $impersonate = config()->get('app.impersonate');
-            config()->set('app.impersonate', $this->mergeArray($impersonate,[
-                'auth'      => $user,
-                'workspace' => $workspace ?? null,
-            ]));
         }
         parent::__construct();
     }
