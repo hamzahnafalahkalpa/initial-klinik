@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination;
+namespace Projects\Klinik\Requests\API\PatientEmr\VisitExamination\Examination;
 
 class UpdateRequest extends Environment
 {

@@ -75,7 +75,7 @@ class Room extends BuildingRoom
             'model_id',
             $this->getKeyName(),
             $this->getKeyName(),
-            $this->getForeignKey()
+            'warehouse_id'
         )->where('model_type',$this->getMorphClass())
          ->where('warehouse_type','Room');
     }

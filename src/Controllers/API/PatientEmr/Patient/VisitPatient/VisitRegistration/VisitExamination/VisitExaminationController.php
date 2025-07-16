@@ -2,11 +2,10 @@
 
 namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitPatient\VisitRegistration\VisitExamination;
 
-use Projects\Klinik\Requests\PatientEmr\VisitExamination\{CompateRequest, ViewRequest, ShowRequest};
-use Illuminate\Support\Facades\Hash;
-use Projects\Klinik\Jobs\LIS\RequestLabToLISJob;
-use Projects\Klinik\Jobs\SatuSehat\SendSatuSehatJob;
-use Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitRegistration\VisitExamination\EnvironmentController;
+use Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient\VisitRegistration\VisitExamination\{
+    ViewRequest, ShowRequest
+};
+use Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\EnvironmentController;
 
 class VisitExaminationController extends EnvironmentController
 {

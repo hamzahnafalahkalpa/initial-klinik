@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Requests\PatientEmr\VisitExamination;
 
-class ViewRequest extends VisitExaminationEnvironment
+class ViewRequest extends VisitEnvironment
 {
   public function authorize(){
     return true;

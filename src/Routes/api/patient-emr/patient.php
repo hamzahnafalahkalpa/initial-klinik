@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Projects\Klinik\Controllers\API\PatientEmr\Patient\PatientController;
 use Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitPatient\{
+    VisitRegistration\VisitExamination\VisitExaminationController,
     VisitRegistration\VisitRegistrationController,
     VisitPatientController
 };
+use Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitPatient\VisitRegistration\VisitExamination\Examination\ExaminationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +31,17 @@ Route::group([
         "as"     => "visit-patient.show.",
     ],function() {
         Route::apiResource('/visit-registration',VisitRegistrationController::class)->parameters(['visit-registration' => 'id']);
+        Route::group([
+            "prefix" => "/visit-registration/{visit_registration_id}",
+            "as"     => "visit-registration.show.",
+        ],function() {
+            Route::apiResource('/visit-examination',VisitExaminationController::class)->parameters(['visit-examination' => 'id']);
+            Route::group([
+                "prefix" => "/visit-examination/{visit_examination_id}",
+                "as"     => "visit-examination.show.",
+            ],function() {
+                Route::post('/examination',[ExaminationController::class,'store'])->name('examination.store');
+            });
+        });
     });
 });

@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination;
 
-class StoreRequest extends ExaminationEnvironment
+class StoreRequest extends Environment
 {
   public function authorize(){
     return true;

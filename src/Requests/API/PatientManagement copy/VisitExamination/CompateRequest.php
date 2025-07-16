@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Requests\PatientEmr\VisitExamination;
 
-class CompateRequest extends VisitExaminationEnvironment
+class CompateRequest extends VisitEnvironment
 {
   public function authorize(){
     return true;

@@ -3,7 +3,7 @@
 namespace Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination;
 use Zahzah\LaravelSupport\Requests\FormRequest;
 
-class ExaminationEnvironment extends FormRequest
+class Environment extends FormRequest
 {
     protected $__entity = 'VisitExamination';
 }
