@@ -7,6 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Hanafalah\ModulePatient\Models\EMR\VisitExamination;
+use Hanafalah\ModulePatient\Models\EMR\VisitRegistration;
 
 return new class extends Migration
 {
@@ -31,11 +32,16 @@ return new class extends Migration
             Schema::create($table_name, function (Blueprint $table) {
                 $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class));
                 $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class));
+                $visit_registration  = app(config('database.models.VisitRegistration', VisitRegistration::class));
 
                 $table->ulid("id")->primary();
 
-                $table->string('visit_examination_type', 50);
-                $table->string('visit_examination_id', 36);
+                $table->string('examination_type', 50);
+                $table->string('examination_id', 36);
+
+                $table->foreignIdFor($visit_registration::class)
+                    ->nullable()->index('vr_as')->constrained()
+                    ->cascadeOnUpdate()->restrictOnDelete();
 
                 $table->foreignIdFor($examination_summary::class)
                     ->nullable()->index('es_as')->constrained()
@@ -50,7 +56,7 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index(['visit_examination_type', 'visit_examination_id'], 've_morph_ass');
+                $table->index(['examination_type', 'examination_id'], 've_morph_ass');
             });
 
             Schema::table($table_name, function (Blueprint $table) use ($table_name) {
