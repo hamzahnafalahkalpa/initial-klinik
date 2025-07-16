@@ -2,8 +2,8 @@
 
 namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination;
 
+use Hanafalah\ModulePatient\Contracts\Schemas\VisitExamination;
 use Projects\Klinik\Controllers\API\ApiController;
-use Zahzah\ModulePatient\Contracts\VisitExamination;
 
 class EnvironmentController extends ApiController
 {

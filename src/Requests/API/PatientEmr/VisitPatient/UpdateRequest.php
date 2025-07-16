@@ -1,12 +1,11 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient\VisitRegistration;
+namespace Projects\Klinik\Requests\API\PatientEmr\VisitPatient;
 
 use Projects\Klinik\Requests\API\PatientEmr\VisitPatient\EnvironmentRequest;
 
-class ViewRequest extends EnvironmentRequest
+class UpdateRequest extends EnvironmentRequest
 {
-
   public function authorize()
   {
     return true;
@@ -14,7 +13,6 @@ class ViewRequest extends EnvironmentRequest
 
   public function rules()
   {
-    return [
-    ];
+    return [];
   }
 }

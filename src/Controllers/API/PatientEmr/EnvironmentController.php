@@ -21,16 +21,24 @@ class EnvironmentController extends ApiBaseController{
         $this->userAttempt();
     }
 
+    protected function commonConditional($query){
+
+    }
+
+    protected function commonRequest(){
+        
+    }
+
     protected function isEmployee(): bool{
         return isset($this->global_employee);
     }
 
     protected function isDoctor(){
-        return $this->isEmployee() && $this->global_employee->profession->label == 'Doctor';
+        return $this->isEmployee() && isset($this->global_employee->profession) && $this->global_employee->profession['label'] == 'Doctor';
     }
 
     protected function isPerawat(){
-        return $this->isEmployee() && $this->global_employee->profession->label == 'Perawat';
+        return $this->isEmployee() && isset($this->global_employee->profession) && $this->global_employee->profession['label'] == 'Perawat';
     }
 
     protected function getMedicServiceFromEmployee(){

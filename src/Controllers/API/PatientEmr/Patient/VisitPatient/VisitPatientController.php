@@ -10,7 +10,9 @@ use Projects\Klinik\Controllers\API\PatientEmr\VisitPatient\EnvironmentControlle
 class VisitPatientController extends EnvironmentController{
 
     public function index(ViewRequest $request){
-        return $this->__schema->viewVisitPatientPaginate();
+        return $this->__schema->conditionals(function($query){
+            $query->where('patient_id',request()->patient_id);
+        })->viewVisitPatientPaginate();
     }
 
     public function store(StoreRequest $request){

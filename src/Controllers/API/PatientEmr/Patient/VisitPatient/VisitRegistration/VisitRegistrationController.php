@@ -2,56 +2,26 @@
 
 namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitPatient\VisitRegistration;
 
-use Hanafalah\ModulePatient\Contracts\Schemas\VisitRegistration;
-use Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitRegistration\EnvironmentController;
-use Projects\Klinik\Requests\PatientEmr\VisitExamination\{
-    ViewRequest
+use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentController;
+use Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient\VisitRegistration\{
+    ViewRequest, ShowRequest, DeleteRequest
 };
 
 class VisitRegistrationController extends EnvironmentController
 {
-    public function __construct(
-        protected VisitRegistration $__visit_registration_schema,
-    ){
-        parent::__construct();
+    protected function commonConditional($query){
+        $query->where('visit_patient_id',request()->visit_patient_id);
     }
 
     public function index(ViewRequest $request){
-        $is_perawat = false;
-        if (isset($this->global_employee)){
-            $profession = $this->global_employee->profession;
-            if ($is_perawat = isset($profession) && $profession->name == 'Perawat'){
-                $rooms = $this->global_employee->rooms;
-                $medic_service_id = [];
-                foreach ($rooms as $room) {
-                    if (isset($room)){
-                        $model_has_service = $room->modelHasService()->first();
-                        if (isset($model_has_service)) $medic_service_id[] = $model_has_service->service_id;
-                    }
-                }
-            }else{
-                $room = $this->global_employee->room;
-                if (isset($room)){
-                    $model_has_service = $room->modelHasService()->first();
-                    if (isset($model_has_service)) $medic_service_id = $model_has_service->service_id;
-                }
-            }
-        }
+        return $this->getVisitRegistrationPaginate();
+    }
 
-        request()->merge([
-            'flag'             => 'OUTPATIENT',
-            'medic_service_id' => $medic_service_id ?? null
-        ]);
-        
-        return $this->__visit_registration_schema->conditionals(function($query) use ($is_perawat){
-            $query->whereNull("props->is_mcu")
-                  ->when(isset($this->global_employee) && isset($is_perawat) && !$is_perawat,function($query){
-                      $query->whereNull('head_doctor_id')
-                            ->orWhere(function($query){
-                                $query->whereNotNull('head_doctor_id')
-                                      ->where('head_doctor_id',$this->global_employee->getKey());
-                            });
-                  });
-        })->viewVisitRegistrationPaginate();
+    public function show(ShowRequest $request){
+        return $this->showVisitRegistration();
+    }
+
+    public function destroy(DeleteRequest $request){
+        return $this->deleteVisitRegistration();
     }
 }

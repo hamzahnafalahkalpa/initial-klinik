@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient;
+namespace Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient\VisitRegistration;
 
 use Projects\Klinik\Requests\API\PatientEmr\VisitPatient\EnvironmentRequest;
 

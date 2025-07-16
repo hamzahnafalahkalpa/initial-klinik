@@ -4,7 +4,7 @@ namespace Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient\VisitRegi
 
 use Projects\Klinik\Requests\API\PatientEmr\VisitPatient\EnvironmentRequest;
 
-class ViewRequest extends EnvironmentRequest
+class DeleteRequest extends EnvironmentRequest
 {
 
   public function authorize()

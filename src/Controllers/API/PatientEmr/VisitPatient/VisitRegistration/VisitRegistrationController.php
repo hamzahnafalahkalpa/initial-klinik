@@ -2,21 +2,16 @@
 
 namespace Projects\Klinik\Controllers\API\PatientEmr\VisitPatient\VisitRegistration;
 
-use Hanafalah\ModulePatient\Contracts\Schemas\VisitRegistration;
-use Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitRegistration\EnvironmentController;
-use Projects\Klinik\Requests\PatientEmr\VisitExamination\{
+use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentController;
+use Projects\Klinik\Requests\API\PatientEmr\VisitPatient\VisitRegistration\{
     ViewRequest
 };
 
 class VisitRegistrationController extends EnvironmentController
 {
-    public function __construct(
-        protected VisitRegistration $__visit_registration_schema,
-    ){
-        parent::__construct();
-    }
-
     public function index(ViewRequest $request){
+        return $this->getVisitRegistrationPaginate();
+
         $is_perawat = false;
         if (isset($this->global_employee)){
             $profession = $this->global_employee->profession;
