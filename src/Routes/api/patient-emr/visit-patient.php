@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Projects\Klinik\Controllers\API\PatientEmr\VisitPatient\VisitPatientController;
-use Projects\Klinik\Controllers\API\PatientEmr\VisitPatient\VisitRegistration\VisitRegistrationController;
+use Projects\Klinik\Controllers\API\PatientEmr\VisitPatient\{
+    VisitPatientController,
+    VisitRegistration\VisitRegistrationController
+};
 
 /*
 |--------------------------------------------------------------------------
