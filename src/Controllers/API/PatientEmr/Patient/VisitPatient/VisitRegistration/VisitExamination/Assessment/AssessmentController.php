@@ -16,7 +16,7 @@ class AssessmentController extends EnvironmentController
 
     public function store(StoreRequest $request){
         request()->merge([
-            'morph'            => request()->flag,
+            'morph'            => Str::studly(request()->flag),
             'examination_type' => 'VisitExamination',
             'examination_id'   => request()->visit_examination_id
         ]);
