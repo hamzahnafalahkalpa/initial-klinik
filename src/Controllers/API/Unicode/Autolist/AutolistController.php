@@ -55,6 +55,25 @@ class AutolistController extends ApiController{
                     })->where('props->general_flag','ItemStuff');
                 });
             break;
+            case 'Treatment':
+                return $this->callAutolist($morph,function($query){
+                    $query->when(isset(request()->search_service_id),function($query){
+                        $morphs = ['MedicalTreatment','ClinicalPathology','AnatomicalPathology','Radiology'];
+                        $query->whereHasMorph('reference','*',function($query){
+                            $model = $query->getModel();
+                            switch($model->getMorphClass()){
+                                case 'MasterInformedConsent':
+                                break;
+                                default :
+                                    $query->whereHas('medicalServiceTreatment',function($query){
+                                        $query->where('prop_service->id',request()->search_service_id);
+                                    });
+                                break;
+                            }
+                        });
+                    });
+                });
+            break;
             case 'Room':
                 return $this->callAutolist($morph,function($query){
                     $query->when(isset(request()->search_employee_id),function($query){

@@ -1,9 +1,10 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Examination\Assessment;
+namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitPatient\VisitRegistration\VisitExamination\Assessment;
 
 use Illuminate\Support\Str;
-use Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination\{
+use Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Assessment\EnvironmentController;
+use Projects\Klinik\Requests\API\PatientEmr\VisitExamination\Assessment\{
     ViewRequest, StoreRequest, ShowRequest
 };
 
@@ -14,7 +15,11 @@ class AssessmentController extends EnvironmentController
     }
 
     public function store(StoreRequest $request){
-        // return $this->__assessment_schema->();
+        request()->merge([
+            'examination_type' => 'VisitExamination',
+            'examination_id'   => request()->visit_examination_id
+        ]);
+        return $this->__assessment_schema->storeAssessment();
     }
 
     public function show(ShowRequest $request){
