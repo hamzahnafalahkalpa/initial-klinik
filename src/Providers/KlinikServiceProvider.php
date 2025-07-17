@@ -50,8 +50,8 @@ class KlinikServiceProvider extends KlinikEnvironment
                 $this->__config_klinik = config('klinik');
             },
             'Provider' => function() use ($model,$config_name){
-                $this->bootedRegisters($model->packages, $config_name, __DIR__.'/../'.$this->__config_klinik['libs']['migration'] ?? 'Migrations');
-                $this->registerOverideConfig($config_name,__DIR__.'/../'.$this->__config_klinik['libs']['config']);
+                $this->bootedRegisters($model->packages, $config_name, __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.$this->__config_klinik['libs']['migration'] ?? 'Migrations');
+                $this->registerOverideConfig($config_name,__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.$this->__config_klinik['libs']['config']);
             },
             'Model', 'Database'
         ]);
