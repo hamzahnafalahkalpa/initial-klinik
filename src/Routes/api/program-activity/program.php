@@ -1,7 +1,7 @@
 <?php
 
-use Hanafalah\ModuleEvent\Controllers\API\ProgramActivity\Program\ProgramController;
 use Illuminate\Support\Facades\Route;
+use Projects\Klinik\Controllers\API\ProgramActivity\Program\ProgramController;
 
 /*
 |--------------------------------------------------------------------------

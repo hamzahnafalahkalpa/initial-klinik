@@ -27,14 +27,15 @@ return new class extends Migration
         $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
-                $table->string('event_code',50)->nullable();
                 $table->string('name', 255)->nullable(false);
+                $table->string('event_code',50)->nullable();
                 $table->string('reference_type', 50)->nullable(false);
                 $table->string('reference_id', 36)->nullable(false);
                 $table->unsignedTinyInteger('progress')->nullable(false)->default(0);
                 $table->date('inited_at')->nullable();
                 $table->date('started_at')->nullable();
                 $table->date('ended_at')->nullable();
+                $table->unsignedMediumInteger('total_day')->nullable();
                 $table->string('status')->default(Status::DRAFT->value)->nullable(false);
                 $table->json('props')->nullable();
                 $table->timestamps();
