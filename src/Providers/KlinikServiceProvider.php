@@ -36,6 +36,7 @@ class KlinikServiceProvider extends KlinikEnvironment
             });
     }
 
+
     public function boot(Kernel $kernel){
         $kernel->pushMiddleware(PayloadMonitoring::class);
         $model   = Facades\Klinik::myModel($this->TenantModel()->find(Klinik::ID));
