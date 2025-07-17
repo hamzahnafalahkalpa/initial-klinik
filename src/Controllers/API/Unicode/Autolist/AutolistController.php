@@ -57,19 +57,23 @@ class AutolistController extends ApiController{
             break;
             case 'Treatment':
                 return $this->callAutolist($morph,function($query){
-                    $query->when(isset(request()->search_service_id),function($query){
-                        $morphs = ['MedicalTreatment','ClinicalPathology','AnatomicalPathology','Radiology'];
-                        $query->whereHasMorph('reference','*',function($query){
-                            $model = $query->getModel();
-                            switch($model->getMorphClass()){
-                                case 'MasterInformedConsent':
-                                break;
-                                default :
-                                    $query->whereHas('medicalServiceTreatment',function($query){
-                                        $query->where('prop_service->id',request()->search_service_id);
-                                    });
-                                break;
-                            }
+                    $query->when(isset(request()->search_service_reference_label),function($query){
+                        $query->whereHasMorph('reference',[
+                            'ClinicalPathology',
+                            'AnatomicalPathology',
+                            'MedicalTreatment'
+                        ],function($query){
+                            $query->whereHas('medicalServiceTreatment',function($query){
+                                $service_reference_label = $this->mustArray(request()->search_service_reference_label);
+                                $query->whereIn('props->prop_service_reference->label',$service_reference_label);
+                            });
+                            // $model = $query->getModel();
+                            // switch($model->getMorphClass()){
+                            //     case 'MasterInformedConsent':
+                            //     break;
+                            //     default :
+                            //     break;
+                            // }
                         });
                     });
                 });

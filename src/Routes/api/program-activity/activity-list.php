@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Projects\Klinik\Controllers\API\ActivityList\ActivityList\ActivityListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,10 +13,5 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group([
-    "prefix" => "/program-activity",
-    "as"     => "program-activity.",
-],function() {
-    include_once(__DIR__."/program-activity/program.php");
-    include_once(__DIR__."/program-activity/activity-list.php");
-});
+
+Route::apiResource('/activity-list',ActivityListController::class)->parameters(['activity-list' => 'id']);
