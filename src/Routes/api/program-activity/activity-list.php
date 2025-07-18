@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Projects\Klinik\Controllers\API\ActivityList\ActivityList\ActivityListController;
+use Projects\Klinik\Controllers\API\ProgramActivity\ActivityList\ActivityListController;
 
 /*
 |--------------------------------------------------------------------------

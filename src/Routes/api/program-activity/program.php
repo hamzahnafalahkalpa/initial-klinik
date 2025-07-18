@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Projects\Klinik\Controllers\API\ProgramActivity\Program\ActivityList\ActivityListController;
 use Projects\Klinik\Controllers\API\ProgramActivity\Program\ProgramController;
 
 /*
@@ -15,3 +16,9 @@ use Projects\Klinik\Controllers\API\ProgramActivity\Program\ProgramController;
 */
 
 Route::apiResource('/program',ProgramController::class)->parameters(['program' => 'id']);
+Route::group([
+    'prefix' => 'program/{program_id}',
+    'as' => 'program.show.'
+],function(){
+    Route::apiResource('/activity-list',ActivityListController::class)->parameters(['activity-list' => 'id']);
+});

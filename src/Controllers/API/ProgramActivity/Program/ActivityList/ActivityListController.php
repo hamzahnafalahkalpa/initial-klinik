@@ -1,10 +1,10 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\ProgramActivity\ActivityList;
+namespace Projects\Klinik\Controllers\API\ProgramActivity\Program\ActivityList;
 
 use Projects\Klinik\Controllers\API\ApiController;
 use Hanafalah\ModuleEvent\Contracts\Schemas\ActivityList;
-use Projects\Klinik\Requests\API\ProgramActivity\ActivityList\{
+use Projects\Klinik\Requests\API\ProgramActivity\Program\ActivityList\{
     ViewRequest, StoreRequest, DeleteRequest
 };
 
@@ -13,6 +13,9 @@ class ActivityListController extends ApiController{
         protected ActivityList $__schema
     ){
         parent::__construct();
+        request()->merge([
+            'parent_id' => request()->program_id
+        ]);
     }
 
     public function index(ViewRequest $request){
