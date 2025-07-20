@@ -2,13 +2,8 @@
 
 namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Examination\Practitioner;
 
-use Projects\Klinik\Contracts\Patient\EMR\PractitionerEvaluation;
-use Projects\Klinik\Controllers\API\ApiController;
+use Projects\Klinik\Controllers\API\PatientEmr\EnvironmentController as EnvEnvironmentController;
 
-class EnvironmentController extends ApiController
+class EnvironmentController extends EnvEnvironmentController
 {
-    public function __construct(
-        protected PractitionerEvaluation $__practitioner_schema
-    ){
-    }
 }

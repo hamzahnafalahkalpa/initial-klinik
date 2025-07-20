@@ -10,7 +10,8 @@ use Illuminate\Support\Str;
 class VisitRegistrationController extends EnvironmentController
 {
     protected function commonRequest(){
-        $medic_service_label = Str::upper(Str::snake(request()->search_medic_service_label ?? request()->flag ?? 'RAWAT JALAN',' '));
+        $medic_service_label = request()->search_medic_service_label ?? request()->flag ?? null;
+        if (isset($medic_service_label)) $medic_service_label = Str::upper(Str::snake($medic_service_label));
         request()->merge([
             'search_medic_service_label' => $medic_service_label,
         ]);

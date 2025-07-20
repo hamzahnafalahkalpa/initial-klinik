@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Controllers\API\Setting\Examination;
 
-use Hanafalah\ModuleExamination\Contracts\Schemas\MonitoringCategory;
+use Hanafalah\ModuleMonitoring\Contracts\Schemas\MonitoringCategory;
 use Projects\Klinik\Controllers\API\ApiController;
 use Projects\Klinik\Requests\API\Setting\Examination\MonitoringCategory\{
     ViewRequest, StoreRequest, DeleteRequest

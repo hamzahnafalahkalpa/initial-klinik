@@ -1,6 +1,6 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient\VisitRegistration\VisitExamination\Examination\Practitioner;
+namespace Projects\Klinik\Requests\API\PatientEmr\VisitExamination\Examination\Practitioner;
 
 class ViewRequest extends Environment
 {

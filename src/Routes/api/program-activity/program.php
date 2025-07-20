@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Projects\Klinik\Controllers\API\ProgramActivity\Program\ActivityList\ActivityListController;
-use Projects\Klinik\Controllers\API\ProgramActivity\Program\ProgramController;
+use Projects\Klinik\Controllers\API\ProgramActivity\Program\{
+    ActivityList\Surveillance\SurveillanceController,
+    ActivityList\ActivityListController,
+    ProgramController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +24,10 @@ Route::group([
     'as' => 'program.show.'
 ],function(){
     Route::apiResource('/activity-list',ActivityListController::class)->parameters(['activity-list' => 'id']);
+    Route::group([
+        'prefix' => 'activity-list/{activity_list_id}',
+        'as' => 'activity-list.show.'
+    ],function(){
+        Route::apiResource('/surveillance',SurveillanceController::class)->parameters(['surveillance' => 'id']);
+    });
 });

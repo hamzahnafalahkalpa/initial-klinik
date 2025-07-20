@@ -2,7 +2,8 @@
 
 namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Examination\Practitioner;
 
-use Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination\Practitioner\{
+use Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Examination\Practitioner\EnvironmentController;
+use Projects\Klinik\Requests\API\PatientEmr\VisitExamination\Examination\Practitioner\{
     StoreRequest, ShowRequest, ViewRequest, DeleteRequest
 };
 

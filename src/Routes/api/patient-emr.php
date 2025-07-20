@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Hanafalah\LaravelSupport\Concerns\Support\HasRequestData;
+use Hanafalah\ModulePatient\Contracts\Data\PatientData;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +22,8 @@ Route::group([
     include_once(__DIR__."/patient-emr/visit-patient.php");
     include_once(__DIR__."/patient-emr/visit-registration.php");
     include_once(__DIR__."/patient-emr/visit-examination.php");
+    include_once(__DIR__."/patient-emr/nurse-station.php");
+    include_once(__DIR__."/patient-emr/emergency-unit.php");
+    include_once(__DIR__."/patient-emr/verlos-kamer.php");
+    include_once(__DIR__."/patient-emr/medical-checkup.php");
 });

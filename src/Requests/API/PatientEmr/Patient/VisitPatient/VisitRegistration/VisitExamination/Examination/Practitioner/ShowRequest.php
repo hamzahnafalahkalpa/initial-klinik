@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient\VisitRegistration\VisitExamination\Examination\Practitioner;
 
-use Illuminate\Validation\Rule;
+use Projects\Klinik\Requests\API\PatientEmr\VisitExamination\Examination\Practitioner\Environment;
 
 class ShowRequest extends Environment
 {
@@ -13,7 +13,5 @@ class ShowRequest extends Environment
 
   public function rules(){
     return [];
-    // return $this->setRules([
-    // ]);
   }
 }

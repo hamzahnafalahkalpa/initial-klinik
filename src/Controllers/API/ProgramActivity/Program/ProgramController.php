@@ -16,7 +16,7 @@ class ProgramController extends ApiController{
     }
 
     public function index(ViewRequest $request){
-        return $this->__schema->viewProgramList();
+        return $this->__schema->viewProgramPaginate();
     }
 
     public function store(StoreRequest $request){

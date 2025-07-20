@@ -72,6 +72,7 @@
         "hanafalah/module-handwriting": "1.x-dev as 1.0",
         "hanafalah/module-support": "1.x-dev as 1.0",
         "hanafalah/api-helper": "1.x-dev as 1.0",
-        "hanafalah/puskesmas-asset": "1.x-dev as 1.0"
+        "hanafalah/puskesmas-asset": "1.x-dev as 1.0",
+        "hanafalah/module-monitoring": "1.x-dev as 1.0"
     }
 }

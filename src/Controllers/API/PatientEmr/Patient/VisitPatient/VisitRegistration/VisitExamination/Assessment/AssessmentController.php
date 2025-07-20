@@ -14,6 +14,10 @@ class AssessmentController extends EnvironmentController
         return $this->getAssessment();
     }
 
+    public function show(ShowRequest $request){
+        return $this->getAssessment();
+    }
+
     public function store(StoreRequest $request){
         request()->merge([
             'morph'            => Str::studly(request()->flag),
@@ -21,9 +25,5 @@ class AssessmentController extends EnvironmentController
             'examination_id'   => request()->visit_examination_id
         ]);
         return $this->__assessment_schema->storeAssessment();
-    }
-
-    public function show(ShowRequest $request){
-        return $this->getAssessment();
     }
 }

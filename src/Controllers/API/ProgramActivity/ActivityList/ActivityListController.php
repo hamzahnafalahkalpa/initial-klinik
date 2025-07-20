@@ -16,7 +16,7 @@ class ActivityListController extends ApiController{
     }
 
     public function index(ViewRequest $request){
-        return $this->__schema->viewActivityListList();
+        return $this->__schema->viewActivityListPaginate();
     }
 
     public function store(StoreRequest $request){

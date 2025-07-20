@@ -10,11 +10,7 @@ class EnvironmentController extends EnvEnvironmentController{
         $this->commonRequest();
         return $this->__visit_registration_schema->conditionals(function($query) use ($callback){
             $this->commonConditional($query);
-            $query->when($this->isPerawat(),function($query){
-                request()->merge([
-                    'search_medic_service_id' => $this->getMedicServiceFromEmployee()
-                ]);
-            })->when(isset($callback),function ($query) use ($callback){
+            $query->when(isset($callback),function ($query) use ($callback){
                 $callback($query);
             });
         })->viewVisitRegistrationPaginate();
