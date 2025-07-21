@@ -3,23 +3,35 @@
 namespace Projects\Klinik\Controllers\API\PatientEmr\NurseStation;
 
 use Projects\Klinik\Requests\API\PatientEmr\NurseStation\{
-    ViewRequest, ShowRequest, DeleteRequest
+    ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };
 use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentController;
-use Illuminate\Support\Str;
 
 class NurseStationController extends EnvironmentController
 {
+    protected function commonRequest(){
+        $visit_patient = request()->visit_patient;
+        $merges = [
+            'search_medic_service_id=' => $this->getMedicServiceFromEmployee(),
+        ];
+        if (isset($visit_patient)){
+            $merges['visit_patient_type'] = 'VisitPatient';
+        }
+        request()->merge($merges);
+    }
+
     protected function commonConditional($query){
-        $query->when($this->isPerawat(),function($query){
-            request()->merge([
-                'search_medic_service_id' => $this->getMedicServiceFromEmployee()
-            ]);
+        $query->when(!$this->isPerawat(),function($query){
+            $query->whereRaw('false');
         });
     }
 
     public function index(ViewRequest $request){
         return $this->getVisitRegistrationPaginate();
+    }
+
+    public function store(StoreRequest $request){
+        return $this->storeVisitRegistration();
     }
 
     public function show(ShowRequest $request){

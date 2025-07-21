@@ -13,7 +13,8 @@ class DeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $patient_type = $this->usingEntity()->findOrFail($this->id);
+        return $patient_type->is_delete_able ?? true;
     }
 
     /**

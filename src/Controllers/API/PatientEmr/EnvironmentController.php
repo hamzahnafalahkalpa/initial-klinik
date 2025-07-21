@@ -37,12 +37,20 @@ class EnvironmentController extends ApiBaseController{
         return isset($this->global_employee);
     }
 
+    protected function employeeHasProfession(string $profession):bool{
+        return $this->isEmployee() && isset($this->global_employee->profession) && $this->global_employee->profession['label'] == $profession;
+    }
+
     protected function isDoctor(){
-        return $this->isEmployee() && isset($this->global_employee->profession) && $this->global_employee->profession['label'] == 'Doctor';
+        return $this->employeeHasProfession('Doctor');
     }
 
     protected function isPerawat(){
-        return $this->isEmployee() && isset($this->global_employee->profession) && $this->global_employee->profession['label'] == 'Perawat';
+        return $this->employeeHasProfession('Nurse');
+    }
+
+    protected function isMidwife(){
+        return $this->employeeHasProfession('Midwife');
     }
 
     protected function getMedicServiceFromEmployee(){
