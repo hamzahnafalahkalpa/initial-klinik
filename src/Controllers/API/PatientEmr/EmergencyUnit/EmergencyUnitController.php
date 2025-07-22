@@ -29,8 +29,13 @@ class EmergencyUnitController extends EnvironmentController
         $visit_patient = request()->visit_patient;
         if (isset($visit_patient['patient'])){
             $patient = &$visit_patient['patient'];
-            $patient['reference'] = $patient['people'];
-            $patient['people'] = null;
+            if (isset($patient['people'])){
+                $patient['reference'] = $patient['people'];
+                $patient['people'] = null;
+            }else{
+                $patient['reference'] = $patient['unidentified_patient'];
+                $patient['unidentified_patient'] = null;
+            }
             request()->merge(['visit_patient' => $visit_patient]);
         }
         return $this->storeVisitRegistration();
