@@ -4,10 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Hanafalah\ModuleEmployee\Models\Attendence\{
-    ShiftHasSchedule,
-    ShiftSchedule
+    AbsenceRequest
 };
-use Hanafalah\ModuleEmployee\Models\Attendence\Shift;
+use Hanafalah\ModuleEmployee\Models\Employee\Employee;
 
 return new class extends Migration
 {
@@ -17,7 +16,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->__table = app(config('database.models.ShiftHasSchedule', ShiftHasSchedule::class));
+        $this->__table = app(config('database.models.AbsenceRequest', AbsenceRequest::class));
     }
 
     /**
@@ -30,12 +29,19 @@ return new class extends Migration
         $table_name = $this->__table->getTable();
         if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
-                $shift = app(config('database.models.Shift', Shift::class));
-                $shift_schedule = app(config('database.models.ShiftSchedule', ShiftSchedule::class));
-
+                $employee = app(config('database.models.Employee',Employee::class));
+                
                 $table->ulid('id')->primary();
-                $table->foreignIdFor($shift::class)->nullable(false)->index()->cascadeOnUpdate()->cascadeOnDelete();
-                $table->foreignIdFor($shift_schedule::class)->nullable(false)->index()->cascadeOnUpdate()->cascadeOnDelete();
+                $table->foreignIdFor($employee::class)->index()->constrained()
+                    ->cascadeOnUpdate()->restrictOnDelete();
+                    
+                $table->string('absence_type', 255)->nullable(false);
+                $table->unsignedInteger('total_day')->nullable();
+                $table->string('reason', 255)->nullable();
+                $table->string('status', 255)->nullable(false);
+                $table->string('approver_type', 255)->nullable(true);
+                $table->foreignUlid('approver_id')->nullable(true)->nullOnDelete();
+                $table->datetime('approved_at')->nullable(true);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();

@@ -27,10 +27,10 @@ class EmergencyUnitController extends EnvironmentController
 
     public function store(StoreRequest $request){
         $visit_patient = request()->visit_patient;
-        if (isset($visit_patient->patient)){
-            $patient = &$visit_patient->patient;
-            $patient->reference = $patient->people;
-            $patient->people = null;
+        if (isset($visit_patient['patient'])){
+            $patient = &$visit_patient['patient'];
+            $patient['reference'] = $patient['people'];
+            $patient['people'] = null;
             request()->merge(['visit_patient' => $visit_patient]);
         }
         return $this->storeVisitRegistration();
