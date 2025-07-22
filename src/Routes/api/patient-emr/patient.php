@@ -22,6 +22,7 @@ use Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitPatient\{
 */
 
 Route::apiResource('/patient',PatientController::class)->parameters(['patient' => 'id']);
+Route::get('/patient/get-ini-itu',[PatientController::class,'getIniItu'])->name('getIniItu');
 Route::group([
     "prefix" => "/patient/{patient_id}",
     "as"     => "patient.show.",

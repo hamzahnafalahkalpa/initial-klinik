@@ -10,7 +10,7 @@ use Projects\Klinik\Requests\API\Setting\Examination\MonitoringCategory\{
 
 class MonitoringCategoryController extends ApiController{
     public function __construct(
-        protected MonitoringCategory $__schema
+        // protected MonitoringCategory $__schema
     ){}
 
     public function index(ViewRequest $request){

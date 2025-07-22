@@ -13,7 +13,7 @@ class ApprovalRequest extends FormRequest
       $purchasing = $this->usingEntity()->findOrFail(request()->id);
       $approval   = $purchasing->approval;
       if ($approval['status'] == 'CANCELED') return false;
-      $approver   = $approval['approver'];
+      $approver      = $approval['approver'];
       $approver_keys = array_keys($approver);
       $occupation_name = $this->global_employee->prop_occupation['label'];
       if (isset($occupation_name)){

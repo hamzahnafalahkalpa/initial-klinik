@@ -33,7 +33,7 @@ return [
         'config' => 'Config',
         'import' => 'Imports',
         'data' => 'Data',
-        'resource' => 'Resources',
+        'resource' => 'Transformers',
     ],
     "packages" => [
         /*--------------------------------------------------------------------------

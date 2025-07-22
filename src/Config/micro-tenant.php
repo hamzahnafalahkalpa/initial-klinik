@@ -22,14 +22,15 @@ return [
                 "UserReference",
                 "User",
                 "Village",
-                "Workspace",
+                "Workspace"
             ],
             "central_app"    => [
                 "Encoding",
                 "MasterFeature",
                 "ModelHasFeature",
                 'CentralActivityStatus',
-                'CentralActivity'
+                'CentralActivity',
+                "ExampleModel"
             ],
             "central_tenant" => [
                 "Transaction"
