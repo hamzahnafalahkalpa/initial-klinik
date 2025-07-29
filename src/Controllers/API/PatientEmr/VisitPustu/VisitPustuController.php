@@ -1,18 +1,18 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\PatientEmr\VerlosKamer;
+namespace Projects\Klinik\Controllers\API\PatientEmr\VisitPustu;
 
-use Projects\Klinik\Requests\API\PatientEmr\VerlosKamer\{
+use Projects\Klinik\Requests\API\PatientEmr\VisitPustu\{
     ViewRequest, StoreRequest, ShowRequest, DeleteRequest
 };
 use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentController;
 
-class VerlosKamerController extends EnvironmentController
+class VisitPustuController extends EnvironmentController
 {
     protected function commonConditional($query){
         $query->when($this->isPerawat(),function($query){
             request()->merge([
-                'search_medic_service_label' => 'VK'
+                'search_medic_service_label' => 'PUSKESMAS PEMBANTU'
             ]);
         });
     }
@@ -24,16 +24,16 @@ class VerlosKamerController extends EnvironmentController
     public function store(StoreRequest $request){
         $medic_service = $this->MedicServiceModel();
         $medic_service = (!isset(request()->medic_service_id))
-            ? $medic_service->where('label','VK')->firstOrFail()
+            ? $medic_service->where('label','PUSKESMAS PEMBANTU')->firstOrFail()
             : $medic_service->findOrFail($request->medic_service_id);
 
-        $service_cluster = $this->ServiceClusterModel();
-        $service_cluster = (!isset(request()->service_cluster_id))
-            ? $service_cluster->where('label','LINTAS KLUSTER')->firstOrFail()
-            : $service_cluster->findOrFail($request->service_cluster_id);
+        // $service_cluster = $this->ServiceClusterModel();
+        // $service_cluster = (!isset(request()->service_cluster_id))
+        //     ? $service_cluster->where('label','LINTAS KLUSTER')->firstOrFail()
+        //     : $service_cluster->findOrFail($request->service_cluster_id);
         request()->merge([
             'medic_service_id' => $medic_service->getKey(),
-            'service_cluster_id' => $service_cluster->getKey()
+            // 'service_cluster_id' => $service_cluster->getKey()
         ]);
         return $this->storeVisitRegistration();
     }

@@ -25,5 +25,6 @@ Route::group([
     include_once(__DIR__."/patient-emr/nurse-station.php");
     include_once(__DIR__."/patient-emr/emergency-unit.php");
     include_once(__DIR__."/patient-emr/verlos-kamer.php");
+    include_once(__DIR__."/patient-emr/visit-pustu.php");
     include_once(__DIR__."/patient-emr/medical-checkup.php");
 });

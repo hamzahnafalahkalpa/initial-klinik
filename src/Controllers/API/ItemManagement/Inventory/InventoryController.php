@@ -3,7 +3,7 @@
 namespace Projects\Klinik\Controllers\API\ItemManagement\Inventory;
 
 use Hanafalah\ModuleItem\Contracts\Schemas\Inventory;
-use Hanafalah\ModuleItem\Controllers\API\ApiController;
+use Projects\Klinik\Controllers\API\ApiController;
 use Projects\Klinik\Requests\API\ItemManagement\Inventory\{
     ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };

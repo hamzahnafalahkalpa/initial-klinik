@@ -20,6 +20,7 @@ return [
         'VISIT_EXAMINATION'      => ['flag'=>'VISIT_EXAMINATION','name'=>'Kode Visitasi'],
         'REFERRAL'               => ['flag'=>'REFERRAL','name'=>'Kode Rujukan'],
         'INVOICE'                => ['flag'=>'INVOICE','name'=>'Kode Invoice'],
+        'INVENTORY'              => ['flag'=>'INVENTORY','name'=>'Kode Invoice'],
         'PHARMACY_SALE'          => ['flag'=>'PHARMACY_SALE','name'=>'Kode Penjualan Resep Obat/BMHP'],
         'MEDICAL_PROCUREMENT'    => ['flag'=>'MEDICAL_PROCUREMENT','name'=>'Kode Pengadaan Obat/BMHP'],
         'MEDICAL_RECORD'         => ['flag'=>'MEDICAL_RECORD','name'=>'Rekam Medis'],

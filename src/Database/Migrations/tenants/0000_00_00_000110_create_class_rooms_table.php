@@ -33,7 +33,6 @@ return new class extends Migration
                 $table->ulid('id')->primary();
                 $table->string('name')->nullable(false);
                 $table->string('room_number')->nullable(true);
-                $table->unsignedBigInteger('daily_rate')->default(0)->nullable(false);
                 $table->string('status',50);
                 $table->json('props')->nullable();
                 $table->timestamps();
@@ -41,7 +40,7 @@ return new class extends Migration
             });
 
             Schema::table($table_name, function (Blueprint $table) {
-                $table->foreignIdFor($this->__table_medic_service)->nullable()
+                $table->foreignIdFor($this->__table_medic_service,'service_type_id')->nullable()
                       ->after('id')->index()->constrained()->cascadeOnUpdate()->restrictOnDelete();
             });
         });
