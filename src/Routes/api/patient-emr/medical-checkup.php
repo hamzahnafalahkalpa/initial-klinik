@@ -5,6 +5,7 @@ use Projects\Klinik\Controllers\API\PatientEmr\MedicalCheckup\{
     VisitExamination\Assessment\AssessmentController,
     VisitExamination\Examination\ExaminationController,
     VisitExamination\VisitExaminationController,
+    Referral\ReferralController,
     MedicalCheckupController
 };
 /*
@@ -23,6 +24,7 @@ Route::group([
     "prefix" => "/medical-checkup/{visit_registration_id}",
     "as"     => "medical-checkup.show.",
 ],function() {
+    Route::apiResource('/referral',ReferralController::class)->parameters(['referral' => 'id']);
     Route::apiResource('/visit-examination',VisitExaminationController::class)->parameters(['visit-examination' => 'id']);
     Route::group([
         "prefix" => "/visit-examination/{visit_examination_id}",

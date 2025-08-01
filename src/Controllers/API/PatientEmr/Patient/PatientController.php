@@ -14,10 +14,23 @@ class PatientController extends EnvironmentController{
     }
 
     public function store(StoreRequest $request){
-        request()->merge([
-            'reference' => request()->people,
-            'people' => null
-        ]);
+        $possibleTypes = ['people'];
+
+        $reference = null;
+        $referenceType = null;
+
+        foreach ($possibleTypes as $type) {
+            if (request()->filled($type)) {
+                $reference = request()->input($type);
+                $referenceType = $type;
+                break;
+            }
+        }
+
+        $data = array_fill_keys($possibleTypes, null);
+        $data['reference'] = $reference;
+        $data['reference_type'] = $referenceType;
+        request()->merge($data);
         return $this->__schema->storePatient();
     }
 

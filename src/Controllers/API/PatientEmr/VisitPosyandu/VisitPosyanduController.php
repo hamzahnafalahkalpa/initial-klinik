@@ -9,12 +9,10 @@ use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentCont
 
 class VisitPosyanduController extends EnvironmentController
 {
-    protected function commonConditional($query){
-        $query->when($this->isPerawat(),function($query){
-            request()->merge([
-                'search_medic_service_label' => 'PUSKESMAS PEMBANTU'
-            ]);
-        });
+    protected function commonRequest(){
+        request()->merge([
+            'search_medic_service_label' => 'POSYANDU'
+        ]);
     }
 
     public function index(ViewRequest $request){
@@ -24,16 +22,11 @@ class VisitPosyanduController extends EnvironmentController
     public function store(StoreRequest $request){
         $medic_service = $this->MedicServiceModel();
         $medic_service = (!isset(request()->medic_service_id))
-            ? $medic_service->where('label','PUSKESMAS PEMBANTU')->firstOrFail()
+            ? $medic_service->where('label','POSYANDU')->firstOrFail()
             : $medic_service->findOrFail($request->medic_service_id);
 
-        // $service_cluster = $this->ServiceClusterModel();
-        // $service_cluster = (!isset(request()->service_cluster_id))
-        //     ? $service_cluster->where('label','LINTAS KLUSTER')->firstOrFail()
-        //     : $service_cluster->findOrFail($request->service_cluster_id);
         request()->merge([
-            'medic_service_id' => $medic_service->getKey(),
-            // 'service_cluster_id' => $service_cluster->getKey()
+            'medic_service_id' => $medic_service->getKey()
         ]);
         return $this->storeVisitRegistration();
     }

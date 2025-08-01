@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
-use Hanafalah\ModuleManufacture\Models\Bom;
+use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\ModuleManufacture\Models\BillOfMaterial;
 
 return new class extends Migration
 {
@@ -14,7 +14,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->__table = app(config('database.models.Bom', Bom::class));
+        $this->__table = app(config('database.models.BillOfMaterial', BillOfMaterial::class));
     }
 
     /**
@@ -23,25 +23,23 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        $this->isNotTableExists(function() use ($table_name){
+        if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
-                $item     = app(config('database.models.Item'));
-                $material = app(config('database.models.Material'));
-
                 $table->ulid('id')->primary();
-                $table->foreignIdFor($item::class)
-                      ->constrained($item->getTable(),$item->getKeyName(),'itm_bom')
-                      ->cascadeOnDelete()->cascadeOnUpdate();
+                $table->string('bill_type',50)->nullable(false);
+                $table->string('bill_id',36)->nullable(false);
 
-                $table->foreignIdFor($material::class)
-                      ->constrained($material->getTable(),$material->getKeyName(),'mtr_bom')
-                      ->cascadeOnDelete()->cascadeOnUpdate();
+                $table->string('material_type',50)->nullable(false);
+                $table->string('material_id',36)->nullable(false);
+
+                $table->decimal('coefficient',3,2)->nullable();
+                $table->decimal('qty',7,2)->nullable(false);
 
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });
-        });
+        }
     }
 
     /**

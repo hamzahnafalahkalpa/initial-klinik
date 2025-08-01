@@ -4,13 +4,16 @@ namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitPatient\VisitR
 
 use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentController;
 use Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient\VisitRegistration\{
-    ViewRequest, ShowRequest, DeleteRequest
+    ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };
 
 class VisitRegistrationController extends EnvironmentController
 {
-    protected function commonConditional($query){
-        $query->where('visit_patient_id',request()->visit_patient_id);
+    protected function commonRequest(){
+        request()->merge([
+            'search_visit_type'       => 'VisitPatient',
+            'search_visit_patient_id' => request()->visit_patient_id
+        ]);
     }
 
     public function index(ViewRequest $request){
@@ -19,6 +22,10 @@ class VisitRegistrationController extends EnvironmentController
 
     public function show(ShowRequest $request){
         return $this->showVisitRegistration();
+    }
+
+    public function store(StoreRequest $request){
+        return $this->storeVisitRegistration();
     }
 
     public function destroy(DeleteRequest $request){

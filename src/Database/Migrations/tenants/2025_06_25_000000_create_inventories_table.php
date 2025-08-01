@@ -49,6 +49,9 @@ return new class extends Migration
                       ->cascadeOnUpdate()->nullOnDelete();
 
                 $table->string('model_name', 255)->default('')->nullable(false);
+                $table->string('used_by_type',50)->nullable();
+                $table->string('used_by_id',36)->nullable();
+                
                 $table->text('description')->nullable();
                 $table->json('props')->nullable();
                 $table->timestamps();

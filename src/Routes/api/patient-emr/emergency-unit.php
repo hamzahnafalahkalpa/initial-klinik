@@ -5,6 +5,7 @@ use Projects\Klinik\Controllers\API\PatientEmr\EmergencyUnit\{
     VisitExamination\Assessment\AssessmentController,
     VisitExamination\Examination\ExaminationController,
     VisitExamination\VisitExaminationController,
+    Referral\ReferralController,
     EmergencyUnitController
 };
 /*
@@ -23,6 +24,7 @@ Route::group([
     "prefix" => "/emergency-unit/{visit_registration_id}",
     "as"     => "emergency-unit.show.",
 ],function() {
+    Route::apiResource('/referral',ReferralController::class)->parameters(['referral' => 'id']);
     Route::apiResource('/visit-examination',VisitExaminationController::class)->parameters(['visit-examination' => 'id']);
     Route::group([
         "prefix" => "/visit-examination/{visit_examination_id}",

@@ -1,7 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\VisitRegistrationController;
+use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\{
+    VisitExamination\VisitExaminationController,
+    VisitExamination\Assessment\AssessmentController,
+    VisitExamination\Examination\ExaminationController,
+    Referral\ReferralController,
+    VisitRegistrationController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +25,13 @@ Route::group([
     "prefix" => "/visit-registration/{visit_registration_id}",
     "as"     => "visit-registration.show.",
 ],function() {
-    // Route::apiResource('/visit-examination',VisitExaminationController::class)->parameters(['visit-examination' => 'id']);
-    // Route::apiResource('/visit-examination/examination/{morph}',ExaminationController::class)->parameters(['visit-examination' => 'id']);
+    Route::apiResource('/referral',ReferralController::class)->parameters(['referral' => 'id']);
+    Route::apiResource('/visit-examination',VisitExaminationController::class)->parameters(['visit-examination' => 'id']);
+    Route::group([
+        "prefix" => "/visit-examination/{visit_examination_id}",
+        "as"     => "visit-examination.show.",
+    ],function() {
+        Route::post('/examination',[ExaminationController::class,'store'])->name('examination.store');
+        Route::apiResource('/{flag}/assessment',AssessmentController::class)->parameters(['assessment' => 'id'])->only(['store','show','index']);
+    });
 });

@@ -3,23 +3,30 @@
 namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitRegistration;
 
 use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentController;
-use Projects\Klinik\Requests\PatientEmr\VisitExamination\{
-    ViewRequest
+use Projects\Klinik\Requests\API\PatientEmr\Patient\VisitRegistration\{
+    ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };
 
 class VisitRegistrationController extends EnvironmentController
 {
+
+    protected function commonConditional($query){
+        $query->where('prop_visit_patient.patient_id',request()->patient_id);
+    }
+
     public function index(ViewRequest $request){
-        request()->merge([
-            'flag' => request()->flag ?? 'rawat-jalan',
-        ]);
-        return $this->getVisitRegistrationPaginate(function($query){
-            $query->when($this->isDoctor(),function($query){
-                $query->whereHas('practitionerEvaluation',function($query){
-                    $query->where('practitioner_type','Employee')
-                        ->where('practitioner_id',$this->global_employee->getKey());
-                });
-            });
-        });
+        return $this->getVisitRegistrationPaginate();
+    }
+
+    public function show(ShowRequest $request){
+        return $this->showVisitRegistration();
+    }
+
+    public function store(StoreRequest $request){
+        return $this->storeVisitRegistration();
+    }
+
+    public function delete(DeleteRequest $request){
+        return $this->deleteVisitRegistration();
     }
 }

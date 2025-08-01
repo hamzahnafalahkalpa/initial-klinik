@@ -5,6 +5,7 @@ use Projects\Klinik\Controllers\API\PatientEmr\Laboratorium\{
     VisitExamination\Assessment\AssessmentController,
     VisitExamination\Examination\ExaminationController,
     VisitExamination\VisitExaminationController,
+    Referral\ReferralController,
     LaboratoriumController
 };
 /*
@@ -23,6 +24,7 @@ Route::group([
     "prefix" => "/laboratorium/{visit_registration_id}",
     "as"     => "laboratorium.show.",
 ],function() {
+    Route::apiResource('/referral',ReferralController::class)->parameters(['referral' => 'id']);
     Route::apiResource('/visit-examination',VisitExaminationController::class)->parameters(['visit-examination' => 'id']);
     Route::group([
         "prefix" => "/visit-examination/{visit_examination_id}",

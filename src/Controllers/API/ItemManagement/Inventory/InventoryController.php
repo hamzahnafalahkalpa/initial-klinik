@@ -24,13 +24,25 @@ class InventoryController extends ApiController{
     }
 
     public function store(StoreRequest $request){
-        $reference = request()->office_supply ?? request()->stuff_supply ?? request()->healthcare_equipment;
-        request()->merge([
-            'reference'            => $reference,
-            'office_supply'        => null,
-            'stuff_supply'         => null,
-            'healthcare_equipment' => null,
-        ]);
+        $possibleTypes = ['office_supply', 'stuff_supply', 'healthcare_equipment'];
+
+        $reference = null;
+        $referenceType = null;
+
+        foreach ($possibleTypes as $type) {
+            if (request()->filled($type)) {
+                $reference = request()->input($type);
+                $referenceType = $type;
+                break;
+            }
+        }
+
+        $data = array_fill_keys($possibleTypes, null);
+        $data['reference'] = $reference;
+        $data['reference_type'] = $referenceType;
+
+        request()->merge($data);
+
         return $this->__schema->storeInventory();
     }
 

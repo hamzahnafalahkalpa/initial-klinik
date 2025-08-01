@@ -9,12 +9,10 @@ use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentCont
 
 class VisitPustuController extends EnvironmentController
 {
-    protected function commonConditional($query){
-        $query->when($this->isPerawat(),function($query){
-            request()->merge([
-                'search_medic_service_label' => 'PUSKESMAS PEMBANTU'
-            ]);
-        });
+    protected function commonRequest(){
+        request()->merge([
+            'search_medic_service_label' => 'PUSKESMAS PEMBANTU'
+        ]);
     }
 
     public function index(ViewRequest $request){
