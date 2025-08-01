@@ -7,6 +7,7 @@ use Hanafalah\LaravelSupport\Concerns\Support\HasCache;
 use Illuminate\Http\Request;
 use Projects\Klinik\Controllers\API\ApiController;
 use Illuminate\Support\Str;
+use Hanafalah\ModuleMedicService\Enums\Label as MedicServiceLabel;
 
 class AutolistController extends ApiController{
     use HasCache;
@@ -53,6 +54,25 @@ class AutolistController extends ApiController{
                     $query->withoutGlobalScope('flag')->when(isset(request()->search_flag),function($query){
                         $query->flagIn(request()->search_flag);
                     })->where('props->general_flag','ItemStuff');
+                });
+            break;
+            case 'MedicService':
+                return $this->callAutolist($morph,function($query){
+                    $query->when(isset(request()->is_for_referral) && request()->is_for_referral,function($query){
+                        $query->whereIn('label',[
+                            MedicServiceLabel::OUTPATIENT->value,
+                            MedicServiceLabel::INPATIENT->value,
+                            MedicServiceLabel::LABORATORY->value,
+                            MedicServiceLabel::MCU->value,
+                            MedicServiceLabel::RADIOLOGY->value,
+                            MedicServiceLabel::VERLOS_KAMER->value,
+                            MedicServiceLabel::EMERGENCY_UNIT->value,
+                            MedicServiceLabel::TREATMENT_ROOM->value
+                        ]);
+                    })->when(isset(request()->exclude_id),function($query){
+                        $ids = $this->mustArray(request()->exclude_id);
+                        $query->whereNotIn('id',$ids);
+                    });
                 });
             break;
             case 'Treatment':

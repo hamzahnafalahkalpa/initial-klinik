@@ -10,7 +10,13 @@ class EnvironmentController extends EnvEnvironmentController{
         $this->commonRequest();
         return $this->__visit_registration_schema->conditionals(function($query) use ($callback){
             $this->commonConditional($query);
-            $query->when(isset($callback),function ($query) use ($callback){
+            $query->where(function($query){
+                $query->whereNull('referral_id')
+                    ->orWhere(function($query){
+                        $query->whereNotNull('referral_id')
+                              ->where('props->prop_referral->status','<>','CREATED');
+                    });
+            })->when(isset($callback),function ($query) use ($callback){
                 $callback($query);
             });
         })->viewVisitRegistrationPaginate();
