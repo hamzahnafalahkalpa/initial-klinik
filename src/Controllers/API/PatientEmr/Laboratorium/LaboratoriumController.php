@@ -9,12 +9,12 @@ use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentCont
 
 class LaboratoriumController extends EnvironmentController
 {
-    protected function commonConditional($query){
-        $query->when($this->isPerawat(),function($query){
-            request()->merge([
-                'search_medic_service_label' => 'UGD'
-            ]);
-        });
+    protected function commonRequest(){
+        request()->merge([
+            'search_medic_service_label' => [
+                'PATOLOGI KLINIK','PATOLOGI ANATOMI'
+            ]
+        ]);
     }
 
     public function index(ViewRequest $request){

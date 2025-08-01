@@ -9,13 +9,12 @@ use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentCont
 
 class RadiologyController extends EnvironmentController
 {
-    protected function commonConditional($query){
-        $query->when($this->isPerawat(),function($query){
-            request()->merge([
-                'search_medic_service_label' => 'UGD'
-            ]);
-        });
+    protected function commonRequest(){
+        request()->merge([
+            'search_medic_service_label' => 'RADIOLOGI'
+        ]);
     }
+
 
     public function index(ViewRequest $request){
         return $this->getVisitRegistrationPaginate();
