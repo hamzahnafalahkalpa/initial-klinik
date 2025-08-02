@@ -18,6 +18,10 @@ class ReferralController extends EnvironmentController
     }
 
     public function store(StoreRequest $request){
+        request()->merge([
+            'visit_type' => 'VisitRegistration',
+            'visit_id'   => request()->visit_registration_id
+        ]);
         return $this->storeReferral();
     }
 

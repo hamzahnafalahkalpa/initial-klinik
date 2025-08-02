@@ -3,7 +3,7 @@
 namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Examination;
 
 use Carbon\Carbon;
-use Projects\Klinik\Requests\PatientEmr\VisitExamination\Examination\{
+use Projects\Klinik\Requests\API\PatientEmr\VisitExamination\Examination\{
     StoreRequest, UpdateRequest
 };
 

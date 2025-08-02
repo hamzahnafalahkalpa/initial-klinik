@@ -29,15 +29,8 @@ class ClinicalPathologyController extends ApiController{
             $service_price['service_item_type'] ??= 'TariffComponent';
         }
 
-        $lab_samples = request()->lab_samples ?? [];
-        foreach ($lab_samples as $lab_sample) {
-            $lab_sample['model_type'] = 'ClinicalPathology';
-            $lab_sample['relation_type'] = 'Sample';
-        }
-
         request()->merge([
-            'treatment' => $treatment,
-            'lab_samples' => $lab_samples
+            'treatment' => $treatment
         ]);
         return $this->__schema->storeClinicalPathology();
     }

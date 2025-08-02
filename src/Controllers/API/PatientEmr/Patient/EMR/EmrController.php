@@ -5,7 +5,7 @@ namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\EMR;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Gii\ModuleExamination\Contracts\Examination\Assessment\Assessment;
 use Illuminate\Http\Request;
-use Projects\Klinik\Requests\PatientEmr\Patient\EMR\{
+use Projects\Klinik\Requests\API\PatientEmr\Patient\EMR\{
     ShowRequest,ViewRequest
 };
 use Illuminate\Support\Str;

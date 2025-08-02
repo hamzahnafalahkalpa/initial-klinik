@@ -29,4 +29,5 @@ Route::group([
     include_once(__DIR__."/patient-emr/visit-posyandu.php");
     include_once(__DIR__."/patient-emr/medical-checkup.php");
     include_once(__DIR__."/patient-emr/referral.php");
+    include_once(__DIR__."/patient-emr/inpatient.php");
 });

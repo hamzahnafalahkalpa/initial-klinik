@@ -2,9 +2,8 @@
 
 namespace Projects\Klinik\Requests\API\PatientEmr\VisitRegistration;
 
-use Hanafalah\LaravelSupport\Requests\FormRequest;
+use Projects\Klinik\Requests\API\VisitRegistration\EnvironmentRequest as EnvEnvironmentRequest;
 
-class EnvironmentRequest extends FormRequest
+class EnvironmentRequest extends EnvEnvironmentRequest
 {
-    protected $__entity = 'VisitRegistration';
 }

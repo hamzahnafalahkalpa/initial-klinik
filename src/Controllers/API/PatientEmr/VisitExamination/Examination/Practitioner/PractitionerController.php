@@ -10,18 +10,19 @@ use Projects\Klinik\Requests\API\PatientEmr\VisitExamination\Examination\Practit
 class PractitionerController extends EnvironmentController
 {
     public function index(ViewRequest $request){
-        return $this->__practitioner_schema->viewPractitionerList();
+        return $this->__practitioner_evaluation_schema->viewPractitionerEvaluationList();
     }
 
 
     public function store(StoreRequest $request){
-        return $this->__practitioner_schema->storePractitionerEvaluation();
+        return $this->__practitioner_evaluation_schema->storePractitionerEvaluation();
     }
 
-    public function show(ShowRequest $request){
+public function show(ShowRequest $request){
+        return $this->__practitioner_evaluation_schema->showPractitionerEvaluation();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->__practitioner_schema->removePractitionerEvaluation();
+        return $this->__practitioner_evaluation_schema->deletePractitionerEvaluation();
     }
 }

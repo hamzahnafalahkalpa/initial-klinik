@@ -8,6 +8,10 @@ use Projects\Klinik\Requests\API\PatientEmr\Referral\{
 
 class ReferralController extends EnvironmentController
 { 
+    public function commonRequest(){
+
+    }
+
     public function index(ViewRequest $request){
         return $this->getReferralPaginate();
     }
@@ -17,6 +21,9 @@ class ReferralController extends EnvironmentController
     }
 
     public function store(StoreRequest $request){
+        request()->merge([
+            'visit_type' => 'VisitRegistration'
+        ]);
         return $this->storeReferral();
     }
 
