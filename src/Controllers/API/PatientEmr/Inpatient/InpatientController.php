@@ -9,12 +9,10 @@ use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentCont
 
 class InpatientController extends EnvironmentController
 {
-    protected function commonConditional($query){
-        $query->when($this->isPerawat(),function($query){
-            request()->merge([
-                'search_medic_service_label' => 'RAWAT INAP'
-            ]);
-        });
+    protected function commonRequest(){
+        request()->merge([
+            'search_medic_service_label' => 'RAWAT INAP'
+        ]);
     }
 
     public function index(ViewRequest $request){

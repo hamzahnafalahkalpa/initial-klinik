@@ -9,12 +9,10 @@ use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentCont
 
 class VerlosKamerController extends EnvironmentController
 {
-    protected function commonConditional($query){
-        $query->when($this->isPerawat(),function($query){
-            request()->merge([
-                'search_medic_service_label' => 'VK'
-            ]);
-        });
+    protected function commonRequest(){
+        request()->merge([
+            'search_medic_service_label' => 'VK'
+        ]);
     }
 
     public function index(ViewRequest $request){
