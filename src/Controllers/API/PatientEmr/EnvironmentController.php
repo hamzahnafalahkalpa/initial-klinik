@@ -3,6 +3,7 @@
 namespace Projects\Klinik\Controllers\API\PatientEmr;
 
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Assessment;
 use Hanafalah\ModulePatient\Contracts\Schemas\{
     PractitionerEvaluation,
     Referral,
@@ -20,7 +21,8 @@ class EnvironmentController extends ApiBaseController{
         protected VisitRegistration $__visit_registration_schema,
         protected Examination $__examination_schema,
         protected PractitionerEvaluation $__practitioner_evaluation_schema,
-        protected Referral $__referral_schema
+        protected Referral $__referral_schema,
+        protected Assessment $__assessment_schema
     )
     {
         parent::__construct();   

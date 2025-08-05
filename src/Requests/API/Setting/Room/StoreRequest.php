@@ -24,17 +24,17 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'                 => ['nullable', $this->idValidation('Room')],
-            'name'               => ['required', 'string', 'max:255'],
-            'floor'              => ['required', 'integer'],
-            'phone'              => ['nullable', 'string', 'max:15'],
-            'class_room_id'      => ['nullable',  $this->idValidation('ClassRoom')],
-            'medic_service_id'   => ['nullable', 'string', $this->idValidation('MedicService')],
-            'service_cluster_id' => ['nullable', 'string', $this->idValidation('ServiceCluster')],
-            'building_id'        => ['required',  $this->idValidation('Building')],
-            'employees'          => ['nullable', 'array'],
-            'employees.*.id'     => ['required', $this->idValidation('Employee')],
-            'employees.*.name'   => ['nullable', 'string', 'max:255'],
+            // 'id'                 => ['nullable', $this->idValidation('Room')],
+            // 'name'               => ['required', 'string', 'max:255'],
+            // 'floor'              => ['required', 'integer'],
+            // 'phone'              => ['nullable', 'string', 'max:15'],
+            // 'class_room_id'      => ['nullable',  $this->idValidation('ClassRoom')],
+            // 'medic_service_id'   => ['nullable', 'string', $this->idValidation('MedicService')],
+            // 'service_cluster_id' => ['nullable', 'string', $this->idValidation('ServiceCluster')],
+            // 'building_id'        => ['required',  $this->idValidation('Building')],
+            // 'employees'          => ['nullable', 'array'],
+            // 'employees.*.id'     => ['required', $this->idValidation('Employee')],
+            // 'employees.*.name'   => ['nullable', 'string', 'max:255'],
         ];
     }
 }

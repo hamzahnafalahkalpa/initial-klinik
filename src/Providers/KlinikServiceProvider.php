@@ -43,7 +43,6 @@ class KlinikServiceProvider extends KlinikEnvironment
         $this->deferredProviders($model);
         
         $config_name = Str::kebab($model->name); 
-
         $this->registers([
             '*',
             'Config' => function() {

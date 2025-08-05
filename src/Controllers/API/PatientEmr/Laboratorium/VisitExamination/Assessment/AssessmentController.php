@@ -16,12 +16,11 @@ class AssessmentController extends EnvironmentController
 
     public function store(StoreRequest $request){
         request()->merge([
-            'morph'            => Str::studly(request()->flag),
+            'morph'            => Str::studly(request()->morph),
             'examination_type' => 'VisitExamination',
             'examination_id'   => request()->visit_examination_id
         ]);
-        return $this->__assessment_schema->storeAssessment();
-    }
+        return app(config('app.contracts.'.request()->morph))->storeAssessment();    }
 
     public function show(ShowRequest $request){
         return $this->getAssessment();

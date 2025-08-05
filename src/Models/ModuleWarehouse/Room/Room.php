@@ -54,7 +54,7 @@ class Room extends BuildingRoom
         return $this->belongsToManyModel(
             'Employee',
             'ModelHasRoom',
-            $this->getForeignKey(),
+            'warehouse_id',
             'model_id'
         )->where('model_type',$this->EmployeeModel()->getMorphClass())
          ->where('warehouse_type','Room');

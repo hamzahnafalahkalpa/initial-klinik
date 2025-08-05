@@ -2,6 +2,7 @@
 
 namespace Projects\Klinik\Schemas\ModuleWarehouse;
 
+use Hanafalah\ModuleWarehouse\Contracts\Data\ModelHasRoomData;
 use Hanafalah\ModuleWarehouse\Schemas\Room as SchemasRoom;
 use Illuminate\Database\Eloquent\Model;
 use Projects\Klinik\Contracts\Schemas\ModuleWarehouse\Room as ModuleWarehouseRoom;
@@ -9,7 +10,7 @@ use Projects\Klinik\Contracts\Schemas\ModuleWarehouse\Room as ModuleWarehouseRoo
 class Room extends SchemasRoom implements ModuleWarehouseRoom{
 
     public function createRoom(mixed $room_dto): Model{
-        return $this->RoomModel()->updateOrCreate([
+        $room_model = $this->usingEntity()->updateOrCreate([
             'id'          => $room_dto->id ?? null,
         ], [
             'building_id'        => $room_dto->building_id,
@@ -18,21 +19,23 @@ class Room extends SchemasRoom implements ModuleWarehouseRoom{
             'medic_service_id'   => $room_dto->medic_service_id,
             'service_cluster_id' => $room_dto->service_cluster_id
         ]);
-    }
-
-    protected function prepareStoreModelHasRooms(mixed &$room_dto): self{
-        $model_has_room_ids = [];
-        if (isset($room_dto->model_has_rooms) && count($room_dto->model_has_rooms) > 0){
-            foreach ($room_dto->model_has_rooms as $model_has_room) {
-                $model_has_room->warehouse_id = $room_dto->id;
-                $model_has_room = $this->prepareStoreModelHasRoom($model_has_room);
-                $model_has_room_ids[] = $model_has_room->id;
+        if (isset($room_dto->employee_ids) && count($room_dto->employee_ids) > 0){
+            foreach ($room_dto->employee_ids as $employee_id) {
+                $this->schemaContract('model_has_room')->prepareStoreModelHasRoom($this->requestDTO(
+                    ModelHasRoomData::class,[
+                        'warehouse_type' => 'Room',
+                        'warehouse_id' => $room_model->id,
+                        'model_type' => 'Employee',
+                        'model_id' => $employee_id
+                    ]
+                ));
             }
         }
-        $this->ModelHasRoomModel()->whereNotIn('id', $model_has_room_ids)
-            ->where('warehouse_id',$room_dto->id)
+        $this->ModelHasRoomModel()->whereNotIn('model_id', $room_dto->employee_ids)
+            ->where('model_type','Employee')
+            ->where('warehouse_id',$room_model->id)
             ->where('warehouse_type','Room')
             ->delete();
-        return $this;
+        return $room_model;
     }
 }

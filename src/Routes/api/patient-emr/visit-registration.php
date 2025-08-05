@@ -32,6 +32,6 @@ Route::group([
         "as"     => "visit-examination.show.",
     ],function() {
         Route::post('/examination',[ExaminationController::class,'store'])->name('examination.store');
-        Route::apiResource('/{flag}/assessment',AssessmentController::class)->parameters(['assessment' => 'id'])->only(['store','show','index']);
+        Route::apiResource('/{morph}/assessment',AssessmentController::class)->parameters(['assessment' => 'id'])->only(['store','show','index']);
     });
 });

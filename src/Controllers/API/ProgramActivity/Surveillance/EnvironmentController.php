@@ -11,4 +11,45 @@ class EnvironmentController extends ApiController{
     ){
         parent::__construct();
     }
+
+    protected function getSurveillancePaginate(?callable $callback = null){        
+        $this->commonRequest();
+        return $this->__schema->conditionals(function($query) use ($callback){
+            $this->commonConditional($query);
+        })->viewSurveillancePaginate();
+    }
+
+    protected function showSurveillance(?callable $callback = null){        
+        $this->commonRequest();
+        return $this->__schema->conditionals(function($query) use ($callback){
+            $this->commonConditional($query);
+            $query->when(isset($callback),function ($query) use ($callback){
+                $callback($query);
+            });
+        })->showSurveillance();
+    }
+
+    protected function deleteSurveillance(?callable $callback = null){        
+        $this->commonRequest();
+        return $this->__schema->conditionals(function($query) use ($callback){
+            $this->commonConditional($query);
+            $callback($query);
+        })->deleteSurveillance();
+    }
+
+    protected function storeSurveillance(?callable $callback = null){
+        $this->commonRequest();
+        return $this->__schema->conditionals(function($query) use ($callback){
+            $this->commonConditional($query);
+            $callback($query);
+        })->storeSurveillance();
+    }
+
+    protected function commonConditional($query){
+
+    }
+
+    protected function commonRequest(){
+        
+    }
 }

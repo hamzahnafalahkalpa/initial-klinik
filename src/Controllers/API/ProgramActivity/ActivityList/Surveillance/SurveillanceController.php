@@ -1,26 +1,25 @@
 <?php
 
-namespace Projects\Klinik\Controllers\API\ProgramActivity\Surveillance;
+namespace Projects\Klinik\Controllers\API\ProgramActivity\ActivityList\Surveillance;
 
-use Projects\Klinik\Controllers\API\ProgramActivity\Surveillance\EnvironmentController;
-use Projects\Klinik\Requests\API\ProgramActivity\Surveillance\{
+use Projects\Klinik\Requests\API\ProgramActivity\ActivityList\Surveillance\{
     ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };
 
 class SurveillanceController extends EnvironmentController{
     public function index(ViewRequest $request){
-        return $this->__schema->viewSurveillancePaginate();
+        return $this->getSurveillancePaginate();
     }
 
     public function store(StoreRequest $request){
-        return $this->__schema->storeSurveillance();
+        return $this->storeSurveillance();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->__schema->deleteSurveillance();
+        return $this->deleteSurveillance();
     }
 
     public function show(ShowRequest $request){
-        return $this->__schema->showSurveillance();
+        return $this->showSurveillance();
     }
 }

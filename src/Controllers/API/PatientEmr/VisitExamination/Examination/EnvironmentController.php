@@ -38,6 +38,7 @@ class EnvironmentController extends EnvEnvironmentController
         //         ]);
         //     }
         // }
+        dd();
         return $this->__examination_schema->storeExamination();
     }
 }

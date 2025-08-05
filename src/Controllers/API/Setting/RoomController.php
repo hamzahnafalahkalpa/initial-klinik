@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Controllers\API\Setting;
 
-use Hanafalah\ModuleWarehouse\Contracts\Schemas\Room;
+use Projects\Klinik\Contracts\Schemas\ModuleWarehouse\Room;
 use Projects\Klinik\Controllers\API\ApiController;
 use Projects\Klinik\Requests\API\Setting\Room\{
     ViewRequest, ShowRequest, StoreRequest, DeleteRequest

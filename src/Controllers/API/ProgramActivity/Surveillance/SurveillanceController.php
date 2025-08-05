@@ -8,18 +8,18 @@ use Projects\Klinik\Requests\API\ProgramActivity\Surveillance\{
 
 class SurveillanceController extends EnvironmentController{
     public function index(ViewRequest $request){
-        return $this->__schema->viewSurveillancePaginate();
+        return $this->getSurveillancePaginate();
     }
 
     public function store(StoreRequest $request){
-        return $this->__schema->storeSurveillance();
+        return $this->storeSurveillance();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->__schema->deleteSurveillance();
+        return $this->deleteSurveillance();
     }
 
     public function show(ShowRequest $request){
-        return $this->__schema->showSurveillance();
+        return $this->showSurveillance();
     }
 }

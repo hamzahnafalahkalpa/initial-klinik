@@ -2,26 +2,26 @@
 
 namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Assessment;
-use Projects\Klinik\Controllers\API\ApiController;
+use Projects\Klinik\Controllers\API\PatientEmr\EnvironmentController as EnvEnvironmentController;
 use Illuminate\Support\Str;
 
-class EnvironmentController extends ApiController
+class EnvironmentController extends EnvEnvironmentController
 {
-    public function __construct(
-        protected Assessment $__assessment_schema
-    ){
-        parent::__construct();
-    }
-
     protected function getAssessment(){
+        $morph  = Str::studly(request()->morph);
+        request()->merge([
+            'morph' => $morph,
+            'search_morph' => $morph,
+            'search_examination_type' => request()->examination_type ?? 'VisitExamination',
+            'search_examination_id' => request()->patient_summary_id ?? request()->visit_examination_id,
+        ]);
         $data = $this->__assessment_schema->showAssessment();
         if(!isset($data)) {
-            $flag  = Str::studly(request()->flag);
-            $model = $this->{$flag.'Model'}();
+            $model = $this->{$morph.'Model'}();
             $data  = (\method_exists($model,'getExams')) ? $model->getExams() : null;
         }
         return $data;
+
         $response = [
             'visit_examiantion_id' => request()->visit_examination_id,
         ];
@@ -31,7 +31,7 @@ class EnvironmentController extends ApiController
             case 'prescription':
             case 'examination':
                 $response[$exam_type] = [
-                    $flag => [
+                    $morph => [
                         'data' => $data
                     ]
                 ];
@@ -40,5 +40,16 @@ class EnvironmentController extends ApiController
                 $response[$exam_type] = $data;
             break;
         }
+    }
+
+    protected function storeAssessment(){
+        request()->merge([
+            'morph'            => Str::studly(request()->morph),
+            'examination_type' => 'VisitExamination',
+            'examination_id'   => request()->visit_examination_id
+        ]);
+        $config = config('app.contracts.'.request()->morph);
+        $schema = isset($config) ? app($config) : $this->__assessment_schema;
+        return $schema->storeAssessment();
     }
 }
