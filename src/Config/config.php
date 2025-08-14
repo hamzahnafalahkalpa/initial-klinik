@@ -8,11 +8,12 @@ return [
     "namespace"     => "Projects\Klinik",
     "service_name"  => "Klinik",
     "paths"         => [
-        "local_path"   => 'app/Projects',
+        "local_path"   => 'projects',
         "base_path"    => __DIR__.'\\..\\'
     ],
     "libs"           => [
         'migration' => 'Database/Migrations',
+        'database' => 'Database',
         'model' => 'Models',
         'controller' => 'Controllers',
         'provider' => 'Providers',
@@ -22,18 +23,18 @@ return [
         'route' => 'Routes',
         'observer' => 'Observers',
         'policy' => 'Policies',
+        'transformer' => 'Transformers',
         'seeder' => 'Database/Seeders',
         'middleware' => 'Middleware',
         'request' => 'Requests',
         'support' => 'Supports',
         'view' => 'Views',
-        'resources' => 'Resources',
         'schema' => 'Schemas',
         'facade' => 'Facades',
         'config' => 'Config',
         'import' => 'Imports',
         'data' => 'Data',
-        'resource' => 'Transformers',
+        'resource' => 'Resources',
     ],
     "packages" => [
         /*--------------------------------------------------------------------------
@@ -58,27 +59,16 @@ return [
         ]
     ],
     "commands" => [
-        Commands\SeedCommand::class,
-        Commands\MigrateCommand::class,
-        Commands\InstallMakeCommand::class,
+        Commands\AddTenantCommand::class,
+        Commands\GenerateCommand::class,
         Commands\ImpersonateCacheCommand::class,
         Commands\ImpersonateMigrateCommand::class,
+        Commands\InstallMakeCommand::class,
+        Commands\MigrateCommand::class,
         Commands\ModelMakeCommand::class,
-        Commands\GenerateCommand::class,
-        Commands\AddTenantCommand::class,
+        Commands\SeedCommand::class
     ],
     "encodings" => [
     ],
-    "provider" => "Projects\Klinik\\Providers\\KlinikServiceProvider",
-    'laravel-package-generator' => [
-        'patterns'      => [
-            //Lihat config/laravel-package-generator.php
-            'repository' => [], 
-            'project'    => [],
-            
-            //Lihat config/micro-tenant.php
-            'group'      => [],
-            'tenant'     => [],
-        ]
-    ]
+    "provider" => "Projects\Klinik\\Providers\\KlinikServiceProvider"
 ];

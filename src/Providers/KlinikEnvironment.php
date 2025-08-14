@@ -9,7 +9,7 @@ abstract class KlinikEnvironment extends BaseServiceProvider{
     protected $__config_klinik = [];
     protected string $__lower_package_name;
     protected string $__config_base_path      = '/../Config';
-    protected string $__migration_base_path   = '/../Database/Migrations';
+    protected string $__migration_base_path   = '/../{{database_namespace}}';
     protected string $__migration_target_path = '';
 
     public function __construct(Container $app) {

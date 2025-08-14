@@ -8,14 +8,14 @@ use Projects\Klinik\Commands;
 class CommandServiceProvider extends ServiceProvider
 {
     protected $__commands = [
-        Commands\SeedCommand::class,
-        Commands\MigrateCommand::class,
-        Commands\InstallMakeCommand::class,
+        Commands\AddTenantCommand::class,
+        Commands\GenerateCommand::class,
         Commands\ImpersonateCacheCommand::class,
         Commands\ImpersonateMigrateCommand::class,
+        Commands\InstallMakeCommand::class,
+        Commands\MigrateCommand::class,
         Commands\ModelMakeCommand::class,
-        Commands\GenerateCommand::class,
-        Commands\AddTenantCommand::class,
+        Commands\SeedCommand::class
     ];
 
     /**

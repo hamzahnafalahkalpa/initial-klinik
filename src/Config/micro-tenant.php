@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'dev_mode'     => env('DEV_MODE',false),
+    'dev_mode'     => true,
+    // 'dev_mode'     => env('DEV_MODE',false),
     'database' => [
         'model_connections' => [
             "central"        => [

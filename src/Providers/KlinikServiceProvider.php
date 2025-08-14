@@ -8,8 +8,8 @@ use Hanafalah\LaravelSupport\{
     Concerns\NowYouSeeMe,
     Supports\PathRegistry
 };
-use Hanafalah\LaravelSupport\Contracts\Data\UnicodeData;
 use Illuminate\Support\Str;
+use Hanafalah\ModuleWorkspace\Contracts\Data as WorkspaceDTO;
 use Projects\Klinik\{
     Klinik,
     Contracts,
@@ -23,8 +23,7 @@ class KlinikServiceProvider extends KlinikEnvironment
 
     public function register()
     {
-        $this->registerMainClass(Klinik::class)
-             ->setLocale('id')
+        $this->registerMainClass(Klinik::class,false)
              ->registerCommandService(CommandServiceProvider::class)
              ->registerServices(function(){
                  $this->binds([
@@ -36,47 +35,41 @@ class KlinikServiceProvider extends KlinikEnvironment
             });
     }
 
-
     public function boot(Kernel $kernel){
-        if (config('database.models.Tenant') !== null){
-            $kernel->pushMiddleware(PayloadMonitoring::class);
+        $kernel->pushMiddleware(PayloadMonitoring::class);
+        $this->app->booted(function(){
             $model   = Facades\Klinik::myModel($this->TenantModel()->find(Klinik::ID));
             if (isset($model)){
                 $this->deferredProviders($model);
-                
+
+                tenancy()->initialize(Klinik::ID);
+                $tenant = tenancy()->tenant;
+                $tenant->save();
+
                 $config_name = Str::kebab($model->name); 
+
                 $this->registers([
                     '*',
                     'Config' => function() {
                         $this->__config_klinik = config('klinik');
                     },
                     'Provider' => function() use ($model,$config_name){
-                        $this->bootedRegisters($model->packages, $config_name, __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.$this->__config_klinik['libs']['migration'] ?? 'Migrations');
-                        $this->registerOverideConfig($config_name,__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.$this->__config_klinik['libs']['config']);
+                        $this->bootedRegisters($model->packages, $config_name, __DIR__.'/../'.$this->__config_klinik['libs']['migration'] ?? 'Migrations');
+                        $this->registerOverideConfig($config_name,__DIR__.'/../'.$this->__config_klinik['libs']['config']);
                     },
                     'Model', 'Database'
                 ]);
+                $this->autoBinds();
                 $this->registerRouteService(RouteServiceProvider::class);
-        
+
                 $this->app->singleton(PathRegistry::class, function () {
                     $registry = new PathRegistry();
-        
+
                     $config = config("klinik");
-                    foreach ($config['libs'] as $key => $lib) $registry->set($key, 'app/Projects'.$lib);
+                    foreach ($config['libs'] as $key => $lib) $registry->set($key, 'projects'.$lib);
                     return $registry;
                 });
             }
-        }
-    }
-
-    
-    protected function dir(): string
-    {
-        return __DIR__ . '/';
-    }
-
-    protected function migrationPath(string $path = ''): string
-    {
-        return database_path($path);
+        });
     }
 }
