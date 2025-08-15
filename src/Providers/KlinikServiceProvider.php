@@ -37,7 +37,7 @@ class KlinikServiceProvider extends KlinikEnvironment
 
     public function boot(Kernel $kernel){
         $kernel->pushMiddleware(PayloadMonitoring::class);
-        $this->app->booted(function(){
+        // $this->app->booted(function(){
             $model   = Facades\Klinik::myModel($this->TenantModel()->find(Klinik::ID));
             if (isset($model)){
                 $this->deferredProviders($model);
@@ -70,6 +70,6 @@ class KlinikServiceProvider extends KlinikEnvironment
                     return $registry;
                 });
             }
-        });
+        // });
     }
 }
