@@ -26,8 +26,10 @@ class EnvironmentController extends EnvEnvironmentController
             }
         }
         request()->merge([
+            'warehouse_type' => config('module-examination.warehouse') ?? 'Room',
             'warehouse_id' => $room_id ?? null,
-            'pharmacy_id'  => $pharmacy_id ?? null
+            'pharmacy_id'  => $pharmacy_id ?? null,
+            'pharmacy_type' => config('module-examination.warehouse') ?? 'Room'
         ]);
         // if (isset(request()->examination_summary)){
         //     if (!isset(request()->examination_summary['valid_until']) && isset(\request()->examination_summary['certificate_valid_range'])){

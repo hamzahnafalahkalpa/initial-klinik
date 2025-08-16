@@ -4,7 +4,7 @@ namespace Projects\Klinik\Controllers\API\PharmacyDepartment\Dispense\VisitExami
 
 use Illuminate\Support\Str;
 use Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\Assessment\EnvironmentController;
-use Projects\Klinik\Requests\API\PatientEmr\VisitExamination\Assessment\{
+use Projects\Klinik\Requests\API\PharmacyDepartment\Dispense\VisitExamination\Assessment\{
     ViewRequest, StoreRequest, ShowRequest
 };
 

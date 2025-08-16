@@ -9,13 +9,11 @@ use Projects\Klinik\Controllers\API\PatientEmr\VisitRegistration\EnvironmentCont
 
 class DispenseController extends EnvironmentController
 {
-    protected function commonConditional($query){
-        $query->when($this->isPerawat(),function($query){
-            request()->merge([
-                'search_medic_service_label' => 'INSTALASI FARMASI',
-                'search_visit_patient_reference_type' => 'Patient'
-            ]);
-        });
+    protected function commonRequest(){
+        request()->merge([
+            'search_medic_service_label' => 'INSTALASI FARMASI',
+            'search_visit_patient_reference_type' => 'Patient'
+        ]);
     }
 
     public function index(ViewRequest $request){

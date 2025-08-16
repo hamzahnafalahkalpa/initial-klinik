@@ -23,7 +23,7 @@ class EnvironmentController extends EnvEnvironmentController
         return $data;
 
         $response = [
-            'visit_examiantion_id' => request()->visit_examination_id,
+            'visit_examination_id' => request()->visit_examination_id,
         ];
         $exam_type = request()->exam_type;
         switch ($exam_type) {
