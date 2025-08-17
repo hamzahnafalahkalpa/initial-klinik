@@ -10,12 +10,14 @@ class Item extends ModelsItem
         'name' => 'string',
         'selling_price' => 'int',
         'reference_type' => 'string',
-        'inventory_reference_type' => 'string'
+        'inventory_reference_type' => 'string',
+        'medical_item_reference_type' => 'string',
     ];
 
     public function getPropsQuery(): array{
         return [
-            'inventory_reference_type'   => 'props->prop_reference->reference_type'
+            'inventory_reference_type'     => 'props->prop_reference->reference_type',
+            'medical_item_reference_type'  => 'props->prop_reference->reference_type',
         ];
     }
 }

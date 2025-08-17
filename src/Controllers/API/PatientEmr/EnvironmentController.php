@@ -11,6 +11,7 @@ use Hanafalah\ModulePatient\Contracts\Schemas\{
     VisitPatient,
     VisitRegistration
 };
+use Hanafalah\ModulePharmacy\Contracts\Schemas\PharmacySale;
 use Projects\Klinik\Controllers\API\ApiController as ApiBaseController;
 
 class EnvironmentController extends ApiBaseController{
@@ -22,7 +23,8 @@ class EnvironmentController extends ApiBaseController{
         protected Examination $__examination_schema,
         protected PractitionerEvaluation $__practitioner_evaluation_schema,
         protected Referral $__referral_schema,
-        protected Assessment $__assessment_schema
+        protected Assessment $__assessment_schema,
+        protected PharmacySale $__pharmacy_sale_schema
     )
     {
         parent::__construct();   

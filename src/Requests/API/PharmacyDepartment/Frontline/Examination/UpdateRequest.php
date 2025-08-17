@@ -13,7 +13,7 @@ class UpdateRequest extends Environment
   public function rules(){
     return $this->setRules([
         'visit_examination_id' => ['required'],
-        'type'                 => ['required','in:commit, closed-emr-session'],
+        'type'                 => ['required','in:commit,dispense'],
     ]);
   }
 }
