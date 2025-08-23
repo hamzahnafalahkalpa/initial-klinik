@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Controllers\API\Transaction;
 
-use Hanafalah\ModulePayment\Contracts\Schemas\POSTransaction;
+use Hanafalah\ModulePayment\Contracts\Schemas\PosTransaction;
 use Hanafalah\ModuleTransaction\Contracts\Schemas\{
     Transaction
 };
@@ -13,11 +13,11 @@ class EnvironmentController extends ApiController{
 
     public function __construct(
         public Transaction $__transaction_schema,
-        public POSTransaction $__pos_schema
+        public PosTransaction $__pos_schema
     ){
         parent::__construct();
         $this->userAttempt();
-        $this->__schema = $this->__schema;
+        $this->__schema = $this->__transaction_schema;
     }
 
     protected function commonConditional($query){

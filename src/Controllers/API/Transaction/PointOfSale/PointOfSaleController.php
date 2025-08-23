@@ -9,6 +9,7 @@ use Projects\Klinik\Requests\API\Transaction\PointOfSale\{
 
 class PointOfSaleController extends EnvironmentController{
     protected function commonRequest(){
+        parent::commonRequest();
         request()->merge([
             'search_reference_type' => ['VisitPatient','PaymentSummary']
         ]);

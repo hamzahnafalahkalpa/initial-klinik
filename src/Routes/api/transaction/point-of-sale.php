@@ -15,9 +15,9 @@ use Projects\Klinik\Controllers\API\Transaction\PointOfSale\PointOfSaleControlle
 */
 
 Route::apiResource('/point-of-sale',PointOfSaleController::class)->parameters(['point-of-sale' => 'id']);
-Route::group([
-    "prefix" => "/point-of-sale/{transaction_id}",
-    'as' => 'point-of-sale.show.'
-],function(){
-    Route::apiResource('/payment',POSPaymentController::class)->parameters(['payment' => 'id']);
-});
+// Route::group([
+//     "prefix" => "/point-of-sale/{transaction_id}",
+//     'as' => 'point-of-sale.show.'
+// ],function(){
+//     Route::apiResource('/payment',PosPaymentController::class)->parameters(['payment' => 'id']);
+// });
