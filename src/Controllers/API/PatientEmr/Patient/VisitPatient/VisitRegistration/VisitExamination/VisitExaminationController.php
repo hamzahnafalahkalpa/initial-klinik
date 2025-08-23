@@ -10,11 +10,11 @@ use Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\EnvironmentContr
 class VisitExaminationController extends EnvironmentController
 {
     public function index(ViewRequest $request){
-        return $this->__visit_examination_schema->viewVisitExaminationPaginate();
+        return $this->getVisitExaminationPaginate();
     }
 
     public function show(ShowRequest $request){
-        return $this->__visit_examination_schema->showVisitExamination();
+        return $this->showVisitExamination();
     }
 
     // public function done(CompateRequest $request) {

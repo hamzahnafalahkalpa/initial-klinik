@@ -5,5 +5,6 @@ use Hanafalah\ModulePatient\{
 };
 
 return [
-    'practitioner' => 'Employee'
+    'practitioner' => 'Employee',
+    'payment_detail' => 'PaymentDetail'
 ];

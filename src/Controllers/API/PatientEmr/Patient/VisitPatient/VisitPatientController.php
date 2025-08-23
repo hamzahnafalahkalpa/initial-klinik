@@ -9,21 +9,25 @@ use Projects\Klinik\Controllers\API\PatientEmr\VisitPatient\EnvironmentControlle
 
 class VisitPatientController extends EnvironmentController{
 
+    protected function commonRequest(){
+        request()->merge([
+            'search_patient_id' => request()->patient_id
+        ]);
+    }
+
     public function index(ViewRequest $request){
-        return $this->__schema->conditionals(function($query){
-            $query->where('patient_id',request()->patient_id);
-        })->viewVisitPatientPaginate();
+        return $this->getVisitPatientPaginate();
     }
 
     public function store(StoreRequest $request){
-        return $this->__schema->storeVisitPatient();
+        return $this->storeVisitPatient();
     }
 
     public function show(ShowRequest $request){
-        return $this->__schema->showVisitPatient();
+        return $this->showVisitPatient();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->__schema->deleteVisitPatient();
+        return $this->deleteVisitPatient();
     }
 }

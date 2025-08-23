@@ -2,7 +2,7 @@
 
 namespace Projects\Klinik\Requests\API\PharmacyDepartment\PharmacySale\VisitExamination;
 
-use Projects\Klinik\Requests\API\PharmacyDepartment\VisitExamination\EnvironmentRequest;
+use Projects\Klinik\Requests\API\PatientEmr\VisitExamination\EnvironmentRequest;
 
 class ViewRequest extends EnvironmentRequest
 {

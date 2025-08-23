@@ -9,19 +9,18 @@ use Projects\Klinik\Requests\API\PatientEmr\VisitPatient\{
 class VisitPatientController extends EnvironmentController{
 
     public function index(ViewRequest $request){
-        return $this->__schema->viewVisitPatientPaginate();
+        return $this->getVisitPatientPaginate();
     }
 
     public function store(StoreRequest $request){
-        return $this->__schema->storeVisitPatient();
+        return $this->storeVisitPatient();
     }
 
-
     public function show(ShowRequest $request){
-        return $this->__schema->showVisitPatient();
+        return $this->showVisitPatient();
     }
 
     public function destroy(DeleteRequest $request){
-        return $this->__schema->deleteVisitPatient();
+        return $this->deleteVisitPatient();
     }
 }

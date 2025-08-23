@@ -3,17 +3,19 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
+use Hanafalah\ModulePayment\Models\Transaction\TransactionHasConsument;
 use Hanafalah\ModulePayment\Models\Consument\Consument;
+use Hanafalah\ModuleTransaction\Models\Transaction\Transaction;
 
 return new class extends Migration
 {
-    use NowYouSeeMe;
-    private $__table, $__table_service;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
+
+    private $__table;
 
     public function __construct()
     {
-        $this->__table = app(config('database.models.Consument', Consument::class));
+        $this->__table = app(config('database.models.TransactionHasConsument', TransactionHasConsument::class));
     }
 
     /**
@@ -26,17 +28,15 @@ return new class extends Migration
         $table_name = $this->__table->getTable();
         $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
+                $transaction = app(config('database.models.Transaction', Transaction::class));
+                $consument   = app(config('database.models.Consument', Consument::class));
+
                 $table->ulid('id')->primary();
-                $table->string('uuid', 36)->nullable();
-                $table->string('name')->nullable();
-                $table->string('phone', 30)->nullable();
-                $table->string('reference_type', 50)->nullable();
-                $table->string('reference_id', 36)->nullable();
+                $table->foreignIdFor($transaction::class)->nullable()->index()
+                    ->constrained()->cascadeOnUpdate()->restrictOnDelete();
+                $table->foreignIdFor($consument::class)->nullable()->index();
                 $table->json('props')->nullable();
                 $table->timestamps();
-                $table->softDeletes();
-
-                $table->index(['reference_type', 'reference_id']);
             });
         });
     }

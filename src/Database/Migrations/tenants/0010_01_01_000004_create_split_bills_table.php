@@ -1,5 +1,6 @@
 <?php
 
+use Hanafalah\ModulePayment\Models\Payment\PaymentMethod;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -30,6 +31,7 @@ return new class extends Migration
             Schema::create($table_name, function (Blueprint $table) {
                 $billing = app(config('database.models.Billing', Billing::class));
                 $invoice = app(config('database.models.Invoice', Invoice::class));
+                $payment_method = app(config('database.models.PaymentMethod', PaymentMethod::class));
 
                 $table->ulid('id')->primary();
                 $table->string('payment_method', 36)->nullable(true);
@@ -37,9 +39,12 @@ return new class extends Migration
                     ->constrained()->cascadeOnUpdate()->nullOnDelete();
                 $table->foreignIdFor($invoice::class)->nullable()->index()
                     ->constrained()->cascadeOnUpdate()->nullOnDelete();
+                $table->foreignIdFor($payment_method::class)->nullable()->index()
+                    ->constrained()->cascadeOnUpdate()->nullOnDelete();
                 $table->string('payer_id', 50)->nullable(true);
                 $table->string('payer_type', 36)->nullable(true);
-                $table->unsignedBigInteger('total_paid')->nullable(false)->default(0);
+                $table->unsignedBigInteger('money_paid')->nullable(true)->default(0);
+                $table->unsignedBigInteger('total_paid')->nullable(true)->default(0);
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
