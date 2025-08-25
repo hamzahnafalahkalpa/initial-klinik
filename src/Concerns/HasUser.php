@@ -8,6 +8,7 @@ trait HasUser
 {
     public $global_user;
     public $global_employee;
+    public $global_room;
     public $global_user_reference;
     public $global_workspace;
 
@@ -30,7 +31,8 @@ trait HasUser
     
                 if ($user_reference->reference_type == $this->EmployeeModelMorph()){
                     $this->global_employee = $user_reference->reference;
-                    $this->global_employee->load('profession');
+                    $this->global_employee->load('profession','room');
+                    if (isset($this->global_employee->room)) $this->global_room = $this->global_employee->room;
                 }
     
                 $workspace = &$user_reference->workspace;

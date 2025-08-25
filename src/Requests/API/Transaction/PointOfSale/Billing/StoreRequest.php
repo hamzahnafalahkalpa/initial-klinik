@@ -1,8 +1,8 @@
 <?php
 
-namespace Projects\Klinik\Requests\API\Transaction\PointOfSale;
+namespace Projects\Klinik\Requests\API\Transaction\PointOfSale\Billing;
 
-use Projects\Klinik\Requests\API\Transaction\Environment;
+use Projects\Klinik\Requests\API\Transaction\Billing\Environment;
 
 class StoreRequest extends Environment
 {

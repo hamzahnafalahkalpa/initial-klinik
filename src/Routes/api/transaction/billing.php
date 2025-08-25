@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-use Projects\Klinik\Controllers\API\Transaction\PaymentHistory\PaymentHistoryController;
+use Projects\Klinik\Controllers\API\Transaction\Billing\{
+    BillingController
+};
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,4 +16,4 @@ use Projects\Klinik\Controllers\API\Transaction\PaymentHistory\PaymentHistoryCon
 |
 */
 
-Route::apiResource('/payment-history',PaymentHistoryController::class)->parameters(['payment-history' => 'id']);
+Route::apiResource('/billing',BillingController::class)->parameters(['billing' => 'id']);

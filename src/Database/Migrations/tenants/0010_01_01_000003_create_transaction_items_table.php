@@ -34,7 +34,6 @@ return new class extends Migration
                 $table->foreignIdFor($transaction::class)->nullable()->index();
                 $table->string('item_type', 50)->nullable(false);
                 $table->string('item_id', 36)->nullable(false);
-                $table->string('item_name', 255)->nullable();
                 $table->unsignedBigInteger('tax')->nullable()->default(0);
                 $table->unsignedBigInteger('additional')->nullable();
                 $table->json('props')->nullable();

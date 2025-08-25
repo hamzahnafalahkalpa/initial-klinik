@@ -17,5 +17,5 @@ Route::group([
     "as"     => "transaction.",
 ],function() {
     include_once(__DIR__."/transaction/point-of-sale.php");
-    include_once(__DIR__."/transaction/payment-history.php");
+    include_once(__DIR__."/transaction/billing.php");
 });

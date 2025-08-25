@@ -33,6 +33,7 @@ return [
                 "ExampleModel"
             ],
             "central_tenant" => [
+                "PosTransaction",
                 "Transaction",
                 "TransactionHasConsument"
             ]

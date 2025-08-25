@@ -9,15 +9,12 @@ use Hanafalah\ModuleTransaction\Contracts\Schemas\{
 use Projects\Klinik\Controllers\API\ApiController;
 
 class EnvironmentController extends ApiController{
-    protected $__schema;
-
     public function __construct(
         public Transaction $__transaction_schema,
         public PosTransaction $__pos_schema
     ){
         parent::__construct();
         $this->userAttempt();
-        $this->__schema = $this->__transaction_schema;
     }
 
     protected function commonConditional($query){
@@ -30,7 +27,7 @@ class EnvironmentController extends ApiController{
 
     protected function getTransactionPaginate(?callable $callback = null){        
         $this->commonRequest();
-        return $this->__schema->conditionals(function($query) use ($callback){
+        return $this->__transaction_schema->conditionals(function($query) use ($callback){
             $this->commonConditional($query);
             $query->when(isset($callback),function ($query) use ($callback){
                 $callback($query);
@@ -40,7 +37,7 @@ class EnvironmentController extends ApiController{
 
     protected function showTransaction(?callable $callback = null){        
         $this->commonRequest();
-        return $this->__schema->conditionals(function($query) use ($callback){
+        return $this->__transaction_schema->conditionals(function($query) use ($callback){
             $this->commonConditional($query);
             $query->when(isset($callback),function ($query) use ($callback){
                 $callback($query);
@@ -50,7 +47,7 @@ class EnvironmentController extends ApiController{
 
     protected function deleteTransaction(?callable $callback = null){        
         $this->commonRequest();
-        return $this->__schema->conditionals(function($query) use ($callback){
+        return $this->__transaction_schema->conditionals(function($query) use ($callback){
             $this->commonConditional($query);
             $callback($query);
         })->deleteTransaction();
@@ -58,7 +55,7 @@ class EnvironmentController extends ApiController{
 
     protected function storeTransaction(?callable $callback = null){
         $this->commonRequest();
-        return $this->__schema->conditionals(function($query) use ($callback){
+        return $this->__transaction_schema->conditionals(function($query) use ($callback){
             $this->commonConditional($query);
             $callback($query);
         })->storeTransaction();
