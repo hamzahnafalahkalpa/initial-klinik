@@ -45,7 +45,6 @@ const getStoredAppearance = () => {
 
 const handleSystemThemeChange = () => {
     const currentAppearance = getStoredAppearance();
-
     updateTheme(currentAppearance || 'system');
 };
 
