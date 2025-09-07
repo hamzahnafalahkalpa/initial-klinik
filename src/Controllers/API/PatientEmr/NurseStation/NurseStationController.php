@@ -12,10 +12,11 @@ class NurseStationController extends EnvironmentController
     protected function commonRequest(){
         $visit_patient = request()->visit_patient;
         $merges = [
-            'search_medic_service_id=' => $this->getMedicServiceFromEmployee(),
+            'search_medic_service_id' => $this->getMedicServiceFromEmployee(),
         ];
-        if (isset($visit_patient)) $merges['visit_patient_type'] = 'VisitPatient';
-        
+        if (isset($visit_patient)){
+            $merges['search_visit_patient_type'] = 'VisitPatient';
+        }
         request()->merge($merges);
     }
 

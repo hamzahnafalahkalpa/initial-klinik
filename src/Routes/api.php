@@ -1,5 +1,10 @@
 <?php
 
 use Hanafalah\LaravelSupport\Facades\LaravelSupport;
+use Illuminate\Support\Facades\Route;
 
-LaravelSupport::callRoutes(__DIR__.'/api');
+Route::group([
+    'as' => 'api.'
+],function(){
+    LaravelSupport::callRoutes(__DIR__.'/api');
+});

@@ -10,7 +10,7 @@ use Projects\Klinik\Requests\API\Transaction\PointOfSale\{
 class PointOfSaleController extends EnvironmentController{
     protected function commonRequest(){
         parent::commonRequest();
-
+        $this->userAttempt();
         $billing = request()?->billing;
         if (isset($billing)){
             $billing['author_type']  ??= $this->global_employee->getMorphClass();   
@@ -33,6 +33,39 @@ class PointOfSaleController extends EnvironmentController{
     }
 
     public function store(StoreRequest $request){
+        $possibleTypes = ['pharmacy_sale','visit_patient','submission'];
+
+        $reference = null;
+        $referenceType = null;
+
+        foreach ($possibleTypes as $type) {
+            if (request()->filled($type)) {
+                $reference = request()->input($type);
+                $referenceType = $type;
+                switch ($type) {
+                    case 'visit_patient':
+                    case 'pharmacy_sale':
+                        $reference['visit_registration'] = $this->mergeArray($reference['visit_registration'],[
+                            "practitioner_evaluation" => [
+                                "id" => null,
+                                "practitioner_type" => $this->global_employee->getMorphClass(), 
+                                "practitioner_id" => $this->global_employee->getKey(),
+                                "as_pic" => true
+                            ]
+                        ]);
+                    break;
+                    default:
+                        # code...
+                    break;
+                }
+                break;
+            }
+        }
+
+        $data = array_fill_keys($possibleTypes, null);
+        $data['reference'] = $reference;
+        $data['reference_type'] = $referenceType;
+        request()->merge($data);
         return $this->storePosTransaction();
     }
 

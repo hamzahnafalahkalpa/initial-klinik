@@ -3,7 +3,7 @@
 namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination;
 
 use Projects\Klinik\Requests\API\PatientEmr\VisitExamination\{
-    ViewRequest, ShowRequest, DeleteRequest
+    ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };
 use Illuminate\Support\Facades\Hash;
 use Projects\Klinik\Jobs\LIS\RequestLabToLISJob;
@@ -13,16 +13,19 @@ use Projects\Klinik\Jobs\SatuSehat\SendSatuSehatJob;
 class VisitExaminationController extends EnvironmentController
 {
     public function index(ViewRequest $request){
-        return $this->__visit_examination_schema->viewVisitExaminationPaginate();
+        return $this->getVisitExaminationPaginate();
     }
 
     public function show(ShowRequest $request){
-        return $this->__visit_examination_schema->showVisitExamination();
+        return $this->showVisitExamination();
     }
 
+    public function store(StoreRequest $request){
+        return $this->storeVisitExamination();
+    }
 
     public function destroy(DeleteRequest $request){
-        return $this->__visit_examination_schema->deleteVisitExamination();
+        return $this->deleteVisitExamination();
     }
 
     // public function done(CompateRequest $request) {

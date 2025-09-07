@@ -8,8 +8,10 @@ class EnvironmentController extends EnvEnvironmentController
 {
     protected function commonRequest(){
         $this->userAttempt();
+        $examination = request()->examination;
+        $examination['practitioner_id'] = $this->global_employee->getKey() ?? null;
         request()->merge([
-            'practitioner_id' => $this->global_employee->getKey() ?? null
+            'examination' => $examination
         ]);
     }
 
@@ -25,21 +27,12 @@ class EnvironmentController extends EnvEnvironmentController
                 }
             }
         }
-        request()->merge([
-            'warehouse_type' => config('module-examination.warehouse') ?? 'Room',
-            'warehouse_id' => $room_id ?? null,
-            'pharmacy_id'  => $pharmacy_id ?? null,
-            'pharmacy_type' => config('module-examination.warehouse') ?? 'Room'
-        ]);
-        // if (isset(request()->examination_summary)){
-        //     if (!isset(request()->examination_summary['valid_until']) && isset(\request()->examination_summary['certificate_valid_range'])){
-        //         $examination_summary = request()->examination_summary;
-        //         $examination_summary['valid_until'] = now()->addYears(intval($examination_summary['certificate_valid_range']))->format('Y-m-d');
-        //         request()->merge([
-        //             'examination_summary' => $examination_summary
-        //         ]);
-        //     }
-        // }
-        return $this->__examination_schema->storeExamination();
+        $examination = request()->examination;
+        $examination['warehouse_type'] = config('module-examination.warehouse') ?? 'Room';
+        $examination['warehouse_id'] = $room_id ?? null;
+        $examination['pharmacy_id']  = $pharmacy_id ?? null;
+        $examination['pharmacy_type'] = config('module-examination.warehouse') ?? 'Room';
+        request()->merge(['examination' => $examination]);
+        return $this->__visit_examination_schema->storeVisitExamination();
     }
 }

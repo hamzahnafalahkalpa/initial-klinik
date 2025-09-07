@@ -20,4 +20,5 @@ class Item extends ModelsItem
             'medical_item_reference_type'  => 'props->prop_reference->reference_type',
         ];
     }
+    public function coa(){return $this->belongsToModel('Coa');}
 }

@@ -12,7 +12,7 @@ class BillingController extends EnvironmentController{
     }
 
     public function index(ViewRequest $request){
-        return $this->getBillingList();
+        return $this->getBillingPaginate();
     }
 
     public function show(ShowRequest $request){

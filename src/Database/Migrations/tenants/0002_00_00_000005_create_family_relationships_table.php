@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
+use Hanafalah\ModulePeople\Enums\People\Sex;
 use Hanafalah\ModulePeople\Models\FamilyRelationship\FamilyRelationship;
 use Hanafalah\ModulePeople\Models\FamilyRole;
 use Hanafalah\ModulePeople\Models\People\People;
@@ -33,12 +34,14 @@ return new class extends Migration
 
                 $table->ulid('id')->primary();
                 $table->foreignIdFor($people,'people_id')
-                      ->after('id')->index()->constrained()->cascadeOnUpdate()->restrictOnDelete();
+                      ->nullable()->after('id')->index()
+                      ->constrained()->cascadeOnUpdate()->restrictOnDelete();
                 $table->string('name',50)->nullable(true);
                 $table->string('phone',50)->nullable(true);
                 $table->foreignIdFor($family_role)
                         ->after('id')->index()->constrained()
                         ->cascadeOnUpdate()->restrictOnDelete();
+                $table->string('sex',100)->comment(implode(', ',array_column(Sex::cases(), 'value')))->nullable(true);
                 $table->string('reference_type',50)->nullable(true);
                 $table->string('reference_id',36)->nullable(true);
                 $table->json('props')->nullable();

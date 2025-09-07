@@ -2,8 +2,8 @@
 
 namespace Projects\Klinik\Controllers\API\PatientEmr\Patient\VisitRegistration\VisitExamination;
 
-use Projects\Klinik\Requests\API\PatientEmr\Patient\VisitPatient\VisitRegistration\VisitExamination\{
-    ViewRequest, ShowRequest
+use Projects\Klinik\Requests\API\PatientEmr\Patient\VisitRegistration\VisitExamination\{
+    ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };
 use Projects\Klinik\Controllers\API\PatientEmr\VisitExamination\EnvironmentController;
 
@@ -15,6 +15,14 @@ class VisitExaminationController extends EnvironmentController
 
     public function show(ShowRequest $request){
         return $this->__visit_examination_schema->showVisitExamination();
+    }
+
+    public function store(StoreRequest $request){
+        return $this->storeVisitExamination();
+    }
+
+    public function destroy(DeleteRequest $request){
+        return $this->deleteVisitExamination();
     }
 
     // public function done(CompateRequest $request) {

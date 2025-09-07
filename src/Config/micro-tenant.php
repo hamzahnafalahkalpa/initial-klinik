@@ -29,12 +29,12 @@ return [
                 "MasterFeature",
                 "ModelHasFeature",
                 'CentralActivityStatus',
-                'CentralActivity',
-                "ExampleModel"
+                'CentralActivity'
             ],
             "central_tenant" => [
                 "PosTransaction",
                 "Transaction",
+                "Submission",
                 "TransactionHasConsument"
             ]
         ]

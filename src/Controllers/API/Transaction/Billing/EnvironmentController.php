@@ -21,6 +21,16 @@ class EnvironmentController extends ApiController{
         
     }
 
+    protected function getBillingPaginate(?callable $callback = null){        
+        $this->commonRequest();
+        return $this->__schema->conditionals(function($query) use ($callback){
+            $this->commonConditional($query);
+            $query->when(isset($callback),function ($query) use ($callback){
+                $callback($query);
+            });
+        })->viewBillingPaginate();
+    }
+
     protected function getBillingList(?callable $callback = null){        
         $this->commonRequest();
         return $this->__schema->conditionals(function($query) use ($callback){

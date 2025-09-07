@@ -4,7 +4,6 @@ namespace Projects\Klinik\Schemas\ModulePatient;
 
 use Hanafalah\ModulePatient\Schemas\PractitionerEvaluation as SchemasPractitionerEvaluation;
 use Illuminate\Database\Eloquent\Model;
-use Projects\Klinik\Contracts\Data\ModulePatient\PractitionerEvaluationData;
 use Projects\Klinik\Contracts\Schemas\ModulePatient\PractitionerEvaluation as ContractPractitionerEvaluation;
 
 class PractitionerEvaluation extends SchemasPractitionerEvaluation implements ContractPractitionerEvaluation 
@@ -16,6 +15,7 @@ class PractitionerEvaluation extends SchemasPractitionerEvaluation implements Co
         $practitioner_evaluation = parent::prepareStorePractitionerEvaluation($practitioner_evaluation_dto);
         if (isset($practitioner_evaluation_dto->payment_details) && count($practitioner_evaluation_dto->payment_details) > 0) {
             foreach ($practitioner_evaluation_dto->payment_details as $payment_detail) {
+                
             }
         }
         return $this->practitioner_evaluation = $practitioner_evaluation;

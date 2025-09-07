@@ -14,7 +14,7 @@ class PayerController extends ApiController {
     ){}
 
     public function index(ViewRequest $request) {
-        return $this->__schema->viewPayerList();
+        return $this->__schema->viewPayerPaginate();
     }
 
     public function store(StoreRequest $request){

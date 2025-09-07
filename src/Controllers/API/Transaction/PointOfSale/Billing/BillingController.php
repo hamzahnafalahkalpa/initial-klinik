@@ -11,6 +11,7 @@ class BillingController extends EnvironmentController{
     protected function commonRequest()
     {
         request()->merge([
+            'has_transaction_id' => request()->transaction_id,
             'author_type'  => request()->author_type ?? $this->global_employee->getMorphClass(),
             'author_id'    => request()->author_id ?? $this->global_employee->getKey(),
             'cashier_type' => request()->cashier_type ?? $this->global_room?->getMorphClass(),

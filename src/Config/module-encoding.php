@@ -2,10 +2,11 @@
 
 return [
     "encodings" => [
+        'USER_WALLET'            => ['flag'=>'USER_WALLET','name'=>'Kode Kantong Digital Pengguna'],
         'DEPOSIT'                => ['flag'=>'DEPOSIT','name'=>'Kode Deposit'],
         'REFUND'                 => ['flag'=>'REFUND','name'=>'Kode Refund'],
         'BILLING'                => ['flag'=>'BILLING','name'=>'Kode Billing'],
-        'SPLIT_BILL'             => ['flag'=>'SPLIT_BILL','name'=>'Kode Split Billing'],
+        'SPLIT_PAYMENT'          => ['flag'=>'SPLIT_PAYMENT','name'=>'Kode Split Payment'],
         'TRANSACTION'            => ['flag'=>'TRANSACTION','name'=>'Kode Transaksi'],
         'CLINICAL_PATHOLOGY'     => ['flag'=>'CLINICAL_PATHOLOGY','name'=>'Kode Master Patologi Klinik'],
         'ANATOMICAL_PATHOLOGY'   => ['flag'=>'ANATOMICAL_PATHOLOGY','name'=>'Kode Master Patologi Anatomi'],

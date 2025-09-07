@@ -6,5 +6,10 @@ use Hanafalah\ModulePatient\{
 
 return [
     'practitioner' => 'Employee',
-    'payment_detail' => 'PaymentDetail'
+    'payment_detail' => 'PaymentDetail',
+    'patient_types' => [
+        'student' => [
+            'schema' => 'PatientPeople',
+        ]
+    ]
 ];

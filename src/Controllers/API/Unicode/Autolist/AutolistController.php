@@ -16,14 +16,12 @@ class AutolistController extends ApiController{
     ];
 
     protected $__stores = [
-        'AnggaranItemStuff',
         'ItemStuff',
-        'ProjectStuff'
     ];
 
     public function index(Request $request){
         request()->merge([ 
-            'search_name'  => request()->search_value,
+            'search_name'  => request()->search_name ?? request()->search_value,
             'search_value' => null
         ]);
 
@@ -108,6 +106,34 @@ class AutolistController extends ApiController{
                     })->when(isset(request()->search_as_pharmacy),function($query){
                         $query->where('props->as_pharmacy',request()->search_as_pharmacy);
                     });
+                });
+            break;
+            case 'Subdistrict':
+            case 'Village':
+                return $this->callAutolist($morph,function($query) use ($morph){
+                    $query->join('provinces','provinces.id','province_id')
+                          ->join('districts',function($join){
+                            $join->on('districts.id','district_id')
+                                 ->on('districts.province_id','provinces.id');
+                          });
+                    if ($morph == 'Village'){
+                        $query->select('villages.*','villages.name as name')->join('subdistricts',function($join){
+                            $join->on('subdistricts.id','subdistrict_id')
+                                ->on('subdistricts.district_id','districts.id');
+                        });
+                    }else{
+                        $query->select('subdistricts.*','subdistricts.name as name');
+                    }
+                    if (isset(request()->search_name)){
+                        $query->where(function($query) use ($morph){
+                            $query->whereLike('provinces.name',request()->search_name)
+                                  ->orWhereLike('districts.name',request()->search_name)
+                                  ->orWhereLike('subdistricts.name',request()->search_name);
+                            if ($morph == 'Village'){
+                                $query->orWhereLike('villages.name',request()->search_name);
+                            }
+                        });
+                    }
                 });
             break;
             default:

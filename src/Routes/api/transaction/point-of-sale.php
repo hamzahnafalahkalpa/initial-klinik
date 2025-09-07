@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use Projects\Klinik\Controllers\API\Transaction\PointOfSale\{
+    Billing\Invoice\InvoiceController,
     Billing\BillingController,
     PointOfSaleController
 };
@@ -23,4 +24,10 @@ Route::group([
     'as' => 'point-of-sale.show.'
 ],function(){
     Route::apiResource('/billing',BillingController::class)->parameters(['billing' => 'id']);
+    Route::group([
+        "prefix" => "/billing/{billing_id}",
+        'as' => 'billing.show.'
+    ],function(){
+        Route::apiResource('/invoice',InvoiceController::class)->parameters(['invoice' => 'id']);
+    });
 });

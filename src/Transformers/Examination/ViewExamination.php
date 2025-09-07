@@ -12,14 +12,8 @@ class ViewExamination extends ApiResource{
     public function toArray(Request $request): array
     {
         $model = $this->__local_model = $this->getModel();
-        $morph = Str::snake($model->getMorphClass());
         return [
-            'visit_examination_id' => null,
-            'examination' => [
-                $morph => [
-                    'data' => $this->getAssessmentData()
-                ],
-            ]
+            'visit_examination_id' => null
         ];
     }
 
