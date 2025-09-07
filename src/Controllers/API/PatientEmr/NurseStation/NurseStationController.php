@@ -14,9 +14,8 @@ class NurseStationController extends EnvironmentController
         $merges = [
             'search_medic_service_id=' => $this->getMedicServiceFromEmployee(),
         ];
-        if (isset($visit_patient)){
-            $merges['visit_patient_type'] = 'VisitPatient';
-        }
+        if (isset($visit_patient)) $merges['visit_patient_type'] = 'VisitPatient';
+        
         request()->merge($merges);
     }
 
