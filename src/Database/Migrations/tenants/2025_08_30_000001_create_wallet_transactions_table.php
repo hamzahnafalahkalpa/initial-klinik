@@ -9,7 +9,7 @@ use Hanafalah\ModulePayment\Models\Transaction\WalletTransaction;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $wallet = app(config('database.models.Wallet',Wallet::class));
                 $user_wallet = app(config('database.models.UserWallet',UserWallet::class));
@@ -58,7 +58,7 @@ return new class extends Migration
                 $table->index(['consument_type', 'consument_id'], 'wallet_trx_cons');
                 
             });
-        }
+        });
     }
 
     /**

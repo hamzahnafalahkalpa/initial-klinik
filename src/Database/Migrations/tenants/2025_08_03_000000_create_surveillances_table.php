@@ -9,7 +9,7 @@ use Hanafalah\PuskesmasAsset\Models\{
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $table->ulid('id')->primary();
                 $table->string('name', 255)->nullable(false);
@@ -41,7 +41,7 @@ return new class extends Migration
                 $table->index(['reference_type', 'reference_id'],'ref_surv');
                 $table->index(['subject_type', 'subject_id'],'subject_surv');
             });
-        }
+        });
     }
 
     /**

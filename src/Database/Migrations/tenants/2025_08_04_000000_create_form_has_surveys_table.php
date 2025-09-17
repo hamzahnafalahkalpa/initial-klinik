@@ -3,15 +3,13 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Hanafalah\ModuleExamination\Models\{
-    FormHasSurvey
-};
 use Hanafalah\ModuleExamination\Models\Form\Form;
+use Hanafalah\ModuleExamination\Models\Form\FormHasSurvey;
 use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -28,7 +26,7 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
                 $form = app(config('database.models.Form', Form::class));
                 $survey = app(config('database.models.Survey', Survey::class));
@@ -40,7 +38,7 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes();
             });
-        }
+        });
     }
 
     /**
