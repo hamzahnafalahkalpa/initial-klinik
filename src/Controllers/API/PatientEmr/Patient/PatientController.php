@@ -28,7 +28,7 @@ class PatientController extends EnvironmentController{
         }
 
         $data = array_fill_keys($possibleTypes, null);
-        $data['reference'] = $reference;
+        if (isset($reference)) $data['reference'] = $reference;
         $data['reference_type'] = $referenceType;
         request()->merge($data);
         return $this->__schema->storePatient();
