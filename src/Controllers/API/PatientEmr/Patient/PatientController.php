@@ -15,7 +15,6 @@ class PatientController extends EnvironmentController{
 
     public function store(StoreRequest $request){
         $possibleTypes = ['people'];
-
         $reference = null;
         $referenceType = null;
 
@@ -30,6 +29,20 @@ class PatientController extends EnvironmentController{
         $data = array_fill_keys($possibleTypes, null);
         if (isset($reference)) $data['reference'] = $reference;
         $data['reference_type'] = $referenceType;
+
+        if (isset(request()->visit_examination)){
+            $visit_examination = request()->visit_examination;
+            $patient_type_service_id = $visit_examination['patient_type_service_id'] ?? $this->PatientTypeServiceModel()->where('label','UMUM')->firstOrFail()->getKey();
+            $medic_service_id = $visit_examination['medic_service_id'] ?? $this->MedicServiceModel()->where('label','UMUM')->firstOrFail()->getKey();
+            $visit_examination['visit_registration'] ??= [
+                "medic_service_id"        => $medic_service_id,
+                "patient_type_service_id" => $patient_type_service_id
+            ];
+            unset($visit_examination['medic_service_id']);
+            unset($visit_examination['patient_type_service_id']);
+            request()->merge(['visit_examination' => $visit_examination]);
+        }
+
         request()->merge($data);
         return $this->__schema->storePatient();
     }
