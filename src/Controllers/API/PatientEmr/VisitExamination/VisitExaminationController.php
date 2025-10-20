@@ -5,10 +5,6 @@ namespace Projects\Klinik\Controllers\API\PatientEmr\VisitExamination;
 use Projects\Klinik\Requests\API\PatientEmr\VisitExamination\{
     ViewRequest, ShowRequest, StoreRequest, DeleteRequest
 };
-use Illuminate\Support\Facades\Hash;
-use Projects\Klinik\Jobs\LIS\RequestLabToLISJob;
-use Projects\Klinik\Jobs\SatuSehat\ObservationJob;
-use Projects\Klinik\Jobs\SatuSehat\SendSatuSehatJob;
 
 class VisitExaminationController extends EnvironmentController
 {
